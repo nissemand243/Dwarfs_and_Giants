@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared\SE_training.Shared.csproj" />
+    <ProjectReference Include="..\SETraining.Core\SEtraining.Core.csproj" />
   </ItemGroup>
 
 </Project>

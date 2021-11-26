@@ -1,4 +1,4 @@
-namespace SE_training.Shared;
+namespace SETraining.Core;
 
 public class WeatherForecast
 {

@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web.Resource;
-using SE_training.Shared;
+using SETraining.Core;
 
-namespace SE_training.Server.Controllers;
+namespace SETraining.Server.Controllers;
 
 [Authorize]
 [ApiController]

@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Client\SE_training.Client.csproj" />
-    <ProjectReference Include="..\Shared\SE_training.Shared.csproj" />
+    <ProjectReference Include="..\SETraining.Client\SETraining.Client.csproj" />
+    <ProjectReference Include="..\SETraining.Core\SETraining.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
