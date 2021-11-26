@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SETraining.Client\SETraining.Client.csproj" />
     <ProjectReference Include="..\SETraining.Core\SETraining.Core.csproj" />
+    <ProjectReference Include="..\SETraining.Infrastructure\SETraining.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
