@@ -1,1 +1,1 @@
-
+namespace SETraining.Infrastructure;
