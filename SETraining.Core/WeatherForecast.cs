@@ -1,3 +1,4 @@
+
 namespace SETraining.Core;
 
 public class WeatherForecast
