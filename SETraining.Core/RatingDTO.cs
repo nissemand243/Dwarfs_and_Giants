@@ -1,5 +1,5 @@
 namespace SETraining.Core;
 
-public record RatingCreateDTO();
-public record RatingDTO();
-public record RatingUpdateDTO();
+public record RatingCreateDTO(int id, int rating);
+public record RatingDTO(int id, int rating);
+public record RatingUpdateDTO(int id, int rating);
