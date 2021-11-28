@@ -2,13 +2,13 @@
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.0.0
 MinimumVisualStudioVersion = 16.0.0.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE_training.SETraining.Server", "SETraining.Server\SETraining.Server.csproj", "{2C93D383-5DF8-4237-A153-238F0477F588}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SETraining.Server", "SETraining.Server\SETraining.Server.csproj", "{2C93D383-5DF8-4237-A153-238F0477F588}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE_training.SETraining.Client", "SETraining.Client\SETraining.Client.csproj", "{B3C20C2B-4A16-4EFE-8C4D-AC5470DAF222}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SETraining.Client", "SETraining.Client\SETraining.Client.csproj", "{B3C20C2B-4A16-4EFE-8C4D-AC5470DAF222}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE_training.SETraining.Core", "SETraining.Core\SETraining.Core.csproj", "{735F0F2E-99DE-4625-9BD9-3408F053E6B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SETraining.Core", "SETraining.Core\SETraining.Core.csproj", "{735F0F2E-99DE-4625-9BD9-3408F053E6B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SE_training.SETraining.Infrastructure", "SETraining.Infrastructure\SETraining.Infrastructure.csproj", "{C056C00F-682B-4AE4-BFDF-8DF804128F5E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SETraining.Infrastructure", "SETraining.Infrastructure\SETraining.Infrastructure.csproj", "{C056C00F-682B-4AE4-BFDF-8DF804128F5E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
