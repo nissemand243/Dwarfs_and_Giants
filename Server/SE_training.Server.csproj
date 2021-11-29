@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Client\SE_training.Client.csproj" />
     <ProjectReference Include="..\Shared\SE_training.Shared.csproj" />
+    <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
