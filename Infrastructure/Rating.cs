@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SE_Traing.Infrastructure;
+﻿namespace SE_Traing.Infrastructure;
 public class Rating
 {   
     public int UserId { get; set; } 
