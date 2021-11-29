@@ -1,5 +1,10 @@
+
+
 namespace SE_training.Server.Controllers;
 
+[ApiController]
+[Route("api/[controller]")]
+[RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
 public class APIControllerBase : IAPIControllerBase
 {
     public Task<(Response, MaterialDTO)> Get(int id)
