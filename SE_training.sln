@@ -123,8 +123,6 @@ Global
 		{53B08C55-86C1-4E57-9ED7-E08D2E657F22}.Release|x64.Build.0 = Release|Any CPU
 		{53B08C55-86C1-4E57-9ED7-E08D2E657F22}.Release|x86.ActiveCfg = Release|Any CPU
 		{53B08C55-86C1-4E57-9ED7-E08D2E657F22}.Release|x86.Build.0 = Release|Any CPU
-    
-    // fjern nedstående hvis problemer
 		{0DA137A3-0445-46A3-8949-7D1EE7C59D78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0DA137A3-0445-46A3-8949-7D1EE7C59D78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DA137A3-0445-46A3-8949-7D1EE7C59D78}.Debug|x64.ActiveCfg = Debug|Any CPU
