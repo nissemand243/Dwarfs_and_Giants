@@ -5,13 +5,14 @@ namespace SE_training.Server.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
-public class APIControllerBase : IAPIControllerBase
+public class APIControllerBase : ControllerBase, IAPIControllerBase
 {
     private readonly ILogger<APIControllerBase> _logger;
-    
-    public APIControllerBase(ILogger<APIControllerBase> logger)
+    internal readonly UserAPI _acccesPoint;
+    public APIControllerBase(ILogger<APIControllerBase> logger, UserAPI accessPoint)
     {
         _logger = logger;
+        _acccesPoint = accessPoint;
     }
     public Task<(Response, MaterialDTO)> Get(int id)
     {

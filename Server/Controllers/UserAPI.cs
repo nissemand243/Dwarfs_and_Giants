@@ -5,7 +5,14 @@ public class UserAPI
     private CommentController _commentController;
     private RatingController _ratingController;
     private MaterialController _materialController;
-    
+
+    public UserAPI(CommentController commentController, RatingController ratingController, MaterialController materialController)
+    {
+        _commentController = commentController;
+        _ratingController = ratingController;
+        _materialController = materialController;
+    }
+
     public Task<Response> DeleteMaterial(int materialId)
     {
         throw new NotImplementedException();

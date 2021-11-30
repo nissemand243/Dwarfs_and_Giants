@@ -7,7 +7,8 @@ namespace SE_training.Server.Controllers;
 public class APIControllerModerator : APIControllerBase, IAPIControllerModerator
 {
     private readonly ILogger<APIControllerModerator> _logger;
-    public APIControllerModerator(ILogger<APIControllerModerator> logger) : base (logger)
+    
+    public APIControllerModerator(ILogger<APIControllerModerator> logger, UserAPI accessPoint) : base (logger, accessPoint) 
     {
         _logger = logger;
     }
