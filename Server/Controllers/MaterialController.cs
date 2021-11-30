@@ -1,7 +1,7 @@
 namespace SE_training.Server.Controllers
 
 {
-    internal class MaterialController : ControllerBase
+    public class MaterialController : ControllerBase
     {
         private readonly MaterialRepository _repository;
         private readonly ILogger<MaterialController> _logger;
