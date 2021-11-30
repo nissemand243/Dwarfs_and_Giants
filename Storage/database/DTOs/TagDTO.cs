@@ -1,6 +1,3 @@
 namespace DTOs;
 
-public record TagDTO
-{
-    public string tagText { get; init; }
-}
+public record TagDTO(int materialId, string tagText);

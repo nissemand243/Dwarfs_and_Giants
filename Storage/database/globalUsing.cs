@@ -7,3 +7,5 @@ global using System.Data.SqlClient;
 global using System.IO;
 
 global using DTOs;
+global using Repositories;
+global using Context;

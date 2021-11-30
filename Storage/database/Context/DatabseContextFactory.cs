@@ -1,4 +1,4 @@
-namespace Database;
+namespace Context;
 
 public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContext>
 {
@@ -6,7 +6,8 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
     {
         string path = Directory.GetCurrentDirectory();
         var configurationBuilder = new ConfigurationBuilder();
-        var configuration = configurationBuilder.SetBasePath(path)
+        var configuration = configurationBuilder
+            .SetBasePath(path)
             .AddUserSecrets<Program>()
             .AddJsonFile("appsettings.json")
             .Build();
@@ -30,7 +31,7 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
         //var mads = new UserDTO{"Mads cornelius"};
 
         context.Users.AddRange(
-            new UserDTO { userID = 1, userName = "Mads", email = "coha@itu.dk" }
+            new UserDTO(1, "Mads", "coha@itu.dk")
         );
 
         context.SaveChanges();

@@ -1,4 +1,4 @@
-namespace Database;
+namespace Context;
 
 public class DatabaseContext : DbContext
 {
