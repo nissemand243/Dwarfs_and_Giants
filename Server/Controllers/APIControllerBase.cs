@@ -7,11 +7,18 @@ namespace SE_training.Server.Controllers;
 [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
 public class APIControllerBase : IAPIControllerBase
 {
-    private readonly ILogger<APIControllerBase> _logger;
+    internal readonly CommentController _commentController;
+    internal readonly RatingController _ratingController;
+    internal readonly MaterialController _materialController;
     
-    public APIControllerBase(ILogger<APIControllerBase> logger)
+    private readonly ILogger<APIControllerBase> _logger;
+
+    public APIControllerBase(ILogger<APIControllerBase> logger, CommentController commentController, RatingController ratingController, MaterialController materialController)
     {
         _logger = logger;
+        _commentController = commentController;
+        _ratingController = ratingController;
+        _materialController = materialController;
     }
     public Task<(Response, MaterialDTO)> Get(int id)
     {

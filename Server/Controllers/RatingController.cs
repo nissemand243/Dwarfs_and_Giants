@@ -1,6 +1,6 @@
 namespace SE_training.Server.Controllers
 {
-    internal class RatingController : ControllerBase
+    public class RatingController : ControllerBase
     {
         private readonly RatingRepository _repository;
         private readonly ILogger<RatingController> _logger;
