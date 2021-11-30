@@ -7,6 +7,12 @@ namespace SE_training.Server.Controllers;
 [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
 public class APIControllerBase : IAPIControllerBase
 {
+    private readonly ILogger<APIControllerBase> _logger;
+    
+    public APIControllerBase(ILogger<APIControllerBase> logger)
+    {
+        _logger = logger;
+    }
     public Task<(Response, MaterialDTO)> Get(int id)
     {
         throw new NotImplementedException();

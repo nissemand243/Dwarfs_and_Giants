@@ -6,6 +6,12 @@ namespace SE_training.Server.Controllers;
 [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
 public class APIControllerModerator : APIControllerBase, IAPIControllerModerator
 {
+    private readonly ILogger<APIControllerModerator> _logger;
+    public APIControllerModerator(ILogger<APIControllerModerator> logger) : base (logger)
+    {
+        _logger = logger;
+    }
+
     public Task<Response> DeleteMaterial(int materialId)
     {
         throw new NotImplementedException();
