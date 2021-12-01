@@ -5,13 +5,20 @@
 @inject SignOutSessionStateManager SignOutManager
 
 <AuthorizeView>
+    
     <Authorized>
-        Hello, @context.User.Identity?.Name!
-        <button class="nav-link btn btn-link" @onclick="BeginLogout">Log out</button>
+        
+        <div class="LogoutContainer">
+               @context.User.Identity?.Name
+             </div>
+            <button class="nav-link btn btn-link" @onclick="BeginLogout">Log out</button>
+     
     </Authorized>
+    
     <NotAuthorized>
-        <a href="authentication/login">Log in</a>
+        <a class="oi oi-person LoginColor"href="authentication/login">  Log in</a>
     </NotAuthorized>
+   
 </AuthorizeView>
 
 @code{
