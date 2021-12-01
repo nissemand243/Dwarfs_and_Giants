@@ -8,7 +8,8 @@ public class Program
         var configuration = LoadConfiguration();
         var connectionString = configuration.GetConnectionString("SE_training");
 
-        
+        Console.WriteLine("cs:" + connectionString);
+        connectionString = "Server=localhost;Database=SE_training;User Id=sa;Password=7872816a-0763-40c0-beab-d7ee994018bf";
 
         var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>().UseSqlServer(connectionString);
         using var context = new DatabaseContext(optionsBuilder.Options);
