@@ -31,7 +31,7 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
         //var mads = new UserDTO{"Mads cornelius"};
 
         context.Users.AddRange(
-            new UserDTO(1, "Mads", "coha@itu.dk")
+            new UserDTO(1, "Mads", "coha@itu.dk", "student")
         );
 
         context.SaveChanges();
