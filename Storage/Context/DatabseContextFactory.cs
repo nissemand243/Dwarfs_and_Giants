@@ -23,15 +23,24 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
     public static void Seed(DatabaseContext context)
     {
         context.Database.EnsureCreated();
-        context.Database.ExecuteSqlRaw("DELETE TABLE IF EXISTS dbo.Characters");
-        context.Database.ExecuteSqlRaw("DELETE TABLE IF EXISTS dbo.Actors");
-        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Characters', RESEED, 0)");
-        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Actors', RESEED, 0)");
+        context.Database.ExecuteSqlRaw("DELETE TABLE IF EXISTS dbo.Comments");
+        context.Database.ExecuteSqlRaw("DELETE TABLE IF EXISTS dbo.Ratings");
+        context.Database.ExecuteSqlRaw("DELETE TABLE IF EXISTS dbo.Tags");
+        context.Database.ExecuteSqlRaw("DELETE TABLE IF EXISTS dbo.Materials");
+        context.Database.ExecuteSqlRaw("DELETE TABLE IF EXISTS dbo.Users");
 
-        //var mads = new UserDTO{"Mads cornelius"};
+        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Users', RESEED, 0)");
+        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Materials', RESEED, 0)");
+        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Tags', RESEED, 0)");
+        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Ratings', RESEED, 0)");
+        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Comments', RESEED, 0)");
 
+        var mads = new UserDTO(1, "Mads Cornelius", "coha@itu.dk", "student");
         context.Users.AddRange(
-            new UserDTO(1, "Mads", "coha@itu.dk", "student")
+            mads
+        );
+        context.Materials.AddRange(
+            new MaterialDTO(1, mads.userID, "The Shining", "A very good movie", "mp4", "netflix.com")  
         );
 
         context.SaveChanges();
