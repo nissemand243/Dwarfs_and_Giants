@@ -1,16 +1,15 @@
-﻿@page "/fetchdata"
+﻿@page "/specifikMaterial"
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using SE_training.Shared
 @attribute [Authorize]
 @inject HttpClient Http
 
-<PageTitle>Weather forecast</PageTitle>
-
-<h1>Weather forecast</h1>
+<PageTitle>SearchMaterial </PageTitle>
 
 <p>This component demonstrates fetching data from the server.</p>
 
+@* this might be use full saving for later *@
 @if (forecasts == null)
 {
     <p><em>Loading...</em></p>

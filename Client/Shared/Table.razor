@@ -1,0 +1,61 @@
+@page "/table"
+
+
+<h3>Table</h3>
+@* This is Only for testing remove once the materials are generated *@
+<EditForm Model="@newMaterial" OnValidSubmit="AddMaterial">
+    <InputNumber @bind-Value="newMaterial.Id"/>
+    <InputText  @bind-Value="newMaterial.Title"/>
+    <InputText  @bind-Value="newMaterial.Decription"/>
+    <button type="submit">Add Material</button>
+
+</EditForm>
+<div class="container">
+    @foreach (var row in materialList)
+    {
+        <div class="row g-2 text-break">
+            <div class="col border bg-light text-center">
+                <div class="IndentContainer">
+                 @row.Id
+                </div>
+            </div>
+            <div class="col border bg-light text-center">
+                <div class="IndentContainer">
+                    <h3>@row.Title</h3>
+                </div>
+            </div>
+            <div class="col border bg-light text-center">
+                <div class="IndentContainer">
+                <p> @row.Decription</p>
+                </div>
+            </div>
+            <div class="col border bg-light">
+                <ul class="IndentContainer">
+                    @foreach (var tag in row.Tags)
+                    {
+                        <li>
+                             @tag
+                        </li>
+                    }
+                </ul>
+            </div>
+
+        </div>
+    }
+
+</div>
+
+@code{
+   private List<Material> materialList = new List<Material>();
+   private Material newMaterial = new Material();
+
+    private void AddMaterial()
+    {
+        materialList.Add(newMaterial);
+        newMaterial = new Material();
+    }
+
+
+
+
+}
