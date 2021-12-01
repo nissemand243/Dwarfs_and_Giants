@@ -1,7 +1,6 @@
-﻿namespace SE_Training.Infrastructure;
+﻿namespace SE_training.Core;
 public class Comment
 {
-    
     public int UserId { get; set; } 
 
     [StringLength(500)]
