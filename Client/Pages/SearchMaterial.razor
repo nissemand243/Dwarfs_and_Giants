@@ -2,37 +2,8 @@
 
 <PageTitle>searchMaterial</PageTitle>
 
-<h1>Counter</h1>
+<h1>searchMaterial</h1>
 
-<h3>@msg</h3>
-
-
-<p role="status">Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 <Table></Table>
 
-@code {
-    private int currentCount = 0;
-    private string msg = "Please do not press the button. It hurts";
-    private void IncrementCount()
-    {
-        msg = GenerateMsg();
-        currentCount++;
-    }
-
-    private string GenerateMsg()
-    {
-        string[] Messages = {
-            "Common dude, i told you not to",
-            "NOOOOOO STOP!",
-            "Please stop, it hurts",
-            "I can't take it anymore",
-            "Okay, you just do you, don't mind me",
-        };
-
-        return Messages[Random.Shared.Next(5)];
-    }
-
-}
