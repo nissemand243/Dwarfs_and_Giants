@@ -30,7 +30,7 @@ public class APIControllerBase : IAPIControllerBase
         throw new NotImplementedException();
     }
 
-    public Task<Response> PatchRating(int id, RatingDTO rating)
+    public Task<Response> PatchRating(int id, RatingDto rating)
     {
         throw new NotImplementedException();
     }
