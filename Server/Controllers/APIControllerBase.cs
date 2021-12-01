@@ -25,12 +25,12 @@ public class APIControllerBase : IAPIControllerBase
         throw new NotImplementedException();
     }
 
-    public Task<Response> PatchComment(int id, CommentDto comment)
+    public Task<Response> PatchComment(int materialId, CommentDto comment)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Response> PatchRating(int id, RatingDto rating)
+    public Task<Response> PatchRating(int materialId, RatingDto rating)
     {
         throw new NotImplementedException();
     }
