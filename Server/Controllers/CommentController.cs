@@ -1,6 +1,6 @@
 namespace SE_training.Server.Controllers
 {
-    internal class CommentController : ControllerBase
+    public class CommentController : ControllerBase
     {
         private readonly CommentRepository _repository;
         private readonly ILogger<CommentController> _logger;
