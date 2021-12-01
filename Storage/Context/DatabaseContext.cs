@@ -2,7 +2,7 @@ using SE_training.Infrastrucre;
 
 namespace Context;
 
-public class DatabaseContext : DbContext
+public class DatabaseContext : DbContext, ISETrainingContext
 {
     public DbSet<Material> Materials => Set<Material>();
     public DbSet<User> Users => Set<User>();
