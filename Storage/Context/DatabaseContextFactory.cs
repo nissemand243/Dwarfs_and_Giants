@@ -35,6 +35,7 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
         context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Ratings', RESEED, 0)");
         context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Comments', RESEED, 0)");
 
+        // skal refactors
         var mads = new UserDTO(1, "Mads Cornelius", "coha@itu.dk", "student");
         context.Users.AddRange(
             mads

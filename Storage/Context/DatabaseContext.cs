@@ -1,4 +1,4 @@
-using SE_training.Infrastrucre;
+using SE_training.Infrastructure;
 
 namespace Context;
 
@@ -14,6 +14,15 @@ public class DatabaseContext : DbContext, ISETrainingContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder){
         // implement 
+        modelBuilder
+        .Entity<Tag>()
+        .HasIndex(t => t.Name)
+        .IsUnique();
+
+        modelBuilder
+        .Entity<Material>()
+        .Property(f => f.FileType)
+        .HasConversion(new EnumToStringConverter<FileType>());
     }
 
 }
