@@ -21,12 +21,12 @@ public class APIControllerModerator : APIControllerBase, IAPIControllerModerator
         throw new NotImplementedException();
     }
 
-    public Task<(Response, MaterialDTO)> PostMaterial(int materialId, MaterialCreateDTO material)
+    public Task<(Response, MaterialDto)> PostMaterial(int materialId, MaterialCreateDto material)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Response> PutMaterial(int materialId, MaterialUpdateDTO material)
+    public Task<Response> PutMaterial(int materialId, MaterialUpdateDto material)
     {
         throw new NotImplementedException();
     }

@@ -20,12 +20,12 @@ public class APIControllerBase : IAPIControllerBase
         _ratingController = ratingController;
         _materialController = materialController;
     }
-    public Task<(Response, MaterialDTO)> Get(int id)
+    public Task<(Response, MaterialDto)> Get(int id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Response> PatchComment(int id, CommentDTO comment)
+    public Task<Response> PatchComment(int id, CommentDto comment)
     {
         throw new NotImplementedException();
     }
@@ -35,7 +35,7 @@ public class APIControllerBase : IAPIControllerBase
         throw new NotImplementedException();
     }
 
-    public Task<(Response, IReadOnlyCollection<MaterialDTO>)> Search(string searchInput)
+    public Task<(Response, IReadOnlyCollection<MaterialDto>)> Search(string searchInput)
     {
         throw new NotImplementedException();
     }
