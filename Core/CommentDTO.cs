@@ -1,6 +1,5 @@
-namespace Core
+namespace SE_training.Core;
+
+public class CommentDTO
 {
-    public class CommentDTO
-    {
-    }
 }
