@@ -1,4 +1,5 @@
-﻿namespace SE_training.Infrastructure;
+namespace SE_Training.Infrastructure;
+
 public abstract class User
 {
     

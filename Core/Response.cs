@@ -1,4 +1,4 @@
-namespace Core;
+﻿namespace SE_training.Core;
 
 public enum Response
 {
