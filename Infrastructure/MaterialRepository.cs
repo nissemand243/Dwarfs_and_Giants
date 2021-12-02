@@ -1,4 +1,4 @@
-﻿namespace Infrastructure;
+﻿namespace SE_Training.Infrastructure;
 public class MaterialRepository
 {
     private readonly ISETrainingContext _context;

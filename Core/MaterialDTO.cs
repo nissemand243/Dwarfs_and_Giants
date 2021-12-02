@@ -1,6 +1,4 @@
-namespace Core
+namespace SE_training.Core;
+public class MaterialDTO
 {
-    public class MaterialDTO
-    {
-    }
 }
