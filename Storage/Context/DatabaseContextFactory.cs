@@ -20,7 +20,7 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
         return new DatabaseContext(optionsBuilder.Options);
     }
 
-    public static void Seed(DatabaseContext context)
+    /*public static void Seed(DatabaseContext context)
     {
         context.Database.EnsureCreated();
         context.Database.ExecuteSqlRaw("DELETE TABLE IF EXISTS dbo.Comments");
@@ -35,7 +35,6 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
         context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Ratings', RESEED, 0)");
         context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Comments', RESEED, 0)");
 
-        // skal refactors
         var mads = new UserDTO(1, "Mads Cornelius", "coha@itu.dk", "student");
         context.Users.AddRange(
             mads
@@ -45,5 +44,5 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
         );
 
         context.SaveChanges();
-    }
+    }*/
 }
