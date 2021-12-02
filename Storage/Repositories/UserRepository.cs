@@ -1,4 +1,4 @@
-namespace Repositories;
+namespace SE_training.Repositories;
 
 public class UserRepository
 {
@@ -8,6 +8,7 @@ public class UserRepository
     {
         context = _context;
     }
+
 
     /*public async void Put(UserDTO user)
     {

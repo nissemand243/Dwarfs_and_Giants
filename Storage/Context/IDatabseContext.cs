@@ -1,4 +1,4 @@
-namespace Context;
+namespace SE_training.Context;
 
 public interface IDatabseContext : IDisposable
 {
