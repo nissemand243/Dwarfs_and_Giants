@@ -1,4 +1,4 @@
 namespace SE_training.DTOs;
 
-public record UserDTO(int userId, string name, string email, string type);
-public record CreateUserDTO(string name, string email, string type);
+public record CreateUserDTO(string Name, string Email, string Type);
+public record UserDTO(int UserId, string Name, string Email, string Type) : CreateUserDTO(Name, Email, Type);

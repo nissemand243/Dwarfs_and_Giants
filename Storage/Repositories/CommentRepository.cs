@@ -9,49 +9,44 @@ public class CommentRepository : ICommentRepository
         context = _context;
     }
 
-    Task<(Status, CommentDTO)> PutAsync(CreateCommentDTO comment);
-    Task<IReadOnlyCollection<CommentDTO>> GetAsync(int materialId);
-    Task<IReadOnlyCollection<CommentDTO>> GetAsync();
-    Task<Status> DeleteAsync(int commentId);
-
-    public async Task<(Status, RatingDTO)> PutAsync(CreateRatingDTO rating)
+    public async Task<(Status, CommentDTO)> PutAsync(CreateCommentDTO comment)
     {
-        var entity = new Rating
+        var entity = new Comment
         {
-            MaterialId = rating.materialId,
-            UserId = rating.userId,
-            Value = rating.value
+            MaterialId = comment.MaterialId,
+            UserId = comment.UserId,
+            Text = comment.Text
         };
-        context.Ratings.Add(entity);
+        context.Comments.Add(entity);
         await context.SaveChangesAsync();
 
-        var details = new RatingDTO(entity.RatingId, entity.MaterialId, entity.UserId, entity.Value);
+        var details = new CommentDTO(entity.CommentId, entity.MaterialId, entity.UserId, entity.Text);
         return (Created, details);
     }
 
-    public async Task<IReadOnlyCollection<RatingDTO>> GetAsync(int materialId)
+    public async Task<IReadOnlyCollection<CommentDTO>> GetAsync(int MaterialId)
     {
-        var ratings = from r in context.Ratings
-                    where r.MaterialId == materialId
-                    select new RatingDTO(r.RatingId, r.MaterialId, r.UserId, r.Value);
+        var comments = from c in context.Comments
+                       where c.MaterialId == MaterialId
+                       select new CommentDTO(c.CommentId, c.MaterialId, c.UserId, c.Text);
 
-        return await ratings.ToListAsync();
+        return await comments.ToListAsync();
     }
 
-    public async Task<IReadOnlyCollection<RatingDTO>> GetAsync()
+    public async Task<IReadOnlyCollection<CommentDTO>> GetAsync()
     {
-        return (await context.Ratings
-                             .Select(r => new RatingDTO(r.RatingId, r.MaterialId, r.UserId, r.Value))
+        return (await context.Comments
+                             .Select(c => new CommentDTO(c.CommentId, c.MaterialId, c.UserId, c.Text))
                              .ToListAsync()).AsReadOnly();
     }
 
-    public async Task<Status> DeleteAsync(int ratingId)
+    public async Task<Status> DeleteAsync(int CommentId)
     {
-        var entity = await context.Ratings.FindAsync(ratingId);
+        var entity = await context.Comments.FindAsync(CommentId);
 
         if (entity == null) return NotFound;
 
-        context.Ratings.Remove(entity);
+        context.Comments.Remove(entity);
         await context.SaveChangesAsync();
 
         return Deleted;

@@ -1,4 +1,4 @@
 namespace SE_training.DTOs;
 
-public record CommentDTO(int commentId, int materialId, int userId, string text);
-public record CreateCommentDTO(int materialId, int userId, string text);
+public record CreateCommentDTO(int MaterialId, int UserId, string Text);
+public record CommentDTO(int CommentId, int MaterialId, int UserId, string Text) : CreateCommentDTO(MaterialId, UserId, Text);

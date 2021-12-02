@@ -13,8 +13,8 @@ public class TagRepository : ITagRepository
     {
         var entity = new Tag
         {
-            MaterialId = tag.materialId,
-            TagName = tag.tagName
+            MaterialId = tag.MaterialId,
+            TagName = tag.TagName
         };
         context.Tags.Add(entity);
         await context.SaveChangesAsync();
@@ -23,11 +23,11 @@ public class TagRepository : ITagRepository
         return (Created, details);
     }
 
-    public async Task<IReadOnlyCollection<TagDTO>> GetAsync(int materialId)
+    public async Task<IReadOnlyCollection<TagDTO>> GetAsync(int MaterialId)
     {
         var tags = from t in context.Tags
-                    where t.MaterialId == materialId
-                    select new TagDTO(t.TagId, t.MaterialId, t.TagName);
+                   where t.MaterialId == MaterialId
+                   select new TagDTO(t.TagId, t.MaterialId, t.TagName);
 
         return await tags.ToListAsync();
     }
@@ -39,9 +39,9 @@ public class TagRepository : ITagRepository
                              .ToListAsync()).AsReadOnly();
     }
 
-    public async Task<Status> DeleteAsync(int tagId)
+    public async Task<Status> DeleteAsync(int TagId)
     {
-        var entity = await context.Tags.FindAsync(tagId);
+        var entity = await context.Tags.FindAsync(TagId);
 
         if (entity == null) return NotFound;
 

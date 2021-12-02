@@ -2,9 +2,11 @@
 
 public class Material
 {
-    public int Id { get; set; }
+    public int MaterialId { get; set; }
 
-    public string? Name { get; set; }
+    public int UserId { get; set; }
+
+    public string? Title { get; set; }
     public string? Description { get; set; }
     public FileType FileType { get; set; }
 

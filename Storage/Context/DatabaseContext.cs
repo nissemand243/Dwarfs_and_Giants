@@ -13,24 +13,23 @@ public class DatabaseContext : DbContext, IDatabseContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>()
-                    .HasIndex(u => u.Name)
+                    .HasIndex(u => u.Email)
                     .IsUnique();
 
-        /*modelBuilder.Entity<Material>()
-                    .Property(e => e.Gender)
-                    .HasMaxLength(50)
-                    .HasConversion(new EnumToStringConverter<Gender>());
+        modelBuilder.Entity<Material>();
 
-        modelBuilder.Entity<Tag>()
-                    .HasIndex(p => p.Name)
+        /*modelBuilder.Entity<Tag>()
+                    .HasIndex(t => t.MaterialId)
+                    .HasIndex(t => t.TagName)
                     .IsUnique();
 
         modelBuilder.Entity<Rating>()
-                    .HasIndex(p => p.Name)
-                    .IsUnique();
+                    .HasIndex(r => r.MaterialId)
+                    .HasIndex(r => r.UserId)
+                    .IsUnique();*/
 
         modelBuilder.Entity<Comment>()
-                    .HasIndex(p => p.Name)
-                    .IsUnique();*/
+                    .Property(c => c.Text)
+                    .HasMaxLength(500);
     }
 }

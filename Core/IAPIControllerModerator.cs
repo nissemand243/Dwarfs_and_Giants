@@ -2,7 +2,7 @@
 
 public interface IAPIControllerModerator
 {
-    Task<Response> DeleteMaterial(int materialId);
-    Task<Response> PutMaterial(int materialId, MaterialUpdateDTO material);
-    Task<(Response, MaterialDTO)> PostMaterial(int materialId, MaterialCreateDTO material); 
+    Task<Response> DeleteMaterial(int MaterialId);
+    Task<Response> PutMaterial(int MaterialId, MaterialUpdateDTO material);
+    Task<(Response, MaterialDTO)> PostMaterial(int MaterialId, MaterialCreateDTO material);
 }

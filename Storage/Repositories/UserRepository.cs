@@ -13,8 +13,8 @@ public class UserRepository : IUserRepository
     {
         var entity = new User
         {
-            Name = user.name,
-            Email = user.email
+            Name = user.Name,
+            Email = user.Email
         };
         context.Users.Add(entity);
         await context.SaveChangesAsync();
@@ -23,10 +23,10 @@ public class UserRepository : IUserRepository
         return (Created, details);
     }
 
-    public async Task<UserDTO> GetAsync(int userId)
+    public async Task<UserDTO> GetAsync(int UserId)
     {
         var users = from u in context.Users
-                    where u.UserId == userId
+                    where u.UserId == UserId
                     select new UserDTO(u.UserId, u.Name, u.Email, null); //TODO extract the subclass
 
         return await users.FirstOrDefaultAsync();
@@ -48,11 +48,11 @@ public class UserRepository : IUserRepository
                              .Select(u => new UserDTO(u.UserId, u.Name, u.Email, null)) //TODO extract the subclass)
                              .ToListAsync()).AsReadOnly();
     }
-    
 
-    public async Task<Status> DeleteAsync(int userId)
+
+    public async Task<Status> DeleteAsync(int UserId)
     {
-        var entity = await context.Users.FindAsync(userId);
+        var entity = await context.Users.FindAsync(UserId);
 
         if (entity == null) return NotFound;
 
