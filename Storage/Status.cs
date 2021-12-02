@@ -1,6 +1,4 @@
-﻿namespace SE_training.Core;
-
-public enum Response
+public enum Status
 {
     Created,
     Updated,

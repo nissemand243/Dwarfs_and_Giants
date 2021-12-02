@@ -1,5 +1,4 @@
-﻿namespace SE_training.Core;
-
+﻿namespace SE_Traing.Infrastructure;
 public class Comment
 {
     

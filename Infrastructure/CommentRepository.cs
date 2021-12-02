@@ -1,4 +1,5 @@
-﻿namespace SE_Training.Infrastructure;
+﻿namespace SE_training.Core;
+
 public class CommentRepository
 {
     private readonly ISETrainingContext _context;
