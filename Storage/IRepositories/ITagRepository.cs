@@ -1,4 +1,4 @@
-namespace IRepositories;
+namespace SE_training.IRepositories;
 
 public interface ITagRepository
 {

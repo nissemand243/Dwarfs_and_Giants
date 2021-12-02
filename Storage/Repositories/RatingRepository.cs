@@ -1,4 +1,4 @@
-namespace Repositories;
+namespace SE_training.Repositories;
 
 public class RatingRepository
 {

@@ -6,8 +6,8 @@ global using System.Data;
 global using System.Data.SqlClient;
 global using System.IO;
 
-global using DTOs;
-global using Repositories;
-global using IRepositories;
-global using Context;
+global using SE_training.DTOs;
+global using SE_training.Repositories;
+global using SE_training.IRepositories;
+global using SE_training.Context;
 global using SE_Traing.Infrastructure;
