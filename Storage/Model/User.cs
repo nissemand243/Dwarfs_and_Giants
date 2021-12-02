@@ -1,6 +1,8 @@
 ﻿namespace SE_Traing.Infrastructure;
-public abstract class User
+public class User
 {
+   public int UserId { get; set; } 
+
     
    [Required]
    [StringLength(75)]

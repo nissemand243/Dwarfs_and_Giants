@@ -1,3 +1,5 @@
+namespace SE_training;
+
 public enum Status
 {
     Created,
