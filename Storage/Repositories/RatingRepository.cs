@@ -9,7 +9,7 @@ public class RatingRepository
         context = _context;
     }
 
-    public async void Put(RatingDTO rating)
+    /*public async void Put(RatingDTO rating)
     {
         context.Ratings.Add(rating);
         await context.SaveChangesAsync();
@@ -39,5 +39,5 @@ public class RatingRepository
             context.Ratings.Remove(rating);
         }
         await context.SaveChangesAsync();
-    }
+    }*/
 }

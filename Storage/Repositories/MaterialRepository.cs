@@ -9,7 +9,7 @@ public class MaterialRepository
         context = _context;
     }
 
-    public async void Put(MaterialDTO material)
+    /*public async void Put(MaterialDTO material)
     {
         context.Materials.Add(material);
         await context.SaveChangesAsync();
@@ -37,5 +37,5 @@ public class MaterialRepository
             context.Materials.Remove(material);
         }
         await context.SaveChangesAsync();
-    }
+    }*/
 }

@@ -8,4 +8,6 @@ global using System.IO;
 
 global using DTOs;
 global using Repositories;
+global using IRepositories;
 global using Context;
+global using SE_Traing.Infrastructure;

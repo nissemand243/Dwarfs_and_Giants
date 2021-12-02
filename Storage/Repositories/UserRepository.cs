@@ -9,7 +9,7 @@ public class UserRepository
         context = _context;
     }
 
-    public async void Put(UserDTO user)
+    /*public async void Put(UserDTO user)
     {
         context.Users.Add(user);
         await context.SaveChangesAsync();
@@ -39,5 +39,5 @@ public class UserRepository
         if (user == null) return;
         context.Users.Remove(user);
         await context.SaveChangesAsync();
-    }
+    }*/
 }
