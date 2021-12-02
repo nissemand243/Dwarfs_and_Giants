@@ -1,5 +1,4 @@
-﻿namespace SE_training.Core;
-
+﻿namespace SE_Training.Infrastructure;
 public class Comment
 {
     
@@ -7,5 +6,5 @@ public class Comment
 
     [StringLength(500)]
     [Required]
-    public string UserComment { get; set; }
+    public string? UserComment { get; set; }
 }

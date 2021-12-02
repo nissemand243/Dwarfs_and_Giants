@@ -1,8 +1,9 @@
-namespace SE_Training.Infrastructure;
-
+﻿namespace SE_Training.Infrastructure;
 public class Rating
 {   
+    public int RatingId { get; set; }
+    public int MaterialId { get; set; }
     public int UserId { get; set; } 
     [Range(1,6)]
-    public int UserRating { get; set; }
+    public int Value { get; set; }
 }
