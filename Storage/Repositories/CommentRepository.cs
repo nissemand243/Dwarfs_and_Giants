@@ -9,7 +9,7 @@ public class CommentRepository
         context = _context;
     }
 
-    public async void Put(CommentDTO comment)
+    /*public async void Put(CommentDTO comment)
     {
         context.Comments.Add(comment);
         await context.SaveChangesAsync();
@@ -30,5 +30,5 @@ public class CommentRepository
             context.Comments.Remove(comment);
         }
         await context.SaveChangesAsync();
-    }
+    }*/
 }

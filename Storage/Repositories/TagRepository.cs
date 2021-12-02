@@ -9,7 +9,7 @@ public class TagRepository
         context = _context;
     }
 
-    public async void Put(TagDTO tag)
+    /*public async void Put(TagDTO tag)
     {
         context.Tags.Add(tag);
         await context.SaveChangesAsync();
@@ -33,5 +33,5 @@ public class TagRepository
         }
 
         await context.SaveChangesAsync();
-    }
+    }*/
 }

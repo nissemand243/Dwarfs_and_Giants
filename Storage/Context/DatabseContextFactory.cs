@@ -20,7 +20,7 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
         return new DatabaseContext(optionsBuilder.Options);
     }
 
-    public static void Seed(DatabaseContext context)
+    /*public static void Seed(DatabaseContext context)
     {
         context.Database.EnsureCreated();
         context.Database.ExecuteSqlRaw("DELETE TABLE IF EXISTS dbo.Comments");
@@ -44,5 +44,5 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
         );
 
         context.SaveChanges();
-    }
+    }*/
 }
