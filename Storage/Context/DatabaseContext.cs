@@ -1,28 +1,36 @@
-using SE_training.Infrastructure;
-
 namespace Context;
 
-public class DatabaseContext : DbContext, ISETrainingContext
+public class DatabaseContext : DbContext, IDatabseContext
 {
-    public DbSet<Material> Materials => Set<Material>();
     public DbSet<User> Users => Set<User>();
-    public DbSet<Comment> Comments => Set<Comment>();
-    public DbSet<Rating> Ratings => Set<Rating>();
+    public DbSet<Material> Materials => Set<Material>();
     public DbSet<Tag> Tags => Set<Tag>();
+    public DbSet<Rating> Ratings => Set<Rating>();
+    public DbSet<Comment> Comments => Set<Comment>();
 
     public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder){
-        // implement 
-        modelBuilder
-        .Entity<Tag>()
-        .HasIndex(t => t.Name)
-        .IsUnique();
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        /*modelBuilder.Entity<User>()
+                    .HasIndex(u => u.Name)
+                    .IsUnique();
 
-        modelBuilder
-        .Entity<Material>()
-        .Property(f => f.FileType)
-        .HasConversion(new EnumToStringConverter<FileType>());
+        modelBuilder.Entity<Material>()
+                    .Property(e => e.Gender)
+                    .HasMaxLength(50)
+                    .HasConversion(new EnumToStringConverter<Gender>());
+
+        modelBuilder.Entity<Tag>()
+                    .HasIndex(p => p.Name)
+                    .IsUnique();
+
+        modelBuilder.Entity<Rating>()
+                    .HasIndex(p => p.Name)
+                    .IsUnique();
+
+        modelBuilder.Entity<Comment>()
+                    .HasIndex(p => p.Name)
+                    .IsUnique();*/
     }
-
 }
