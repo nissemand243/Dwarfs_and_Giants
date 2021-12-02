@@ -1,5 +1,5 @@
 @page "/table"
-
+@inject NavigationManager NavigationManager
 
 <h3>Table</h3>
 @* This is Only for testing remove once the materials are generated *@
@@ -11,29 +11,35 @@
 
 </EditForm>
 <div class="container">
+    <h1>@_selected</h1>
     @foreach (var row in materialList)
     {
+
         <div class="row g-2 text-break">
-            <div class="col border bg-light text-center">
-                <div class="IndentContainer">
-                 @row.Id
+           
+                <div @onclick="() => ChosenMaterial(row.Id)" class="col border bg-light text-center">
+                    <div class="IndentContainer">
+                      @row.Id
+                    </div>
                 </div>
-            </div>
-            <div class="col border bg-light text-center">
-                <div class="IndentContainer">
-                    <h3>@row.Title</h3>
+                <div @onclick="() => ChosenMaterial(row.Id)" class="col border bg-light text-center">
+                    <div class="IndentContainer">
+                        <h3>@row.Title</h3>
+                        
+                    </div>
                 </div>
-            </div>
-            <div class="col border bg-light text-center">
-                <div class="IndentContainer">
-                <p> @row.Decription</p>
+                <div  @onclick="() => ChosenMaterial(row.Id)" class="col border bg-light text-center">
+                    <div class="IndentContainer">
+                       <p> @row.Decription</p>
+                   
+                    </div>
                 </div>
-            </div>
+           
             <div class="col border bg-light">
                 <ul class="IndentContainer">
                     @foreach (var tag in row.Tags)
                     {
-                        <li>
+                        <li @onclick="() => ChosenTag(tag)">
                              @tag
                         </li>
                     }
@@ -48,6 +54,7 @@
 @code{
    private List<Material> materialList = new List<Material>();
    private Material newMaterial = new Material();
+   private string _selected = "None";
 
     private void AddMaterial()
     {
@@ -55,6 +62,17 @@
         newMaterial = new Material();
     }
 
+    private void ChosenMaterial(int MaterialID)
+    {
+        var x = MaterialID;
+        _selected = $"{MaterialID}";
+        NavigationManager.NavigateTo("specifikMaterial/"+@_selected);
+    }
+     private void ChosenTag(String Tag)
+    {
+        var x = Tag;
+        _selected = $"{Tag}";
+    }
 
 
 
