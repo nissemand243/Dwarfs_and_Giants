@@ -20,7 +20,7 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
         return new DatabaseContext(optionsBuilder.Options);
     }
 
-    /*public static void Seed(DatabaseContext context)
+    public static void Seed(DatabaseContext context)
     {
         context.Database.EnsureCreated();
         context.Database.ExecuteSqlRaw("DELETE TABLE IF EXISTS dbo.Comments");
@@ -35,14 +35,11 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
         context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Ratings', RESEED, 0)");
         context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Comments', RESEED, 0)");
 
-        var mads = new UserDTO(1, "Mads Cornelius", "coha@itu.dk", "student");
+        var mads = new User{Name = "Mads Cornelius", Email = "coha@itu.dk"};
         context.Users.AddRange(
             mads
         );
-        context.Materials.AddRange(
-            new MaterialDTO(1, mads.userID, "The Shining", "A very good movie", "mp4", "netflix.com")  
-        );
 
         context.SaveChanges();
-    }*/
+    }
 }

@@ -12,11 +12,11 @@ public class DatabaseContext : DbContext, IDatabseContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        /*modelBuilder.Entity<User>()
+        modelBuilder.Entity<User>()
                     .HasIndex(u => u.Name)
                     .IsUnique();
 
-        modelBuilder.Entity<Material>()
+        /*modelBuilder.Entity<Material>()
                     .Property(e => e.Gender)
                     .HasMaxLength(50)
                     .HasConversion(new EnumToStringConverter<Gender>());
