@@ -1,4 +1,5 @@
 ﻿namespace SE_Traing.Infrastructure;
+
 public class Material
 {
     public int Id { get; set; }

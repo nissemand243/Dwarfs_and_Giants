@@ -1,6 +1,6 @@
 namespace SE_training.Repositories;
 
-public class UserRepository : IUserRepository
+public class UserRepository
 {
     readonly DatabaseContext context;
 
@@ -9,7 +9,8 @@ public class UserRepository : IUserRepository
         context = _context;
     }
 
-    public async void Put(UserDTO user)
+
+    /*public async void Put(UserDTO user)
     {
         context.Users.Add(user);
         await context.SaveChangesAsync();
@@ -39,5 +40,5 @@ public class UserRepository : IUserRepository
         if (user == null) return;
         context.Users.Remove(user);
         await context.SaveChangesAsync();
-    }
+    }*/
 }
