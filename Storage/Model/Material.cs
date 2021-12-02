@@ -1,4 +1,4 @@
-﻿namespace SE_Training.Infrastructure;
+﻿namespace SE_Traing.Infrastructure;
 
 public class Material
 {
@@ -6,7 +6,7 @@ public class Material
 
     public string Name { get; set; }  
     public string Description { get; set; } 
-    public FileType FileType { get; set; }
+    //public FileType FileType { get; set; }
 
     public ICollection<string> Tags { get; set; }  
 

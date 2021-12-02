@@ -1,5 +1,4 @@
-namespace SE_Training.Infrastructure;
-
+﻿namespace SE_Traing.Infrastructure;
 public class Rating
 {   
     public int UserId { get; set; } 
