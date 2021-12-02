@@ -1,56 +1,52 @@
-﻿@page "/specifikMaterial"
-@using Microsoft.AspNetCore.Authorization
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-@using SE_training.Shared
-@attribute [Authorize]
-@inject HttpClient Http
+﻿@page "/specifikMaterial/{id}"
 
-<PageTitle>SearchMaterial </PageTitle>
 
-<p>This component demonstrates fetching data from the server.</p>
+<PageTitle>SpecifikMaterial </PageTitle>
 
-@* this might be use full saving for later *@
-@if (forecasts == null)
+
+<h1> The chosen materials id is @Id </h1>
+
+<h2>@reating</h2>
+<p>@decription</p>
+@* @foreach (var tag in tags)
 {
-    <p><em>Loading...</em></p>
-}
-else
+
+
+} *@
+
+<h1> @message </h1>
+
+
+<p>Open a PDF file <a href="MaterialsData/test.pdf">example</a>.</p>
+<h1>PDF Example with iframe</h1>
+    <iframe src="MaterialsData/test.pdf" width="80%" height="1000px">
+    </iframe>
+
+@* @foreach (var material in recommendedMaterial)
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+
 }
+@foreach (var comment in comments)
+{
+
+} *@
+
 
 @code {
-    private WeatherForecast[]? forecasts;
 
-    protected override async Task OnInitializedAsync()
+  [Parameter]
+    public string Id { get; set; }
+
+
+public string decription{ get; set; }
+public int reating{ get; set; }
+public List<string> tags{ get; set; }
+public List<string> recommendedMaterial{ get; set; }
+public List<Material> comments{ get; set; }
+    public string message{ get; set; }
+
+    protected override void OnInitialized()
     {
-        try
-        {
-            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
-        }
-        catch (AccessTokenNotAvailableException exception)
-        {
-            exception.Redirect();
-        }
+        message = $"Initialized at {DateTime.Now}";
     }
 }
