@@ -1,4 +1,5 @@
-﻿namespace SE_Traing.Infrastructure;
+﻿namespace SE_training.Core;
+
 public enum FileType
 {
     Link,

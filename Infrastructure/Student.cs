@@ -1,4 +1,5 @@
-﻿namespace SE_Traing.Infrastructure;
+namespace SE_Training.Infrastructure;
+
 public class Student : User
 {
     
