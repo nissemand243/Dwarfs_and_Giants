@@ -10,46 +10,45 @@
     <button type="submit">Add Material</button>
 
 </EditForm>
-<div class="container">
-    <h1>@_selected</h1>
-    @foreach (var row in materialList)
-    {
-
-        <div class="row g-2 text-break">
-           
-                <div @onclick="() => ChosenMaterial(row.Id)" class="col border bg-light text-center">
-                    <div class="IndentContainer">
-                      @row.Id
-                    </div>
-                </div>
-                <div @onclick="() => ChosenMaterial(row.Id)" class="col border bg-light text-center">
-                    <div class="IndentContainer">
-                        <h3>@row.Title</h3>
-                        
-                    </div>
-                </div>
-                <div  @onclick="() => ChosenMaterial(row.Id)" class="col border bg-light text-center">
-                    <div class="IndentContainer">
-                       <p> @row.Decription</p>
-                   
-                    </div>
-                </div>
-           
-            <div class="col border bg-light">
-                <ul class="IndentContainer">
-                    @foreach (var tag in row.Tags)
-                    {
-                        <li @onclick="() => ChosenTag(tag)">
-                             @tag
-                        </li>
-                    }
-                </ul>
-            </div>
-
-        </div>
-    }
-
-</div>
+@if (materialList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Material Id</th>
+                <th>Title</th>
+                <th>Decription</th>
+                <th>Tags</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var material in materialList)
+            {
+                <tr>
+                    <td>@material.Id</td>
+                    <td>@material.Title</td>
+                    <td>@material.Decription</td>
+                    <td>
+                        <ul>
+                            @foreach (var tag in material.Tags)
+                            {
+                                <li>
+                                    @tag
+                                </li>
+                            }
+                        </ul> 
+                    </td>
+                    <td><button class="btn btn-info" @onclick="@(() => ChosenMaterial(material.Id))">View</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @code{
    private List<Material> materialList = new List<Material>();

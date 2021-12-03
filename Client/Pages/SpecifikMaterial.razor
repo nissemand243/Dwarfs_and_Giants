@@ -6,47 +6,83 @@
 
 <h1> The chosen materials id is @Id </h1>
 
-<h2>@reating</h2>
-<p>@decription</p>
-@* @foreach (var tag in tags)
+
+@if (material == null)
 {
-
-
-} *@
-
-<h1> @message </h1>
-
-
-<p>Open a PDF file <a href="MaterialsData/test.pdf">example</a>.</p>
-<h1>PDF Example with iframe</h1>
-    <iframe src="MaterialsData/test.pdf" width="80%" height="1000px">
-    </iframe>
-
-@* @foreach (var material in recommendedMaterial)
-{
-
+    <p><em>Loading...</em></p>
 }
-@foreach (var comment in comments)
+else
 {
+    <h1> @material.Title</h1>
+    <h2>@material.Reating</h2>
+    <p>@material.Decription</p>
+    <ul>
+        @foreach (var tag in material.Tags)
+        {
+            <li>@tag</li>
 
-} *@
+        } 
 
+    </ul>
+
+
+
+    <p>Open a PDF file <a href="MaterialsData/test.pdf">example</a>.</p>
+    <h1>PDF Example with iframe</h1>
+        <iframe src="MaterialsData/test.pdf" width="80%" height="1000px">
+        </iframe>
+
+    @* <table class="table">
+            <thead>
+                <tr>
+                    <th>Material Id</th>
+                    <th>Title</th>
+                    <th>Decription</th>
+                    <th>Tags</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var material in recommendedMaterial)
+                {
+                    <tr>
+                        <td>@material.Id</td>
+                        <td>@material.Title</td>
+                        <td>@material.Decription</td>
+                        <td>
+                            <ul>
+                                @foreach (var tag in material.Tags)
+                                {
+                                    <li>
+                                        @tag
+                                    </li>
+                                }
+                            </ul> 
+                        </td>
+                        <td><button class="btn btn-info">View</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table> *@
+    @* @foreach (var comment in comments)
+    {
+
+    }  *@
+}
 
 @code {
 
   [Parameter]
     public string Id { get; set; }
+public Material material = null;
+
+public List<Material> recommendedMaterial{ get; set; }
 
 
-public string decription{ get; set; }
-public int reating{ get; set; }
-public List<string> tags{ get; set; }
-public List<string> recommendedMaterial{ get; set; }
-public List<Material> comments{ get; set; }
-    public string message{ get; set; }
-
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        message = $"Initialized at {DateTime.Now}";
+       material = await SpecifikMaterialSetup.setUptestasync(Id);
+
+
     }
 }
