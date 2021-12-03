@@ -1,17 +1,17 @@
 namespace SE_training.Repositories;
 
-public class MaterialRepository : IMaterialRepository
+public class MaterialRepository
 {
-    readonly DatabaseContext context;
+    readonly DatabaseContext _context;
 
-    public MaterialRepository(DatabaseContext _context)
+    public MaterialRepository(DatabaseContext context)
     {
-        context = _context;
+        _context = context;
     }
 
     public async Task<MaterialDTO> ReadAsync(int searchId)
     {
-        var materials = from c in context.Materials
+        var materials = from c in _context.Materials
                         where c.MaterialId == searchId
                         select new MaterialDTO(
                             c.MaterialId,
@@ -43,6 +43,7 @@ public class MaterialRepository : IMaterialRepository
         //Remove the found entity from the context and save changes
         _context.Materials.Remove(entity);
         await _context.SaveChangesAsync();
+        return Deleted;
     }
 
 
