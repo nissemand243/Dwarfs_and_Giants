@@ -13,15 +13,15 @@
 }
 else
 {
-    <h1> @material.Title</h1>
-    <h2>@material.Reating</h2>
-    <p>@material.Decription</p>
+    <h1> @material.Name</h1>
+    <h2>@GetRatings(material.Ratings)</h2>
+    <p>@material.Description</p>
     <ul>
-        @foreach (var tag in material.Tags)
+        @* @foreach (var tag in material.Tags)
         {
             <li>@tag</li>
 
-        } 
+        }  *@
 
     </ul>
 
@@ -76,6 +76,11 @@ else
     public string Id { get; set; }
 public Material material = null;
 
+public int GetRatings(IDictionary<int, int> Ratings){
+
+    // To Be implemented
+    return 5;
+}
 public List<Material> recommendedMaterial{ get; set; }
 
 
