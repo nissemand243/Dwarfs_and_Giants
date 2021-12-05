@@ -1,4 +1,4 @@
-namespace SE_training.IRepositories;
+namespace SE_training.Core;
 
 public interface IRatingRepository
 {

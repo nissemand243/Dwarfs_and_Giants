@@ -1,4 +1,4 @@
-namespace SE_training.DTOs;
+namespace SE_training.Core;
 
 public record CreateMaterialDTO(int UserId, string Title, string Description, string FileType, string FilePath);
 public record MaterialDTO(int MaterialId, int UserId, string Title, string Description, string FileType, string FilePath) : CreateMaterialDTO(UserId, Title, Description, FileType, FilePath);

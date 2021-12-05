@@ -1,4 +1,4 @@
-namespace SE_training.Repositories;
+namespace SE_training.Infrastructure;
 
 public class TagRepository : ITagRepository
 {

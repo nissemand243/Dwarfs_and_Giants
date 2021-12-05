@@ -16,17 +16,17 @@ public class APIControllerModerator : APIControllerBase, IAPIControllerModerator
         _logger = logger;
     }
 
-    public Task<Response> DeleteMaterial(int MaterialId)
+    public Task<Status> DeleteMaterial(int MaterialId)
     {
         throw new NotImplementedException();
     }
 
-    public Task<(Response, MaterialDTO)> PostMaterial(int MaterialId, MaterialCreateDTO material)
+    public Task<(Status, MaterialDTO)> PostMaterial(int MaterialId, CreateMaterialDTO material)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Response> PutMaterial(int MaterialId, MaterialUpdateDTO material)
+    public Task<Status> PutMaterial(int MaterialId, MaterialDTO material)
     {
         throw new NotImplementedException();
     }
