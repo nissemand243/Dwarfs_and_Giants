@@ -2,18 +2,28 @@ namespace SE_training.DTOs;
 
 public record CreateMaterialDTO(int UserId, string Title, string Description, string FileType, string FilePath);
 public record MaterialDTO(int MaterialId, int UserId, string Title, string Description, string FileType, string FilePath) : CreateMaterialDTO(UserId, Title, Description, FileType, FilePath);
-/*public record CreateMaterialDTO
-{
+public record DetailsMaterialDTO
+(
     [Required]
-    public int UserId { get; init; }
-
-    [Required]
-    public string Title { get; init; }
-
-    public string Description { get; init; }
-
-    public string FileType { get; init; }
+    int MaterialId,
 
     [Required]
-    public string FilePath { get; init; }
-}*/
+    int UserId,
+
+    [Required]
+    string Title,
+
+    string Description,
+
+    [Required]
+    string FileType,
+
+    [Required]
+    string FilePath,
+
+    ICollection<TagDTO> Tags,
+
+    ICollection<CommentDTO> Comments,
+
+    IDictionary<string, int> Ratings
+    ) : MaterialDTO(MaterialId, UserId, Title, Description, FileType, FilePath);

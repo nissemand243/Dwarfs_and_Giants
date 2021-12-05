@@ -1,6 +1,6 @@
 namespace SE_training.Repositories;
 
-public class MaterialRepository : IMaterialRepository
+public class MaterialRepository //: IMaterialRepository
 {
     readonly DatabaseContext context;
 
@@ -30,24 +30,26 @@ public class MaterialRepository : IMaterialRepository
     {
 
         //Find material by the material ID asynchronically as entity
-        var entity = await _context.Materials.FindAsync(materialId);
+        var entity = await context.Materials.FindAsync(materialId);
 
 
         //If there is no entity with the given id return not found
-        if(entity == null)
+        if (entity == null)
         {
             return NotFound;
         }
 
 
         //Remove the found entity from the context and save changes
-        _context.Materials.Remove(entity);
-        await _context.SaveChangesAsync();
+        context.Materials.Remove(entity);
+        await context.SaveChangesAsync();
+
+        return Deleted;
     }
 
 
 
-    
+
     /*public async void Put(MaterialDTO material)
     {
         context.Materials.Add(material);
