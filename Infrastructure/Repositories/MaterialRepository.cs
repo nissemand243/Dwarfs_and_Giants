@@ -16,7 +16,7 @@ public class MaterialRepository //: IMaterialRepository
                         select new MaterialDTO(
                             c.MaterialId,
                             c.UserId,
-                            c.Title,
+                            c.Name,
                             c.Description,
                             c.FileType.ToString(),
                             c.FilePath
