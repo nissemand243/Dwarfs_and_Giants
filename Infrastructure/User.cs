@@ -1,13 +1,14 @@
-namespace SE_Training.Infrastructure;
-
-public abstract class User
+﻿namespace SE_training.Infrastructure;
+public class User
 {
-    
-   [Required]
-   [StringLength(75)]
-   public string Name { get; set; } 
+    public int UserId { get; set; }
 
 
-   [EmailAddressAttribute]
-   public string Email { get; set; }
+    [Required]
+    [StringLength(75)]
+    public string? Name { get; set; }
+
+
+    [EmailAddressAttribute]
+    public string? Email { get; set; }
 }

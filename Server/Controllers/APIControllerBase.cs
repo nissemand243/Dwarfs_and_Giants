@@ -20,22 +20,22 @@ public class APIControllerBase : IAPIControllerBase
         _ratingController = ratingController;
         _materialController = materialController;
     }
-    public Task<(Response, MaterialDTO)> Get(int id)
+    public Task<(Status, MaterialDTO)> Get(int id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Response> PatchComment(int id, CommentDTO comment)
+    public Task<Status> PatchComment(int id, CommentDTO comment)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Response> PatchRating(int id, RatingDTO rating)
+    public Task<Status> PatchRating(int id, RatingDTO rating)
     {
         throw new NotImplementedException();
     }
 
-    public Task<(Response, IReadOnlyCollection<MaterialDTO>)> Search(string searchInput)
+    public Task<(Status, IReadOnlyCollection<MaterialDTO>)> Search(string searchInput)
     {
         throw new NotImplementedException();
     }
