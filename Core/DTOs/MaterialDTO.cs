@@ -1,14 +1,14 @@
 namespace SE_training.Core;
 
-public record CreateMaterialDTO(int UserId, string Name, string Description, string FileType, string FilePath);
-public record MaterialDTO(int MaterialId, int UserId, string Name, string Description, string FileType, string FilePath) : CreateMaterialDTO(UserId, Name, Description, FileType, FilePath);
+public record CreateMaterialDTO(int AuthorId, string Name, string Description, string FileType, string FilePath);
+public record MaterialDTO(int Id, int AuthorId, string Name, string Description, string FileType, string FilePath) : CreateMaterialDTO(AuthorId, Name, Description, FileType, FilePath);
 public record DetailsMaterialDTO
 (
     [Required]
-    int MaterialId,
+    int Id,
 
     [Required]
-    int UserId,
+    int AuthorId,
 
     [Required]
     string Name,
@@ -26,4 +26,4 @@ public record DetailsMaterialDTO
     ICollection<CommentDTO> Comments,
 
     IDictionary<string, int> Ratings
-    ) : MaterialDTO(MaterialId, UserId, Name, Description, FileType, FilePath);
+    ) : MaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath);

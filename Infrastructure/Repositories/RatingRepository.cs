@@ -20,7 +20,7 @@ public class RatingRepository : IRatingRepository
         context.Ratings.Add(entity);
         await context.SaveChangesAsync();
 
-        var details = new RatingDTO(entity.RatingId, entity.MaterialId, entity.UserId, entity.Value);
+        var details = new RatingDTO(entity.Id, entity.MaterialId, entity.UserId, entity.Value);
         return (Created, details);
     }
 
@@ -28,7 +28,7 @@ public class RatingRepository : IRatingRepository
     {
         var ratings = from r in context.Ratings
                       where r.MaterialId == MaterialId
-                      select new RatingDTO(r.RatingId, r.MaterialId, r.UserId, r.Value);
+                      select new RatingDTO(r.Id, r.MaterialId, r.UserId, r.Value);
 
         return await ratings.ToListAsync();
     }
@@ -36,13 +36,13 @@ public class RatingRepository : IRatingRepository
     public async Task<IReadOnlyCollection<RatingDTO>> GetAsync()
     {
         return (await context.Ratings
-                             .Select(r => new RatingDTO(r.RatingId, r.MaterialId, r.UserId, r.Value))
+                             .Select(r => new RatingDTO(r.Id, r.MaterialId, r.UserId, r.Value))
                              .ToListAsync()).AsReadOnly();
     }
 
     public async Task<Status> PostAsync(RatingDTO rating)
     {
-        var entity = await context.Ratings.FindAsync(rating.RatingId);
+        var entity = await context.Ratings.FindAsync(rating.Id);
 
         if (entity == null) return NotFound;
 

@@ -20,7 +20,7 @@ public class CommentRepository : ICommentRepository
         context.Comments.Add(entity);
         await context.SaveChangesAsync();
 
-        var details = new CommentDTO(entity.CommentId, entity.MaterialId, entity.UserId, entity.Text);
+        var details = new CommentDTO(entity.Id, entity.MaterialId, entity.UserId, entity.Text);
         return (Created, details);
     }
 
@@ -28,7 +28,7 @@ public class CommentRepository : ICommentRepository
     {
         var comments = from c in context.Comments
                        where c.MaterialId == MaterialId
-                       select new CommentDTO(c.CommentId, c.MaterialId, c.UserId, c.Text);
+                       select new CommentDTO(c.Id, c.MaterialId, c.UserId, c.Text);
 
         return await comments.ToListAsync();
     }
@@ -36,7 +36,7 @@ public class CommentRepository : ICommentRepository
     public async Task<IReadOnlyCollection<CommentDTO>> GetAsync()
     {
         return (await context.Comments
-                             .Select(c => new CommentDTO(c.CommentId, c.MaterialId, c.UserId, c.Text))
+                             .Select(c => new CommentDTO(c.Id, c.MaterialId, c.UserId, c.Text))
                              .ToListAsync()).AsReadOnly();
     }
 

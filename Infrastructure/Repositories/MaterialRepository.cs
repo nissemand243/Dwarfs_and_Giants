@@ -12,10 +12,10 @@ public class MaterialRepository //: IMaterialRepository
     public async Task<MaterialDTO> ReadAsync(int searchId)
     {
         var materials = from c in context.Materials
-                        where c.MaterialId == searchId
+                        where c.Id == searchId
                         select new MaterialDTO(
-                            c.MaterialId,
-                            c.UserId,
+                            c.Id,
+                            c.AuthorId,
                             c.Name,
                             c.Description,
                             c.FileType.ToString(),

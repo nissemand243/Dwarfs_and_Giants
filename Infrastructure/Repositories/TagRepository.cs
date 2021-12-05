@@ -19,7 +19,7 @@ public class TagRepository : ITagRepository
         context.Tags.Add(entity);
         await context.SaveChangesAsync();
 
-        var details = new TagDTO(entity.TagId, entity.MaterialId, entity.TagName);
+        var details = new TagDTO(entity.Id, entity.MaterialId, entity.TagName);
         return (Created, details);
     }
 
@@ -27,7 +27,7 @@ public class TagRepository : ITagRepository
     {
         var tags = from t in context.Tags
                    where t.MaterialId == MaterialId
-                   select new TagDTO(t.TagId, t.MaterialId, t.TagName);
+                   select new TagDTO(t.Id, t.MaterialId, t.TagName);
 
         return await tags.ToListAsync();
     }
@@ -35,7 +35,7 @@ public class TagRepository : ITagRepository
     public async Task<IReadOnlyCollection<TagDTO>> GetAsync()
     {
         return (await context.Tags
-                             .Select(t => new TagDTO(t.TagId, t.MaterialId, t.TagName))
+                             .Select(t => new TagDTO(t.Id, t.MaterialId, t.TagName))
                              .ToListAsync()).AsReadOnly();
     }
 

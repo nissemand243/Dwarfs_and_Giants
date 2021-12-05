@@ -19,15 +19,15 @@ public class UserRepository : IUserRepository
         context.Users.Add(entity);
         await context.SaveChangesAsync();
 
-        var details = new UserDTO(entity.UserId, entity.Name, entity.Email, null); //TODO exstract the subclass
+        var details = new UserDTO(entity.Id, entity.Name, entity.Email, null); //TODO exstract the subclass
         return (Created, details);
     }
 
     public async Task<UserDTO> GetAsync(int UserId)
     {
         var users = from u in context.Users
-                    where u.UserId == UserId
-                    select new UserDTO(u.UserId, u.Name, u.Email, null); //TODO extract the subclass
+                    where u.Id == UserId
+                    select new UserDTO(u.Id, u.Name, u.Email, null); //TODO extract the subclass
 
         return await users.FirstOrDefaultAsync();
     }
@@ -36,7 +36,7 @@ public class UserRepository : IUserRepository
     {
         var users = from u in context.Users
                     where u.Name == name
-                    select new UserDTO(u.UserId, u.Name, u.Email, null); //TODO extract the subclass
+                    select new UserDTO(u.Id, u.Name, u.Email, null); //TODO extract the subclass
 
         return await users.FirstOrDefaultAsync();
     }
@@ -45,7 +45,7 @@ public class UserRepository : IUserRepository
     public async Task<IReadOnlyCollection<UserDTO>> GetAsync()
     {
         return (await context.Users
-                             .Select(u => new UserDTO(u.UserId, u.Name, u.Email, null)) //TODO extract the subclass)
+                             .Select(u => new UserDTO(u.Id, u.Name, u.Email, null)) //TODO extract the subclass)
                              .ToListAsync()).AsReadOnly();
     }
 
