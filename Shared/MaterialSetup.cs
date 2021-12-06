@@ -27,18 +27,9 @@ using SE_training.Core;
             var Comment = new Collection<CommentDTO>();
         
         
-            var Ratings = new Dictionary<string, int>()
-            {
-                {"0",1},
-                {"1",4},
-                {"2",1},
-                {"3",5},
-                {"4",5},
-                {"5",2},
-            
-            };
+            var Rating = 2.3;
 
-           var material = new DetailsMaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath,Tags,Comment,Ratings);
+           var material = new DetailsMaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath,Tags,Comment,Rating);
            return material;
         }
 
@@ -57,22 +48,13 @@ using SE_training.Core;
             var Tags = new Collection<TagDTO>(){
                 {new TagDTO(2,2,"Docker")},
                 {new TagDTO(1,2,"Test")},
-                 {new TagDTO(33,2,"xunit")}
+                {new TagDTO(33,2,"xunit")}
             };
             var Comment = new Collection<CommentDTO>();
         
-            var Ratings = new Dictionary<string, int>()
-            {
-                {"0",1},
-                {"1",4},
-                {"2",1},
-                {"3",5},
-                {"4",5},
-                {"5",2},
-            
-            };
+            var Rating = 4.6;
 
-           var material = new DetailsMaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath,Tags,Comment,Ratings);
+           var material = new DetailsMaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath,Tags,Comment,Rating);
            MaterialList.Add(material);
             Id =  1;
             AuthorId = 1;
@@ -88,18 +70,9 @@ using SE_training.Core;
             };
             Comment = new Collection<CommentDTO>();
         
-            Ratings = new Dictionary<string, int>()
-            {
-                {"0",1},
-                {"1",4},
-                {"2",1},
-                {"3",5},
-                {"4",5},
-                {"5",2},
-            
-            };
+            Rating = 3.7;
 
-           material = new DetailsMaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath,Tags,Comment,Ratings);
+           material = new DetailsMaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath,Tags,Comment,Rating);
            MaterialList.Add(material);
           
           
@@ -117,18 +90,9 @@ using SE_training.Core;
             };
             Comment = new Collection<CommentDTO>();
         
-            Ratings = new Dictionary<string, int>()
-            {
-                {"0",1},
-                {"1",4},
-                {"2",1},
-                {"3",5},
-                {"4",5},
-                {"5",2},
-            
-            };
+            Rating = 4.2;
 
-           material = new DetailsMaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath,Tags,Comment,Ratings);
+           material = new DetailsMaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath,Tags,Comment,Rating);
            MaterialList.Add(material);
            
             Id =  4;
@@ -145,18 +109,9 @@ using SE_training.Core;
             };
             Comment = new Collection<CommentDTO>();
         
-            Ratings = new Dictionary<string, int>()
-            {
-                {"0",1},
-                {"1",4},
-                {"2",1},
-                {"3",5},
-                {"4",5},
-                {"5",2},
-            
-            };
+            Rating = 1.8;
 
-           material = new DetailsMaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath,Tags,Comment,Ratings);
+           material = new DetailsMaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath,Tags,Comment,Rating);
            MaterialList.Add(material);
            return MaterialList;
         }
