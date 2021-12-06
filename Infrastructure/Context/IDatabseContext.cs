@@ -1,6 +1,6 @@
 namespace SE_training.Infrastructure;
 
-public interface IDatabseContext : IDisposable
+public interface IDatabaseContext : IDisposable
 {
     DbSet<Comment> Comments { get; }
     DbSet<Material> Materials { get; }

@@ -9,7 +9,7 @@ public class UserRepository : IUserRepository
         context = _context;
     }
 
-    public async Task<(Status, UserDTO)> PutAsync(CreateUserDTO user)
+    public async Task<(Status status, UserDTO user)> PutAsync(CreateUserDTO user)
     {
         User entity;
         switch (user.Type)
@@ -22,7 +22,7 @@ public class UserRepository : IUserRepository
                 };
                 break;
             case "Teacher":
-                entity = new Student
+                entity = new Teacher
                 {
                     Name = user.Name,
                     Email = user.Email
@@ -39,10 +39,10 @@ public class UserRepository : IUserRepository
         return (Created, details);
     }
 
-    public async Task<UserDTO> GetAsync(int UserId)
+    public async Task<UserDTO> GetAsync(int userId)
     {
         var users = from u in context.Users
-                    where u.Id == UserId
+                    where u.Id == userId
                     select new UserDTO(u.Id, u.Name, u.Email, u.TypeOfToString());
 
         return await users.FirstOrDefaultAsync();
@@ -66,9 +66,9 @@ public class UserRepository : IUserRepository
     }
 
 
-    public async Task<Status> DeleteAsync(int UserId)
+    public async Task<Status> DeleteAsync(int userId)
     {
-        var entity = await context.Users.FindAsync(UserId);
+        var entity = await context.Users.FindAsync(userId);
 
         if (entity == null) return NotFound;
 
