@@ -1,9 +1,17 @@
-﻿@page "/searchMaterial"
+﻿@page "/searchMaterial/{SearchString}"
 
 <PageTitle>searchMaterial</PageTitle>
 
 <h1>searchMaterial</h1>
+<h2>Search keywords @SearchString</h2>
 
 
-<Table></Table>
+<Table SearchString="@SearchString"/>
 
+@code{
+
+
+    [Parameter]
+    public string SearchString { get; set; }
+
+}
