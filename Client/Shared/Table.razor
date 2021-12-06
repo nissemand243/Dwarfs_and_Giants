@@ -1,15 +1,6 @@
 @page "/table"
 @inject NavigationManager NavigationManager
 
-<h3>Table</h3>
-@* This is Only for testing remove once the materials are generated *@
-<EditForm Model="@newMaterial" OnValidSubmit="AddMaterial">
-    <InputNumber @bind-Value="newMaterial.Id"/>
-    <InputText  @bind-Value="newMaterial.Name"/>
-    <InputText  @bind-Value="newMaterial.Description"/>
-    <button type="submit">Add Material</button>
-
-</EditForm>
 @if (materialList == null)
 {
     <p><em>Loading...</em></p>
@@ -34,14 +25,14 @@ else
                     <td>@material.Name</td>
                     <td>@material.Description</td>
                     <td>
-                        @* <ul>
+                        <ul>
                             @foreach (var tag in material.Tags)
                             {
                                 <li>
-                                    @tag
+                                    @tag.TagName
                                 </li>
                             }
-                        </ul>  *@
+                        </ul>
                     </td>
                     <td><button class="btn btn-info" @onclick="@(() => ChosenMaterial(material.Id))">View</button></td>
                 </tr>
@@ -51,28 +42,23 @@ else
 }
 
 @code{
-   private List<Material> materialList = new List<Material>();
-   private Material newMaterial = new Material();
-   private string _selected = "None";
 
-    private void AddMaterial()
-    {
-        materialList.Add(newMaterial);
-        newMaterial = new Material();
-    }
+
+    [Parameter]
+    public String SearchString { get; set; }
+
+
+   private List<DetailsMaterialDTO> materialList = null;
+ 
 
     private void ChosenMaterial(int MaterialID)
     {
-        var x = MaterialID;
-        _selected = $"{MaterialID}";
-        NavigationManager.NavigateTo("specifikMaterial/"+@_selected);
+        NavigationManager.NavigateTo("specifikMaterial/"+MaterialID);
     }
-     private void ChosenTag(String Tag)
+   protected override async Task OnInitializedAsync()
     {
-        var x = Tag;
-        _selected = $"{Tag}";
+       materialList = await MaterialSetup.SetUpTestMaterialasync();
     }
-
 
 
 }
