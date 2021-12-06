@@ -10,4 +10,7 @@
     <SupportedPlatform Include="browser" />
     	  <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
+
+
 </Project>
+

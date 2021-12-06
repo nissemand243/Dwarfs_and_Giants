@@ -20,4 +20,11 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+    <ItemGroup>
+    <ProjectReference Include="..\Storage\storage.csproj" />
+  </ItemGroup>
+
 </Project>
