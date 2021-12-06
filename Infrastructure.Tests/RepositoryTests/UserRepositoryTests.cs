@@ -59,7 +59,7 @@ public class UserRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void GetAsync_returns_all_tags()
+    public async void GetAsync_returns_all_users()
     {
         var users = await repo.GetAsync();
 
