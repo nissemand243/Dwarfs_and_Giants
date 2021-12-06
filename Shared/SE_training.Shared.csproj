@@ -8,6 +8,6 @@
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
-    	  <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    	  <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 </Project>
