@@ -17,7 +17,7 @@ public class UserRepositoryTests : IDisposable
         builder.UseSqlite(connection);
         var _context = new DatabaseContext(builder.Options);
         _context.Database.EnsureCreated();
-        _context.Users.AddRange(new Student() { UserId = 1, Name = "Mads Cornelius", Email = "maco@itu.dk" }, new Teacher() { UserId = 2, Name = "OndFisk", Email = "evilFish@microsoft.com" });
+        _context.Users.AddRange(new Student() { Id = 1, Name = "Mads Cornelius", Email = "maco@itu.dk" }, new Teacher() { Id = 2, Name = "OndFisk", Email = "evilFish@microsoft.com" });
         _context.SaveChanges();
 
         context = _context;

@@ -1,7 +1,7 @@
 ﻿namespace SE_training.Infrastructure;
 public abstract class User
 {
-    public int UserId { get; set; }
+    public int Id { get; set; }
 
 
     [Required]

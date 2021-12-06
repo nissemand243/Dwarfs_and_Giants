@@ -35,15 +35,15 @@ public class UserRepository : IUserRepository
         context.Users.Add(entity);
         await context.SaveChangesAsync();
 
-        var details = new UserDTO(entity.UserId, entity.Name, entity.Email, entity.TypeOfToString());
+        var details = new UserDTO(entity.Id, entity.Name, entity.Email, entity.TypeOfToString());
         return (Created, details);
     }
 
     public async Task<UserDTO> GetAsync(int UserId)
     {
         var users = from u in context.Users
-                    where u.UserId == UserId
-                    select new UserDTO(u.UserId, u.Name, u.Email, u.TypeOfToString());
+                    where u.Id == UserId
+                    select new UserDTO(u.Id, u.Name, u.Email, u.TypeOfToString());
 
         return await users.FirstOrDefaultAsync();
     }
@@ -52,7 +52,7 @@ public class UserRepository : IUserRepository
     {
         var users = from u in context.Users
                     where u.Name == name
-                    select new UserDTO(u.UserId, u.Name, u.Email, u.TypeOfToString());
+                    select new UserDTO(u.Id, u.Name, u.Email, u.TypeOfToString());
 
         return await users.FirstOrDefaultAsync();
     }
@@ -61,7 +61,7 @@ public class UserRepository : IUserRepository
     public async Task<IReadOnlyCollection<UserDTO>> GetAsync()
     {
         return (await context.Users
-                             .Select(u => new UserDTO(u.UserId, u.Name, u.Email, u.TypeOfToString()))
+                             .Select(u => new UserDTO(u.Id, u.Name, u.Email, u.TypeOfToString()))
                              .ToListAsync()).AsReadOnly();
     }
 
