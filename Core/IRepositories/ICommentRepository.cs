@@ -1,9 +1,9 @@
-namespace SE_training.IRepositories;
+namespace SE_training.Core;
 
 public interface ICommentRepository
 {
     Task<(Status, CommentDTO)> PutAsync(CreateCommentDTO comment);
-    Task<IReadOnlyCollection<CommentDTO>> GetAsync(int materialId);
+    Task<IReadOnlyCollection<CommentDTO>> GetAsync(int MaterialId);
     Task<IReadOnlyCollection<CommentDTO>> GetAsync();
-    Task<Status> DeleteAsync(int commentId);
+    Task<Status> DeleteAsync(int CommentId);
 }

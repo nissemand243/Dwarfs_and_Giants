@@ -1,8 +1,41 @@
-namespace SE_training.Context;
+namespace SE_training.Infrastructure;
 
-public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContext>
+public class DatabaseContext : DbContext, IDatabseContext
 {
-    public DatabaseContext CreateDbContext(string[] args)
+    public DbSet<User> Users => Set<User>();
+    public DbSet<Material> Materials => Set<Material>();
+    public DbSet<Tag> Tags => Set<Tag>();
+    public DbSet<Rating> Ratings => Set<Rating>();
+    public DbSet<Comment> Comments => Set<Comment>();
+
+    public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>()
+                    .HasIndex(u => u.Email)
+                    .IsUnique();
+
+        modelBuilder.Entity<Material>();
+
+        /*modelBuilder.Entity<Tag>()
+                    .HasIndex(t => t.MaterialId)
+                    .HasIndex(t => t.TagName)
+                    .IsUnique();
+
+        modelBuilder.Entity<Rating>()
+                    .HasIndex(r => r.MaterialId)
+                    .HasIndex(r => r.UserId)
+                    .IsUnique();*/
+
+        modelBuilder.Entity<Comment>()
+                    .Property(c => c.Text)
+                    .HasMaxLength(500);
+    }
+}
+
+//from factory
+/*public DatabaseContext CreateDbContext(string[] args)
     {
         string path = Directory.GetCurrentDirectory();
         var configurationBuilder = new ConfigurationBuilder();
@@ -20,7 +53,7 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
         return new DatabaseContext(optionsBuilder.Options);
     }
 
-    /*public static void Seed(DatabaseContext context)
+    public static void Seed(DatabaseContext context)
     {
         context.Database.EnsureCreated();
         context.Database.ExecuteSqlRaw("DELETE TABLE IF EXISTS dbo.Comments");
@@ -35,14 +68,10 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
         context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Ratings', RESEED, 0)");
         context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Comments', RESEED, 0)");
 
-        var mads = new UserDTO(1, "Mads Cornelius", "coha@itu.dk", "student");
+        var mads = new User{Name = "Mads Cornelius", Email = "coha@itu.dk"};
         context.Users.AddRange(
             mads
-        );
-        context.Materials.AddRange(
-            new MaterialDTO(1, mads.userID, "The Shining", "A very good movie", "mp4", "netflix.com")  
         );
 
         context.SaveChanges();
     }*/
-}

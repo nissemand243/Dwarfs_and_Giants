@@ -13,7 +13,7 @@ public class Program
 
         var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>().UseSqlServer(connectionString);
         using var context = new DatabaseContext(optionsBuilder.Options);
-        //DatabaseContextFactory.Seed(context);
+        DatabaseContextFactory.Seed(context);
 
         foreach (var user in context.Users.Include(u => u.Name).AsNoTracking())
         {
