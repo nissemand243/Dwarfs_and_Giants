@@ -25,7 +25,7 @@ using SE_training.Core;
                  {new TagDTO(33,2,"xunit")}
             };
             var Comment = new Collection<CommentDTO>();
-        
+            var Rating = 4.2;
        
 
            var material = new DetailsMaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath,Tags,Comment,Rating);
