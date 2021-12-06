@@ -8,22 +8,6 @@ public class UserRepositoryTests : IDisposable
     private readonly UserRepository repo;
     private bool disposed;
 
-
-    public UserRepositoryTests()
-    {
-        var connection = new SqliteConnection("Filename=:memory:");
-        connection.Open();
-        var builder = new DbContextOptionsBuilder<DatabaseContext>();
-        builder.UseSqlite(connection);
-        var _context = new DatabaseContext(builder.Options);
-        _context.Database.EnsureCreated();
-        _context.Users.AddRange(new Student() { Id = 1, Name = "Mads Cornelius", Email = "maco@itu.dk" }, new Teacher() { Id = 2, Name = "OndFisk", Email = "evilFish@microsoft.com" });
-        _context.SaveChanges();
-
-        context = _context;
-        repo = new UserRepository(_context);
-    }
-
     [Fact]
     public void Test1()
     {
