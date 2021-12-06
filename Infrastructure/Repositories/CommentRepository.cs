@@ -2,9 +2,9 @@ namespace SE_training.Infrastructure;
 
 public class CommentRepository : ICommentRepository
 {
-    readonly DatabaseContext context;
+    readonly IDatabaseContext context;
 
-    public CommentRepository(DatabaseContext _context)
+    public CommentRepository(IDatabaseContext _context)
     {
         context = _context;
     }

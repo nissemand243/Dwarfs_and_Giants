@@ -2,9 +2,9 @@ namespace SE_training.Infrastructure;
 
 public class RatingRepository : IRatingRepository
 {
-    readonly DatabaseContext context;
+    readonly IDatabaseContext context;
 
-    public RatingRepository(DatabaseContext _context)
+    public RatingRepository(IDatabaseContext _context)
     {
         context = _context;
     }

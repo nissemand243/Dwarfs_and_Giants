@@ -1,5 +1,5 @@
 ﻿namespace SE_training.Infrastructure;
-public class User
+public abstract class User
 {
     public int UserId { get; set; }
 
@@ -11,4 +11,6 @@ public class User
 
     [EmailAddressAttribute]
     public string? Email { get; set; }
+
+    public abstract string TypeOfToString();
 }

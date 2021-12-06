@@ -2,9 +2,9 @@ namespace SE_training.Infrastructure;
 
 public class TagRepository : ITagRepository
 {
-    readonly DatabaseContext context;
+    readonly IDatabaseContext context;
 
-    public TagRepository(DatabaseContext _context)
+    public TagRepository(IDatabaseContext _context)
     {
         context = _context;
     }

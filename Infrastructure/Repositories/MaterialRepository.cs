@@ -2,9 +2,9 @@ namespace SE_training.Infrastructure;
 
 public class MaterialRepository //: IMaterialRepository
 {
-    readonly DatabaseContext context;
+    readonly IDatabaseContext context;
 
-    public MaterialRepository(DatabaseContext _context)
+    public MaterialRepository(IDatabaseContext _context)
     {
         context = _context;
     }
