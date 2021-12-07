@@ -19,7 +19,7 @@ namespace SE_training.Server.Controllers
             return status;
         }
 
-        public Task<IReadOnlyCollection<CommentDTO>> ReadAll(int materialId)
+        public Task<IReadOnlyCollection<CommentDTO>> ReadAllComments(int materialId)
         {
             return _repository.GetAsync(materialId);
         }
@@ -34,5 +34,24 @@ namespace SE_training.Server.Controllers
         {
             return _repository.PutAsync(comment);
         }    
+
+        public async Task<Status> DeleteAllComments(int materialId)
+        {
+            var status = Status.NotFound;
+            var comments = _repository.GetAsync(materialId);
+
+            if(!comments.Result.Any())
+            {
+                return status; 
+            }
+            
+            foreach (var comment in comments.Result)
+            {
+                if (comment.Id >= 0){
+                   status = _repository.DeleteAsync(comment.Id).Result;
+                }
+            }
+            return status;
+        }
     }
 }

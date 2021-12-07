@@ -11,5 +11,19 @@ namespace SE_training.Server.Controllers
             _logger = logger;
             _repository = repository;
         }
+
+        public Task<MaterialDTO> ReadMaterial(int materialId)
+        {
+            return _repository.ReadAsync(materialId);
+        }
+
+        public Task<Status> DeleteMaterial(int materialId)
+        {
+            return _repository.DeleteAsync(materialId);
+        }
+
+        
+
+        
     }
 }
