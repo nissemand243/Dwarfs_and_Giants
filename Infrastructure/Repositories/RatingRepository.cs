@@ -9,7 +9,7 @@ public class RatingRepository : IRatingRepository
         context = _context;
     }
 
-    public async Task<(Status, RatingDTO)> PutAsync(CreateRatingDTO rating)
+    public async Task<(Status status, RatingDTO rating)> PutAsync(CreateRatingDTO rating)
     {
         var entity = new Rating
         {
@@ -24,10 +24,10 @@ public class RatingRepository : IRatingRepository
         return (Created, details);
     }
 
-    public async Task<IReadOnlyCollection<RatingDTO>> GetAsync(int MaterialId)
+    public async Task<IReadOnlyCollection<RatingDTO>> GetAsync(int materialId)
     {
         var ratings = from r in context.Ratings
-                      where r.MaterialId == MaterialId
+                      where r.MaterialId == materialId
                       select new RatingDTO(r.Id, r.MaterialId, r.UserId, r.Value);
 
         return await ratings.ToListAsync();
@@ -51,9 +51,9 @@ public class RatingRepository : IRatingRepository
         return Updated;
     }
 
-    public async Task<Status> DeleteAsync(int RatingId)
+    public async Task<Status> DeleteAsync(int ratingId)
     {
-        var entity = await context.Ratings.FindAsync(RatingId);
+        var entity = await context.Ratings.FindAsync(ratingId);
 
         if (entity == null) return NotFound;
 

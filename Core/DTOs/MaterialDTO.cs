@@ -25,5 +25,5 @@ public record DetailsMaterialDTO
 
     ICollection<CommentDTO> Comments,
 
-    IDictionary<string, int> Ratings
+    double Rating
     ) : MaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath);

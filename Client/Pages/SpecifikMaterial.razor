@@ -15,7 +15,7 @@ else
 {
     <h1> @material.Name</h1>
     <h2> The Author of this material is @material.AuthorId </h2>
-    <h2>@GetRatings(material.Ratings)</h2>
+    <h2>@material.Rating</h2>
     <p>@material.Description</p>
     <ul>
          @foreach (var tag in material.Tags)
@@ -68,7 +68,6 @@ else
         </table> 
     @* @foreach (var comment in comments)
     {
-
     }  *@
 }
 
@@ -78,13 +77,7 @@ else
     public string Id { get; set; }
 public DetailsMaterialDTO material;
 
-public int GetRatings(IDictionary<string, int> Ratings){
-
-    
-    return MaterialSetup.GetRatingsAvg(Ratings);
-}
 public List<DetailsMaterialDTO> recommendedMaterial;
-
 
     protected override async Task OnInitializedAsync()
     {

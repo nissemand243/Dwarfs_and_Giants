@@ -9,7 +9,7 @@ public class TagRepository : ITagRepository
         context = _context;
     }
 
-    public async Task<(Status, TagDTO)> PutAsync(CreateTagDTO tag)
+    public async Task<(Status status, TagDTO tag)> PutAsync(CreateTagDTO tag)
     {
         var entity = new Tag
         {
@@ -23,10 +23,10 @@ public class TagRepository : ITagRepository
         return (Created, details);
     }
 
-    public async Task<IReadOnlyCollection<TagDTO>> GetAsync(int MaterialId)
+    public async Task<IReadOnlyCollection<TagDTO>> GetAsync(int materialId)
     {
         var tags = from t in context.Tags
-                   where t.MaterialId == MaterialId
+                   where t.MaterialId == materialId
                    select new TagDTO(t.Id, t.MaterialId, t.TagName);
 
         return await tags.ToListAsync();
@@ -39,9 +39,9 @@ public class TagRepository : ITagRepository
                              .ToListAsync()).AsReadOnly();
     }
 
-    public async Task<Status> DeleteAsync(int TagId)
+    public async Task<Status> DeleteAsync(int tagId)
     {
-        var entity = await context.Tags.FindAsync(TagId);
+        var entity = await context.Tags.FindAsync(tagId);
 
         if (entity == null) return NotFound;
 
