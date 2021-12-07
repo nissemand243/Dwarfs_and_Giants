@@ -24,7 +24,7 @@ public class APIControllerModerator : APIControllerBase, IAPIControllerModerator
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public Task<Status> DeleteMaterial(int materialId)
+    public async Task<Status> DeleteMaterial(int materialId)
     {
         var status =_materialController.DeleteMaterial(materialId);
         Status commentStatus, ratingStatus;
@@ -33,8 +33,11 @@ public class APIControllerModerator : APIControllerBase, IAPIControllerModerator
         {
             commentStatus =_commentController.DeleteAllComments(materialId).Result;
             ratingStatus = _ratingController.DeleteAllRatings(materialId).Result;
+        } else{
+            return Status.BadRequest;
         }
-        return status;
+
+        return await status;
         
     }
 
