@@ -31,5 +31,22 @@ namespace SE_training.Server.Controllers
             return _repository.PutAsync(rating);
         }
 
+        public async Task<Status> DeleteAllRatings(int materialId)
+        {
+            var status = Status.NotFound;
+            var ratings = _repository.GetAsync(materialId);
+
+            if(!ratings.Result.Any())
+            {
+                return status;
+            }
+
+            foreach (var rating in ratings.Result)
+            {
+                status = _repository.DeleteAsync(rating.Id).Result;
+            }
+            return status;
+        }
+
     }
 }

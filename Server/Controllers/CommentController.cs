@@ -46,10 +46,8 @@ namespace SE_training.Server.Controllers
             }
             
             foreach (var comment in comments.Result)
-            {
-                if (comment.Id >= 0){
-                   status = _repository.DeleteAsync(comment.Id).Result;
-                }
+            { 
+                status = _repository.DeleteAsync(comment.Id).Result;
             }
             return status;
         }
