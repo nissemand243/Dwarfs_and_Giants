@@ -20,6 +20,7 @@ services:
       dockerfile: ./Dockerfile
     environment:
       ConnectionStrings__SE_training:
+      ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: https://+:7237;http://+:5220
       ASPNETCORE_Kestrel__Certificates__Default__Path: /https/aspnetapp.pfx
       ASPNETCORE_Kestrel__Certificates__Default__Password: localhost

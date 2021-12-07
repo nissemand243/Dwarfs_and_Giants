@@ -33,16 +33,9 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SE_training")));
 //builder.Services.AddScoped<IDatabseContext, DatabaseContext>();
 
-// Database connection string.
-// Make sure to update the Password value below from "Your_password123" to your actual password.
-var connection = @"Server=db;Database=master;User=sa;Password=Your_password123;";
-
-// This line uses 'UseSqlServer' in the 'options' parameter
-// with the connection string defined above.
-
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<DatabaseContext>()
-    .AddDefaultTokenProviders();
+// builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+//     .AddEntityFrameworkStores<DatabaseContext>()
+//     .AddDefaultTokenProviders();
 
 builder.Services.AddMvc();
 
