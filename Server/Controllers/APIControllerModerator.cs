@@ -1,4 +1,6 @@
 using SE_training.Infrastructure;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace SE_training.Server.Controllers;
 
@@ -22,9 +24,18 @@ public class APIControllerModerator : APIControllerBase, IAPIControllerModerator
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public Task<Status> DeleteMaterial(int MaterialId)
+    public Task<Status> DeleteMaterial(int materialId)
     {
-        throw new NotImplementedException();
+        var status =_materialController.DeleteMaterial(materialId);
+        Status commentStatus, ratingStatus;
+        
+        if(status.Result == Status.Deleted)
+        {
+            commentStatus =_commentController.DeleteAllComments(materialId).Result;
+            ratingStatus = _ratingController.DeleteAllRatings(materialId).Result;
+        }
+        return status;
+        
     }
 
     //[Authorize(User = $"Teacher")]
