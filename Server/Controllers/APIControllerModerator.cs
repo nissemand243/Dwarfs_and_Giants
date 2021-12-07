@@ -1,7 +1,3 @@
-using SE_training.Infrastructure;
-using System.Linq;
-using System.Collections.Generic;
-
 namespace SE_training.Server.Controllers;
 
 [Authorize]
@@ -24,15 +20,15 @@ public class APIControllerModerator : APIControllerBase, IAPIControllerModerator
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<Status> DeleteMaterial(int materialId)
+    public async Task<Status> DeleteMaterial(int MaterialId)
     {
-        var status =_materialController.DeleteMaterial(materialId);
+        var status =_materialController.DeleteMaterial(MaterialId);
         Status commentStatus, ratingStatus;
         
         if(status.Result == Status.Deleted)
         {
-            commentStatus =_commentController.DeleteAllComments(materialId).Result;
-            ratingStatus = _ratingController.DeleteAllRatings(materialId).Result;
+            commentStatus =_commentController.DeleteAllComments(MaterialId).Result;
+            ratingStatus = _ratingController.DeleteAllRatings(MaterialId).Result;
         } else{
             return Status.BadRequest;
         }
