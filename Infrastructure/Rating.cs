@@ -1,16 +1,18 @@
 ﻿namespace SE_training.Infrastructure;
 public class Rating
 {
-    public int Id { get; init; }
-    public int MaterialId { get; }
-    public int UserId { get; }
-    [Range(1, 6)]
-    public int Value { get; set;}
-
+    private Rating() { }
     public Rating(int materialId, int userId, int rating)
     {
         MaterialId = materialId;
-        UserId = UserId;
+        UserId = userId;
         Value = rating;
     }
+
+    public int Id { get; set; }
+    public int MaterialId { get; set; }
+    public int UserId { get; set; }
+    [Range(1, 6)]
+    public int Value { get; set;}
+
 }
