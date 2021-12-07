@@ -17,9 +17,9 @@ public class UserRepositoryTests : IDisposable
         var _context = new DatabaseContext(builder.Options);
         _context.Database.EnsureCreated();
         _context.Users.AddRange(
-            new Student() { Id = 1, Name = "Mads Cornelius", Email = "maco@itu.dk" },
-            new Student() { Id = 2, Name = "Iben Carb Wiener", Email = "icwiener@gmail.com" },
-            new Teacher() { Id = 3, Name = "OndFisk", Email = "evilFish@microsoft.com" });
+            new Student("Mads Cornelius", "maco@itu.dk") { Id = 1},
+            new Student("Iben Carb Wiener","icwiener@gmail.com") { Id = 2},
+            new Teacher("OndFisk", "evilFish@microsoft.com") { Id = 3 });
         _context.SaveChanges();
 
         context = _context;
