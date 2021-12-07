@@ -17,9 +17,9 @@ public class RatingRepositoryTests : IDisposable
         var _context = new DatabaseContext(builder.Options);
         _context.Database.EnsureCreated();
         _context.Ratings.AddRange(
-            new Rating() { Id = 1, MaterialId = 11, UserId = 1, Value = 5 },
-            new Rating() { Id = 2, MaterialId = 22, UserId = 1, Value = 1 },
-            new Rating() { Id = 3, MaterialId = 22, UserId = 2, Value = 5 });
+            new Rating(11,1,5) { Id = 1 },
+            new Rating(22,1,1) { Id = 2 }, 
+            new Rating(22,2,5) { Id = 3 }); 
         _context.SaveChanges();
 
         context = _context;

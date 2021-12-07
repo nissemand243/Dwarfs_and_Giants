@@ -11,11 +11,10 @@ public class CommentRepository : ICommentRepository
 
     public async Task<(Status status, CommentDTO comment)> PutAsync(CreateCommentDTO comment)
     {
-        var entity = new Comment
+        var entity = new Comment(comment.Text)
         {
             MaterialId = comment.MaterialId,
             UserId = comment.UserId,
-            Text = comment.Text
         };
         context.Comments.Add(entity);
         await context.SaveChangesAsync();
