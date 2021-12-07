@@ -2,7 +2,7 @@ namespace SE_training.Infrastructure;
 
 public class UserRepository : IUserRepository
 {
-    readonly DatabaseContext _context;
+    private readonly DatabaseContext _context;
 
     public UserRepository(DatabaseContext context)
     {
