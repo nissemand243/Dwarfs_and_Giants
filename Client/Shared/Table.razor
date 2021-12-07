@@ -1,61 +1,64 @@
 @page "/table"
+@inject NavigationManager NavigationManager
 
-
-<h3>Table</h3>
-@* This is Only for testing remove once the materials are generated *@
-<EditForm Model="@newMaterial" OnValidSubmit="AddMaterial">
-    <InputNumber @bind-Value="newMaterial.Id"/>
-    <InputText  @bind-Value="newMaterial.Title"/>
-    <InputText  @bind-Value="newMaterial.Decription"/>
-    <button type="submit">Add Material</button>
-
-</EditForm>
-<div class="container">
-    @foreach (var row in materialList)
-    {
-        <div class="row g-2 text-break">
-            <div class="col border bg-light text-center">
-                <div class="IndentContainer">
-                 @row.Id
-                </div>
-            </div>
-            <div class="col border bg-light text-center">
-                <div class="IndentContainer">
-                    <h3>@row.Title</h3>
-                </div>
-            </div>
-            <div class="col border bg-light text-center">
-                <div class="IndentContainer">
-                <p> @row.Decription</p>
-                </div>
-            </div>
-            <div class="col border bg-light">
-                <ul class="IndentContainer">
-                    @foreach (var tag in row.Tags)
-                    {
-                        <li>
-                             @tag
-                        </li>
-                    }
-                </ul>
-            </div>
-
-        </div>
-    }
-
-</div>
+@if (materialList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Material Id</th>
+                <th>Title</th>
+                <th>Decription</th>
+                <th>Tags</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var material in materialList)
+            {
+                <tr>
+                    <td>@material.Id</td>
+                    <td>@material.Name</td>
+                    <td>@material.Description</td>
+                    <td>
+                        <ul>
+                            @foreach (var tag in material.Tags)
+                            {
+                                <li>
+                                    @tag.TagName
+                                </li>
+                            }
+                        </ul>
+                    </td>
+                    <td><button class="btn btn-info" @onclick="@(() => ChosenMaterial(material.Id))">View</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @code{
-   private List<Material> materialList = new List<Material>();
-   private Material newMaterial = new Material();
 
-    private void AddMaterial()
+
+    [Parameter]
+    public String SearchString { get; set; }
+
+
+   private List<DetailsMaterialDTO> materialList = null;
+ 
+
+    private void ChosenMaterial(int MaterialID)
     {
-        materialList.Add(newMaterial);
-        newMaterial = new Material();
+        NavigationManager.NavigateTo("specifikMaterial/"+MaterialID);
     }
-
-
+   protected override async Task OnInitializedAsync()
+    {
+       materialList = await MaterialSetup.SetUpTestMaterialasync();
+    }
 
 
 }

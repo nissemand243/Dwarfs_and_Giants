@@ -1,4 +1,5 @@
-﻿<nav class="navbar navbar-expand-md navbar-light bg-light mb-4">
+﻿@inject NavigationManager NavigationManager
+<nav class="navbar navbar-expand-md navbar-light bg-light mb-4">
     <div class="container-fluid">
         <a class="navbar-brand" href="">BlazorTopMenu</a>
         <button class="navbar-toggler @NavButtonCssClass" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -15,14 +16,15 @@
                  <AuthorizeView>
  
                 <li class="nav-item" >
-                    <div class="searchbarContainer">
-                        <div class="searchContainer">
-                            <input placeholder="Docker toturial"  />
-                        </div>
-                        <NavLink class="nav-link buttonContainer"  href="searchMaterial">
-                           <button onclick="Search" >Search</button>
-                        </NavLink>
-                   </div>
+            
+                        <form class="searchContainer"  @onsubmit=Search>
+                            <div>
+                                <input type="search" spellcheck="true" placeholder="Docker toturial"  @bind="SearchContent"/>
+                                <button>Search</button>
+                            </div>
+                        </form>
+
+                    
                 </li>
                      </AuthorizeView>
                 
@@ -41,15 +43,21 @@
     private bool collapseNavMenu = true;
     private string? NavBarCssClass => collapseNavMenu ? null : "show";
     private string? NavButtonCssClass => collapseNavMenu ? "collapsed" : null;
-
+    public void Enter(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        {
+             NavigationManager.NavigateTo("searchMaterial/"+SearchContent);
+        }
+    }
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
-
+    private string SearchContent;
     private void Search()
     {
-     
+      NavigationManager.NavigateTo("searchMaterial/"+SearchContent);
     }
 
 }

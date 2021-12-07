@@ -1,4 +1,4 @@
-﻿namespace SE_training.Core;
+﻿namespace SE_training.Infrastructure;
 
 public enum FileType
 {

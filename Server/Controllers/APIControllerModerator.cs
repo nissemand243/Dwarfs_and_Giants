@@ -11,22 +11,22 @@ public class APIControllerModerator : APIControllerBase, IAPIControllerModerator
         ILogger<APIControllerModerator> logger,
         CommentController commentController,
         RatingController ratingController,
-        MaterialController materialController) : base (logger, commentController, ratingController, materialController)
+        MaterialController materialController) : base(logger, commentController, ratingController, materialController)
     {
         _logger = logger;
     }
 
-    public Task<Response> DeleteMaterial(int materialId)
+    public Task<Status> DeleteMaterial(int MaterialId)
     {
         throw new NotImplementedException();
     }
 
-    public Task<(Response, MaterialDTO)> PostMaterial(int materialId, MaterialCreateDTO material)
+    public Task<(Status, MaterialDTO)> PostMaterial(int MaterialId, CreateMaterialDTO material)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Response> PutMaterial(int materialId, MaterialUpdateDTO material)
+    public Task<Status> PutMaterial(int MaterialId, MaterialDTO material)
     {
         throw new NotImplementedException();
     }

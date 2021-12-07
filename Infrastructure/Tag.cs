@@ -1,7 +1,8 @@
 namespace SE_training.Infrastructure;
+
 public class Tag
-{   
-    [Required]
-    [StringLength(25)]
-    public string Name { get; set; } 
+{
+    public int Id { get; set; }
+    public int MaterialId { get; set; }
+    public string? TagName { get; set; }
 }

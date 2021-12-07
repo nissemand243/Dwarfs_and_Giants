@@ -2,8 +2,8 @@
 
 public interface IAPIControllerBase
 {
-    Task<Response> PatchComment(int id, CommentDTO comment);
-    Task<Response> PatchRating(int id, RatingDTO rating);
-    Task<(Response, MaterialDTO)> Get(int id);
-    Task<(Response, IReadOnlyCollection<MaterialDTO>)> Search(string searchInput);
+    Task<Status> PatchComment(int id, CommentDTO comment);
+    Task<Status> PatchRating(int id, RatingDTO rating);
+    Task<(Status, MaterialDTO)> Get(int id);
+    Task<(Status, IReadOnlyCollection<MaterialDTO>)> Search(string searchInput);
 }
