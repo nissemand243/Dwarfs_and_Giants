@@ -2,15 +2,6 @@
 
 public class Material
 {
-    private Material() { }
-    public Material(int authorId, string name, string description, FileType fileType, string filePath)
-    {
-        AuthorId = authorId;
-        Name = name;
-        Description = description;
-        FileType = fileType;
-        FilePath = filePath;  
-    }
 
     public int Id { get; set; }
     public int AuthorId { get; set; }

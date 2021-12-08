@@ -1,82 +1,40 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 namespace SE_training.Infrastructure;
 
-public class MaterialRepository //: IMaterialRepository
+public class MaterialRepository : IMaterialRepository
 {
-    private readonly DatabaseContext _context;
+    private readonly IDatabaseContext _context;
 
-    public MaterialRepository(DatabaseContext context)
+    public MaterialRepository(IDatabaseContext context)
     {
       _context = context;
     }
 
-    public async Task<MaterialDTO> ReadAsync(int searchId)
+
+    public async Task<(Status, MaterialDTO)> CreateAsync(CreateMaterialDTO material)
     {
-        var materials = from c in _context.Materials
-                        where c.Id == searchId
-                        select new MaterialDTO(
-                            c.Id,
-                            c.AuthorId,
-                            c.Name,
-                            c.Description,
-                            c.FileType.ToString(),
-                            c.FilePath
-                        );
+        throw new System.NotImplementedException();
+    }
+
+    public async Task<MaterialDTO> ReadAsync(int MaterialId)
+    {
+        var materials = from m in _context.Materials
+            where m.Id == MaterialId
+            select new MaterialDTO(m.Id, m.AuthorId, m.Name, m.Description, m.FileType.ToString(), m.FilePath);
         return await materials.FirstOrDefaultAsync();
     }
 
-
-    //Delete material
-    public async Task<Status> DeleteAsync(int materialId)
+    public async Task<IReadOnlyCollection<MaterialDTO>> ReadAsync()
     {
-
-        //Find material by the material ID asynchronically as entity
-        var entity = await _context.Materials.FindAsync(materialId);
-
-
-        //If there is no entity with the given id return not found
-        if (entity == null)
-        {
-            return NotFound;
-        }
-
-
-        //Remove the found entity from the context and save changes
-        _context.Materials.Remove(entity);
-        await _context.SaveChangesAsync();
-
-        return Deleted;
+        throw new System.NotImplementedException();
     }
 
-
-
-
-    /*public async void Put(MaterialDTO material)
+    public async Task<Status> DeleteAsync(int MaterialId)
     {
-        context.Materials.Add(material);
-        await context.SaveChangesAsync();
+        throw new System.NotImplementedException();
     }
-
-    public IEnumerable<MaterialDTO> GetByID(int MaterialId)
-    {
-        return from m in context.Materials
-               where m.MaterialId == MaterialId
-               select new MaterialDTO(m.MaterialId, m.UserId, m.title, m.description, m.fileType, m.filePath);
-    }
-
-    public IEnumerable<MaterialDTO> GetByTitle(string title)
-    {
-        return from m in context.Materials
-               where m.title.Contains(title)
-               select new MaterialDTO(m.MaterialId, m.UserId, m.title, m.description, m.fileType, m.filePath);
-    }
-
-    public async void Delete(int MaterialId)
-    {
-        var material = await context.Materials.FindAsync(MaterialId);
-        if (material != null)
-        {
-            context.Materials.Remove(material);
-        }
-        await context.SaveChangesAsync();
-    }*/
 }
