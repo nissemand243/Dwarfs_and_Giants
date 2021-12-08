@@ -47,7 +47,7 @@ public class MaterialRepository : IMaterialRepository
         return Deleted;
     }
 
-    public Task<(Status status, MaterialDTO material)> PutAsync(CreateMaterialDTO material)
+   public Task<(Status, MaterialDTO)> CreateMaterial(CreateMaterialDTO material)
     {
         throw new NotImplementedException();
     }
@@ -62,36 +62,9 @@ public class MaterialRepository : IMaterialRepository
         throw new NotImplementedException();
     }
 
-
-
-
-    /*public async void Put(MaterialDTO material)
+    public Task<Status> UpdateMaterial(int materialId, MaterialDTO material)
     {
-        context.Materials.Add(material);
-        await context.SaveChangesAsync();
+        throw new NotImplementedException();
     }
 
-    public IEnumerable<MaterialDTO> GetByID(int MaterialId)
-    {
-        return from m in context.Materials
-               where m.MaterialId == MaterialId
-               select new MaterialDTO(m.MaterialId, m.UserId, m.title, m.description, m.fileType, m.filePath);
-    }
-
-    public IEnumerable<MaterialDTO> GetByTitle(string title)
-    {
-        return from m in context.Materials
-               where m.title.Contains(title)
-               select new MaterialDTO(m.MaterialId, m.UserId, m.title, m.description, m.fileType, m.filePath);
-    }
-
-    public async void Delete(int MaterialId)
-    {
-        var material = await context.Materials.FindAsync(MaterialId);
-        if (material != null)
-        {
-            context.Materials.Remove(material);
-        }
-        await context.SaveChangesAsync();
-    }*/
 }
