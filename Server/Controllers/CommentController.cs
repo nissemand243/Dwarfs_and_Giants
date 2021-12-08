@@ -19,23 +19,19 @@ namespace SE_training.Server.Controllers
 
         public Task<IReadOnlyCollection<CommentDTO>> ReadAllComments(int materialId)
         {
-            return _repository.GetAsync(materialId);
+            return _repository.ReadAsync(materialId);
         }
 
         public Task<(Status, CommentDTO)> CreateComment(CreateCommentDTO comment)
         {
-            return _repository.PutAsync(comment);
+            return _repository.CreateAsync(comment);
         }
-
-        public Task<(Status, CommentDTO)> UpdateComment(CreateCommentDTO comment)
-        {
-            return _repository.PutAsync(comment);
-        }    
+ 
 
         public async Task<Status> DeleteAllComments(int materialId)
         {
             var status = Status.NotFound;
-            var comments = _repository.GetAsync(materialId);
+            var comments = _repository.ReadAsync(materialId);
 
             if(!comments.Result.Any())
             {

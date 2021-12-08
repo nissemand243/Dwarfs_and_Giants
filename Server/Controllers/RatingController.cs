@@ -16,19 +16,19 @@ namespace SE_training.Server.Controllers
             return _repository.DeleteAsync(ratingID);
         }
 
-        public Task<Status> CreateRating(RatingDTO rating)
+        public Task<(Status status, RatingDTO rating)> CreateRating(CreateRatingDTO rating)
         {
-            return _repository.PostAsync(rating);
+            return _repository.CreateAsync(rating);
         } 
 
         public Task<IReadOnlyCollection<RatingDTO>> ReadAllRatings(int MaterialId)
         {
-            return _repository.GetAsync(MaterialId);
+            return _repository.ReadAsync(MaterialId);
         }
 
         public async Task<(Status status, double rating)> ComputeRating(int materialId)
         {
-            var ratingDTOs = await _repository.GetAsync(materialId);
+            var ratingDTOs = await _repository.ReadAsync(materialId);
             if(ratingDTOs == null)
             {
                 return (Status.NotFound, -1);
@@ -43,15 +43,15 @@ namespace SE_training.Server.Controllers
             return (Status.Created, ratings.Average()); 
         } 
 
-        public Task<(Status status, RatingDTO rating)> UpdateRating(CreateRatingDTO rating)
+        public async Task<Status> UpdateRating(RatingDTO rating)
         {
-            return _repository.PutAsync(rating);
+            return await _repository.UpdateAsync(rating);
         }
 
         public async Task<Status> DeleteAllRatings(int materialId)
         {
             var status = Status.NotFound;
-            var ratings = _repository.GetAsync(materialId);
+            var ratings = _repository.ReadAsync(materialId);
 
             if(!ratings.Result.Any())
             {
