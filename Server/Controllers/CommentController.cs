@@ -24,13 +24,13 @@ namespace SE_training.Server.Controllers
             return _repository.GetAsync(materialId);
         }
 
-        public Task<(Status status, CommentDTO Comment)> CreateComment(CreateCommentDTO comment)
+        public Task<(Status, CommentDTO)> CreateComment(CreateCommentDTO comment)
         {
             var response = _repository.PutAsync(comment);
             return response;
         }
 
-        public Task<(Status status, CommentDTO comment)> UpdateComment(CreateCommentDTO comment)
+        public Task<(Status, CommentDTO)> UpdateComment(CreateCommentDTO comment)
         {
             return _repository.PutAsync(comment);
         }    
@@ -47,7 +47,7 @@ namespace SE_training.Server.Controllers
             
             foreach (var comment in comments.Result)
             { 
-                status = _repository.DeleteAsync(comment.Id).Result;
+                status = await _repository.DeleteAsync(comment.Id);
             }
             return status;
         }

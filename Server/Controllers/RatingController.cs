@@ -26,7 +26,7 @@ namespace SE_training.Server.Controllers
             return _repository.GetAsync(MaterialId);
         }
 
-        public Task<(Status status, RatingDTO Rating)> UpdateRating(CreateRatingDTO rating)
+        public Task<(Status, RatingDTO)> UpdateRating(CreateRatingDTO rating)
         {
             return _repository.PutAsync(rating);
         }
@@ -43,7 +43,7 @@ namespace SE_training.Server.Controllers
 
             foreach (var rating in ratings.Result)
             {
-                status = _repository.DeleteAsync(rating.Id).Result;
+                status = await _repository.DeleteAsync(rating.Id);
             }
             return status;
         }
