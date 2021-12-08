@@ -12,10 +12,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=build /app ./
 
-EXPOSE 5220/tcp
-ENV ASPNETCORE_URLS http://*:5220
 
-EXPOSE 7237/tcp
-ENV ASPNETCORE_URLS https://*:7237
 
 ENTRYPOINT ["dotnet", "SE_training.Server.dll"]

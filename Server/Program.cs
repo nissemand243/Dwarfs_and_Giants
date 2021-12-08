@@ -33,9 +33,6 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SE_training")));
 //builder.Services.AddScoped<IDatabseContext, DatabaseContext>();
 
-// builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-//     .AddEntityFrameworkStores<DatabaseContext>()
-//     .AddDefaultTokenProviders();
 
 builder.Services.AddMvc();
 
