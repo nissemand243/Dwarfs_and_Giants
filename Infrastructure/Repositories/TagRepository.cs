@@ -2,31 +2,30 @@ namespace SE_training.Infrastructure;
 
 public class TagRepository : ITagRepository
 {
-    readonly DatabaseContext context;
+    private readonly DatabaseContext _context;
 
-    public TagRepository(DatabaseContext _context)
+    public TagRepository(DatabaseContext context)
     {
-        context = _context;
+        _context = context;
     }
 
-    public async Task<(Status, TagDTO)> PutAsync(CreateTagDTO tag)
+    public async Task<(Status status, TagDTO tag)> PutAsync(CreateTagDTO tag)
     {
-        var entity = new Tag
+        var entity = new Tag(tag.TagName)
         {
             MaterialId = tag.MaterialId,
-            TagName = tag.TagName
         };
-        context.Tags.Add(entity);
-        await context.SaveChangesAsync();
+        _context.Tags.Add(entity);
+        await _context.SaveChangesAsync();
 
         var details = new TagDTO(entity.Id, entity.MaterialId, entity.TagName);
         return (Created, details);
     }
 
-    public async Task<IReadOnlyCollection<TagDTO>> GetAsync(int MaterialId)
+    public async Task<IReadOnlyCollection<TagDTO>> GetAsync(int materialId)
     {
-        var tags = from t in context.Tags
-                   where t.MaterialId == MaterialId
+        var tags = from t in _context.Tags
+                   where t.MaterialId == materialId
                    select new TagDTO(t.Id, t.MaterialId, t.TagName);
 
         return await tags.ToListAsync();
@@ -34,19 +33,19 @@ public class TagRepository : ITagRepository
 
     public async Task<IReadOnlyCollection<TagDTO>> GetAsync()
     {
-        return (await context.Tags
+        return (await _context.Tags
                              .Select(t => new TagDTO(t.Id, t.MaterialId, t.TagName))
                              .ToListAsync()).AsReadOnly();
     }
 
-    public async Task<Status> DeleteAsync(int TagId)
+    public async Task<Status> DeleteAsync(int tagId)
     {
-        var entity = await context.Tags.FindAsync(TagId);
+        var entity = await _context.Tags.FindAsync(tagId);
 
         if (entity == null) return NotFound;
 
-        context.Tags.Remove(entity);
-        await context.SaveChangesAsync();
+        _context.Tags.Remove(entity);
+        await _context.SaveChangesAsync();
 
         return Deleted;
     }

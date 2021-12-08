@@ -14,25 +14,27 @@
 else
 {
     <h1> @material.Name</h1>
-    <h2>@GetRatings(material.Ratings)</h2>
+    <h2> The Author of this material is @material.AuthorId </h2>
+    <h2>@material.Rating</h2>
     <p>@material.Description</p>
     <ul>
-        @* @foreach (var tag in material.Tags)
+         @foreach (var tag in material.Tags)
         {
-            <li>@tag</li>
+            <li>@tag.TagName</li>
 
-        }  *@
+        }  
 
     </ul>
 
 
 
-    <p>Open a PDF file <a href="MaterialsData/test.pdf">example</a>.</p>
+    <p>Open a @material.FileType file <a href=@material.FilePath>example</a>.</p>
     <h1>PDF Example with iframe</h1>
-        <iframe src="MaterialsData/test.pdf" width="80%" height="1000px">
+        <iframe src=@material.FilePath width="80%" height="1000px">
         </iframe>
 
-    @* <table class="table">
+   <h1>Recommended Material</h1>
+    <table class="table">
             <thead>
                 <tr>
                     <th>Material Id</th>
@@ -47,14 +49,14 @@ else
                 {
                     <tr>
                         <td>@material.Id</td>
-                        <td>@material.Title</td>
-                        <td>@material.Decription</td>
+                        <td>@material.Name</td>
+                        <td>@material.Description</td>
                         <td>
                             <ul>
                                 @foreach (var tag in material.Tags)
                                 {
                                     <li>
-                                        @tag
+                                        @tag.TagName
                                     </li>
                                 }
                             </ul> 
@@ -63,10 +65,9 @@ else
                     </tr>
                 }
             </tbody>
-        </table> *@
+        </table> 
     @* @foreach (var comment in comments)
     {
-
     }  *@
 }
 
@@ -74,20 +75,14 @@ else
 
   [Parameter]
     public string Id { get; set; }
-public Material material = null;
+public DetailsMaterialDTO material;
 
-public int GetRatings(IDictionary<int, int> Ratings){
-
-    // To Be implemented
-    return 5;
-}
-public List<Material> recommendedMaterial{ get; set; }
-
+public List<DetailsMaterialDTO> recommendedMaterial;
 
     protected override async Task OnInitializedAsync()
     {
-       material = await SpecifikMaterialSetup.setUptestasync(Id);
-
+        material = await MaterialSetup.setUptestasync(Id);
+        recommendedMaterial = await MaterialSetup.SetUpTestMaterialasync();
 
     }
 }

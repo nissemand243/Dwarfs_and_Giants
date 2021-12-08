@@ -1,6 +1,6 @@
 namespace SE_training.Infrastructure;
 
-public class DatabaseContext : DbContext, IDatabseContext
+public class DatabaseContext : DbContext, IDatabaseContext
 {
     public DbSet<User> Users => Set<User>();
     public DbSet<Material> Materials => Set<Material>();
@@ -12,6 +12,9 @@ public class DatabaseContext : DbContext, IDatabseContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Teacher>();
+        modelBuilder.Entity<Student>();
+
         modelBuilder.Entity<User>()
                     .HasIndex(u => u.Email)
                     .IsUnique();
@@ -31,6 +34,8 @@ public class DatabaseContext : DbContext, IDatabseContext
         modelBuilder.Entity<Comment>()
                     .Property(c => c.Text)
                     .HasMaxLength(500);
+
+        base.OnModelCreating(modelBuilder);
     }
 }
 
