@@ -14,9 +14,7 @@ namespace SE_training.Server.Controllers
 
         public Task<Status> DeleteComment(int commentId)
         {
-            var status = _repository.DeleteAsync(commentId);
-
-            return status;
+            return _repository.DeleteAsync(commentId);
         }
 
         public Task<IReadOnlyCollection<CommentDTO>> ReadAllComments(int materialId)
@@ -26,8 +24,7 @@ namespace SE_training.Server.Controllers
 
         public Task<(Status, CommentDTO)> CreateComment(CreateCommentDTO comment)
         {
-            var response = _repository.PutAsync(comment);
-            return response;
+            return _repository.PutAsync(comment);
         }
 
         public Task<(Status, CommentDTO)> UpdateComment(CreateCommentDTO comment)
