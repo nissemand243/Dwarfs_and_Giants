@@ -20,21 +20,29 @@ public class APIControllerBase : IAPIControllerBase
         _ratingController = ratingController;
         _materialController = materialController;
     }
+    [AllowAnonymous]
+    [HttpGet("{id}")]
     public Task<(Status, MaterialDTO)> Get(int id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Status> PatchComment(int id, CommentDTO comment)
+    [AllowAnonymous]
+    [HttpPatch("{MaterialId}")]
+    public Task<Status> PatchComment(int MaterialId, CommentDTO comment)
+    {
+        throw new NotImplementedException();
+    }
+    [AllowAnonymous]
+    [HttpPatch("{MaterialID}")] // find a different way 
+
+    public Task<Status> PatchRating(int MaterialID, RatingDTO rating)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Status> PatchRating(int id, RatingDTO rating)
-    {
-        throw new NotImplementedException();
-    }
-
+    [AllowAnonymous]
+    [HttpGet]
     public Task<(Status, IReadOnlyCollection<MaterialDTO>)> Search(string searchInput)
     {
         throw new NotImplementedException();
