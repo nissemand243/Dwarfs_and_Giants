@@ -53,7 +53,7 @@ public class DatabaseContext : DbContext, IDatabaseContext
         var connectionString = configuration.GetConnectionString("SETraining");
 
         var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>()
-            .UseSqlServer(connectionString);
+            .UseSqlServer(connectionString);    
 
         return new DatabaseContext(optionsBuilder.Options);
     }
