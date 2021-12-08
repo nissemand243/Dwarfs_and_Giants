@@ -26,6 +26,23 @@ namespace SE_training.Server.Controllers
             return _repository.GetAsync(MaterialId);
         }
 
+        public async Task<(Status status, double rating)> ComputeRating(int materialId)
+        {
+            var ratingDTOs = await _repository.GetAsync(materialId);
+            if(ratingDTOs == null)
+            {
+                return (Status.NotFound, -1);
+            }
+
+            var ratings = new List<int>();
+            foreach (var rating in ratingDTOs)
+            {
+                ratings.Add(rating.Value);
+            }
+
+            return (Status.Created, ratings.Average()); 
+        } 
+
         public Task<(Status status, RatingDTO rating)> UpdateRating(CreateRatingDTO rating)
         {
             return _repository.PutAsync(rating);
