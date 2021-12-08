@@ -11,9 +11,10 @@ public class TagRepository : ITagRepository
 
     public async Task<(Status status, TagDTO tag)> PutAsync(CreateTagDTO tag)
     {
-        var entity = new Tag(tag.TagName)
+        var entity = new Tag()
         {
             MaterialId = tag.MaterialId,
+            TagName = tag.TagName
         };
         _context.Tags.Add(entity);
         await _context.SaveChangesAsync();

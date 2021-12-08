@@ -17,9 +17,9 @@ public class CommentRepositoryTests : IDisposable
         var _context = new DatabaseContext(builder.Options);
         _context.Database.EnsureCreated();
         _context.Comments.AddRange(
-            new Comment("Nice work guys!") { Id = 1, UserId = 1, MaterialId = 11 },
-            new Comment("What is Docker?") { Id = 2, UserId = 1, MaterialId = 22},
-            new Comment("Can you explain in further detail.") { Id = 3, UserId = 1, MaterialId = 22});
+            new Comment() { Id = 1, UserId = 1, MaterialId = 11, Text = "Nice work guys!" },
+            new Comment() { Id = 2, UserId = 1, MaterialId = 22, Text = "What is Docker?" },
+            new Comment() { Id = 3, UserId = 1, MaterialId = 22, Text = "Can you explain in further detail." });
         _context.SaveChanges();
 
         context = _context;

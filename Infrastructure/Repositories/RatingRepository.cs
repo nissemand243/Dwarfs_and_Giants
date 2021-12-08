@@ -11,7 +11,11 @@ public class RatingRepository : IRatingRepository
 
     public async Task<(Status status, RatingDTO rating)> PutAsync(CreateRatingDTO rating)
     {
-        var entity = new Rating(rating.MaterialId, rating.UserId, rating.Value);
+        var entity = new Rating() {
+            MaterialId = rating.MaterialId,
+            UserId = rating.UserId,
+            Value = rating.Value
+        };
         
         _context.Ratings.Add(entity);
         await _context.SaveChangesAsync();

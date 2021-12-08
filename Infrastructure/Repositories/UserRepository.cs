@@ -15,10 +15,16 @@ public class UserRepository : IUserRepository
         switch (user.Type)
         {
             case "Student":
-                entity = new Student(user.Name,user.Email);
+                entity = new Student() {
+                    Name = user.Name,
+                    Email = user.Email
+                };
                 break;
             case "Teacher":
-                entity = new Teacher(user.Name, user.Email);
+                entity = new Teacher() {
+                    Name = user.Name,
+                    Email = user.Email
+                };
                 break;
             default:
                 return (BadRequest, null);
