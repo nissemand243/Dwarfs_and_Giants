@@ -2,9 +2,9 @@ namespace SE_training.Infrastructure;
 
 public class UserRepository : IUserRepository
 {
-    private readonly DatabaseContext _context;
+    private readonly IDatabaseContext _context;
 
-    public UserRepository(DatabaseContext context)
+    public UserRepository(IDatabaseContext context)
     {
         _context = context;
     }
@@ -58,7 +58,7 @@ public class UserRepository : IUserRepository
     }
 
 
-    public async Task<IReadOnlyCollection<UserDTO>> GetAsync()
+    public async Task<IReadOnlyCollection<UserDTO>> ReadAsync()
     {
         var users = (await _context.Users
                             .Select(u => new UserDTO(u.Id, u.Name, u.Email, u.TypeOfToString()))
