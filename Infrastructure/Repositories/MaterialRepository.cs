@@ -1,6 +1,6 @@
 namespace SE_training.Infrastructure;
 
-public class MaterialRepository //: IMaterialRepository
+public class MaterialRepository : IMaterialRepository
 {
     private readonly DatabaseContext _context;
 
@@ -47,36 +47,24 @@ public class MaterialRepository //: IMaterialRepository
         return Deleted;
     }
 
-
-
-
-    /*public async void Put(MaterialDTO material)
+   public Task<(Status, MaterialDTO)> CreateMaterial(CreateMaterialDTO material)
     {
-        context.Materials.Add(material);
-        await context.SaveChangesAsync();
+        throw new NotImplementedException();
     }
 
-    public IEnumerable<MaterialDTO> GetByID(int MaterialId)
+    public Task<MaterialDTO> GetAsync(int MaterialId)
     {
-        return from m in context.Materials
-               where m.MaterialId == MaterialId
-               select new MaterialDTO(m.MaterialId, m.UserId, m.title, m.description, m.fileType, m.filePath);
+        throw new NotImplementedException();
     }
 
-    public IEnumerable<MaterialDTO> GetByTitle(string title)
+    public Task<IReadOnlyCollection<MaterialDTO>> GetAsync()
     {
-        return from m in context.Materials
-               where m.title.Contains(title)
-               select new MaterialDTO(m.MaterialId, m.UserId, m.title, m.description, m.fileType, m.filePath);
+        throw new NotImplementedException();
     }
 
-    public async void Delete(int MaterialId)
+    public Task<Status> UpdateMaterial(int materialId, MaterialDTO material)
     {
-        var material = await context.Materials.FindAsync(MaterialId);
-        if (material != null)
-        {
-            context.Materials.Remove(material);
-        }
-        await context.SaveChangesAsync();
-    }*/
+        throw new NotImplementedException();
+    }
+
 }
