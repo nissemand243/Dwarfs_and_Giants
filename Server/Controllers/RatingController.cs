@@ -26,7 +26,7 @@ namespace SE_training.Server.Controllers
             return _repository.GetAsync(MaterialId);
         }
 
-        public Task<(Status, RatingDTO)> UpdateRating(CreateRatingDTO rating)
+        public Task<(Status status, RatingDTO rating)> UpdateRating(CreateRatingDTO rating)
         {
             return _repository.PutAsync(rating);
         }

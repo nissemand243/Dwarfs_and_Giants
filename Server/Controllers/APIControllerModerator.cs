@@ -39,15 +39,24 @@ public class APIControllerModerator : APIControllerBase, IAPIControllerModerator
 
     //[Authorize(User = $"Teacher")]
     [HttpPost]
-    public Task<(Status, MaterialDTO)> PostMaterial(int MaterialId, CreateMaterialDTO material)
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<(Status, MaterialDTO)> PostMaterial(CreateMaterialDTO material)
     {
-        throw new NotImplementedException();
+        var created = await _materialController.CreateMaterial(material);
+        if(created.status != Status.Created)
+        {
+            return (Status.BadRequest, null); // fy fy?
+        }
+       
+        return (created.status, created.material); 
     }
 
     //[Authorize(User = $"Teacher")] 
     [HttpPost("{MaterialId}")]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public Task<Status> PutMaterial(int MaterialId, MaterialDTO material)
     {
-        throw new NotImplementedException();
+        return _materialController.UpdateMaterial(MaterialId, material);
     }
 }
