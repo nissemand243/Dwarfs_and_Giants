@@ -2,23 +2,19 @@ namespace SE_training.Infrastructure;
 
 public class RatingRepository : IRatingRepository
 {
-    readonly DatabaseContext context;
+    private readonly DatabaseContext _context;
 
-    public RatingRepository(DatabaseContext _context)
+    public RatingRepository(DatabaseContext context)
     {
-        context = _context;
+        _context = context;
     }
 
     public async Task<(Status status, RatingDTO rating)> PutAsync(CreateRatingDTO rating)
     {
-        var entity = new Rating
-        {
-            MaterialId = rating.MaterialId,
-            UserId = rating.UserId,
-            Value = rating.Value
-        };
-        context.Ratings.Add(entity);
-        await context.SaveChangesAsync();
+        var entity = new Rating(rating.MaterialId, rating.UserId, rating.Value);
+        
+        _context.Ratings.Add(entity);
+        await _context.SaveChangesAsync();
 
         var details = new RatingDTO(entity.Id, entity.MaterialId, entity.UserId, entity.Value);
         return (Created, details);
@@ -26,7 +22,7 @@ public class RatingRepository : IRatingRepository
 
     public async Task<IReadOnlyCollection<RatingDTO>> GetAsync(int materialId)
     {
-        var ratings = from r in context.Ratings
+        var ratings = from r in _context.Ratings
                       where r.MaterialId == materialId
                       select new RatingDTO(r.Id, r.MaterialId, r.UserId, r.Value);
 
@@ -35,30 +31,30 @@ public class RatingRepository : IRatingRepository
 
     public async Task<IReadOnlyCollection<RatingDTO>> GetAsync()
     {
-        return (await context.Ratings
+        return (await _context.Ratings
                              .Select(r => new RatingDTO(r.Id, r.MaterialId, r.UserId, r.Value))
                              .ToListAsync()).AsReadOnly();
     }
 
     public async Task<Status> PostAsync(RatingDTO rating)
     {
-        var entity = await context.Ratings.FindAsync(rating.Id);
+        var entity = await _context.Ratings.FindAsync(rating.Id);
 
         if (entity == null) return NotFound;
 
         entity.Value = rating.Value;
-        await context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
         return Updated;
     }
 
     public async Task<Status> DeleteAsync(int ratingId)
     {
-        var entity = await context.Ratings.FindAsync(ratingId);
+        var entity = await _context.Ratings.FindAsync(ratingId);
 
         if (entity == null) return NotFound;
 
-        context.Ratings.Remove(entity);
-        await context.SaveChangesAsync();
+        _context.Ratings.Remove(entity);
+        await _context.SaveChangesAsync();
 
         return Deleted;
     }

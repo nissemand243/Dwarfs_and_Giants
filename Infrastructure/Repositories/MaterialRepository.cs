@@ -2,16 +2,16 @@ namespace SE_training.Infrastructure;
 
 public class MaterialRepository //: IMaterialRepository
 {
-    readonly DatabaseContext context;
+    private readonly DatabaseContext _context;
 
-    public MaterialRepository(DatabaseContext _context)
+    public MaterialRepository(DatabaseContext context)
     {
-        context = _context;
+      _context = context;
     }
 
     public async Task<MaterialDTO> ReadAsync(int searchId)
     {
-        var materials = from c in context.Materials
+        var materials = from c in _context.Materials
                         where c.Id == searchId
                         select new MaterialDTO(
                             c.Id,
@@ -30,7 +30,7 @@ public class MaterialRepository //: IMaterialRepository
     {
 
         //Find material by the material ID asynchronically as entity
-        var entity = await context.Materials.FindAsync(materialId);
+        var entity = await _context.Materials.FindAsync(materialId);
 
 
         //If there is no entity with the given id return not found
@@ -41,8 +41,8 @@ public class MaterialRepository //: IMaterialRepository
 
 
         //Remove the found entity from the context and save changes
-        context.Materials.Remove(entity);
-        await context.SaveChangesAsync();
+        _context.Materials.Remove(entity);
+        await _context.SaveChangesAsync();
 
         return Deleted;
     }
