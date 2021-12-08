@@ -5,3 +5,4 @@ global using Microsoft.Identity.Web;
 global using Microsoft.Identity.Web.Resource;
 global using Microsoft.OpenApi.Models;
 global using System.Text.Json.Serialization;
+global using Microsoft.EntityFrameworkCore;

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
+using SE_training.Server;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -70,6 +71,11 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
+
+if (!app.Environment.IsEnvironment("Integration"))
+{
+    await app.SeedAsync();
+}
 
 app.Run();
 
