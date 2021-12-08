@@ -17,4 +17,6 @@ public class Material
     [Required]
     [Url]
     public string? FilePath { get; set; }
+
+    public ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
 }
