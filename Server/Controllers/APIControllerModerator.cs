@@ -41,7 +41,7 @@ public class APIControllerModerator : APIControllerBase, IAPIControllerModerator
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<(Status, MaterialDTO)> PostMaterial(CreateMaterialDTO material)
+    public async Task<(Status, MaterialDTO?)> PostMaterial(CreateMaterialDTO material)
     {
         var created = await _materialController.CreateMaterial(material);
         if(created.status != Status.Created)

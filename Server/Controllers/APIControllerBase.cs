@@ -57,7 +57,7 @@ public class APIControllerBase : IAPIControllerBase
         throw new NotImplementedException();
     }
     [AllowAnonymous]
-    [HttpPatch("{MaterialID}")] // find a different way 
+    [HttpPatch("{MaterialID}")] // find a different way to have two patch way methods
 
     public Task<Status> PatchRating(int MaterialID, RatingDTO rating)
     {
