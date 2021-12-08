@@ -17,9 +17,9 @@ public class CommentRepositoryTests : IDisposable
         var _context = new DatabaseContext(builder.Options);
         _context.Database.EnsureCreated();
         _context.Comments.AddRange(
-            new Comment("Nice work guys!") { Id = 1, UserId = 1, MaterialId = 11 },
-            new Comment("What is Docker?") { Id = 2, UserId = 1, MaterialId = 22},
-            new Comment("Can you explain in further detail.") { Id = 3, UserId = 1, MaterialId = 22});
+            new Comment() { Id = 1, UserId = 1, MaterialId = 11, Text = "Nice work guys!" },
+            new Comment() { Id = 2, UserId = 1, MaterialId = 22, Text = "What is Docker?" },
+            new Comment() { Id = 3, UserId = 1, MaterialId = 22, Text = "Can you explain in further detail." });
         _context.SaveChanges();
 
         context = _context;
@@ -29,7 +29,7 @@ public class CommentRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_given_id_not_existing_returns_empty()
     {
-        var comments33 = await repo.GetAsync(33);
+        var comments33 = await repo.ReadAsync(33);
 
         Assert.Empty(comments33);
     }
@@ -37,7 +37,7 @@ public class CommentRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_given_id_returns_comment()
     {
-        var comments11 = await repo.GetAsync(11);
+        var comments11 = await repo.ReadAsync(11);
 
         Assert.Collection(comments11,
             comment => Assert.Equal(new CommentDTO(1, 11, 1, "Nice work guys!"), comment)
@@ -47,7 +47,7 @@ public class CommentRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_returns_all_comments()
     {
-        var comments = await repo.GetAsync();
+        var comments = await repo.ReadAsync();
 
         Assert.Collection(comments,
             comment => Assert.Equal(new CommentDTO(1, 11, 1, "Nice work guys!"), comment),
@@ -59,7 +59,7 @@ public class CommentRepositoryTests : IDisposable
     [Fact]
     public async void PutAsync_given_new_entity_returns_created()
     {
-        var result = await repo.PutAsync(new CreateCommentDTO(33, 2, "Awesome"));
+        var result = await repo.CreateAsync(new CreateCommentDTO(33, 2, "Awesome"));
 
         Assert.Equal(Created, result.status);
         Assert.Equal(new CommentDTO(4, 33, 2, "Awesome"), result.comment);
@@ -77,7 +77,7 @@ public class CommentRepositoryTests : IDisposable
     public async void DeleteAsync_given_id_returns_Deleted()
     {
         var status = await repo.DeleteAsync(1);
-        var comments11 = await repo.GetAsync(11);
+        var comments11 = await repo.ReadAsync(11);
 
         Assert.Equal(Deleted, status);
         Assert.Empty(comments11);
