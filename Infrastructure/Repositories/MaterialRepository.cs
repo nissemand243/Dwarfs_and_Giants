@@ -1,6 +1,6 @@
 namespace SE_training.Infrastructure;
 
-public class MaterialRepository //: IMaterialRepository
+public class MaterialRepository : IMaterialRepository
 {
     private readonly DatabaseContext _context;
 
@@ -45,6 +45,21 @@ public class MaterialRepository //: IMaterialRepository
         await _context.SaveChangesAsync();
 
         return Deleted;
+    }
+
+    public Task<(Status status, MaterialDTO material)> PutAsync(CreateMaterialDTO material)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<MaterialDTO> GetAsync(int MaterialId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IReadOnlyCollection<MaterialDTO>> GetAsync()
+    {
+        throw new NotImplementedException();
     }
 
 

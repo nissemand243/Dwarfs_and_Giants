@@ -22,6 +22,10 @@ namespace SE_training.Server.Controllers
             return _repository.DeleteAsync(materialId);
         }
 
+        public async Task<(Status, MaterialDTO)> CreateMaterial(CreateMaterialDTO materialDTO)
+        {
+            return await _repository.PutAsync(materialDTO);   
+        }
         
 
         
