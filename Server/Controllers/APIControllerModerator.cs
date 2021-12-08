@@ -18,7 +18,7 @@ public class APIControllerModerator : APIControllerBase, IAPIControllerModerator
         _logger = logger;
     }
 
-    //[Authorize(User = $"Teacher")]
+    [Authorize(Roles = Administrator)]
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -27,14 +27,14 @@ public class APIControllerModerator : APIControllerBase, IAPIControllerModerator
         throw new NotImplementedException();
     }
 
-    //[Authorize(User = $"Teacher")]
+    [Authorize(Roles = Administrator)]
     [HttpPost]
     public Task<(Status, MaterialDTO)> PostMaterial(int MaterialId, CreateMaterialDTO material)
     {
         throw new NotImplementedException();
     }
 
-    //[Authorize(User = $"Teacher")] 
+    [Authorize(Roles = Administrator)] 
     [HttpPost("{MaterialId}")]
     public Task<Status> PutMaterial(int MaterialId, MaterialDTO material)
     {
