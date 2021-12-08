@@ -2,23 +2,22 @@ namespace SE_training.Infrastructure;
 
 public class CommentRepository : ICommentRepository
 {
-    readonly DatabaseContext context;
+    private readonly DatabaseContext _context;
 
-    public CommentRepository(DatabaseContext _context)
+    public CommentRepository(DatabaseContext context)
     {
-        context = _context;
+        _context = context;
     }
 
     public async Task<(Status status, CommentDTO comment)> PutAsync(CreateCommentDTO comment)
     {
-        var entity = new Comment
+        var entity = new Comment(comment.Text)
         {
             MaterialId = comment.MaterialId,
             UserId = comment.UserId,
-            Text = comment.Text
         };
-        context.Comments.Add(entity);
-        await context.SaveChangesAsync();
+        _context.Comments.Add(entity);
+        await _context.SaveChangesAsync();
 
         var details = new CommentDTO(entity.Id, entity.MaterialId, entity.UserId, entity.Text);
         return (Created, details);
@@ -26,7 +25,7 @@ public class CommentRepository : ICommentRepository
 
     public async Task<IReadOnlyCollection<CommentDTO>> GetAsync(int materialId)
     {
-        var comments = from c in context.Comments
+        var comments = from c in _context.Comments
                        where c.MaterialId == materialId
                        select new CommentDTO(c.Id, c.MaterialId, c.UserId, c.Text);
 
@@ -35,19 +34,19 @@ public class CommentRepository : ICommentRepository
 
     public async Task<IReadOnlyCollection<CommentDTO>> GetAsync()
     {
-        return (await context.Comments
+        return (await _context.Comments
                              .Select(c => new CommentDTO(c.Id, c.MaterialId, c.UserId, c.Text))
                              .ToListAsync()).AsReadOnly();
     }
 
     public async Task<Status> DeleteAsync(int commentId)
     {
-        var entity = await context.Comments.FindAsync(commentId);
+        var entity = await _context.Comments.FindAsync(commentId);
 
         if (entity == null) return NotFound;
 
-        context.Comments.Remove(entity);
-        await context.SaveChangesAsync();
+        _context.Comments.Remove(entity);
+        await _context.SaveChangesAsync();
 
         return Deleted;
     }

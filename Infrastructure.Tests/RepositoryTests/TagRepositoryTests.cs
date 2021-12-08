@@ -17,9 +17,9 @@ public class TagRepositoryTests : IDisposable
         var _context = new DatabaseContext(builder.Options);
         _context.Database.EnsureCreated();
         _context.Tags.AddRange(
-            new Tag() { Id = 1, MaterialId = 11, TagName = "Docker" }, 
-            new Tag() { Id = 2, MaterialId = 22, TagName = "Docker" }, 
-            new Tag() { Id = 3, MaterialId = 22, TagName = "BDSA" });
+            new Tag("Docker") { Id = 1, MaterialId = 11}, 
+            new Tag("Docker") { Id = 2, MaterialId = 22}, 
+            new Tag("BDSA") { Id = 3, MaterialId = 22});
         _context.SaveChanges();
 
         context = _context;
