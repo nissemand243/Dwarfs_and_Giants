@@ -9,19 +9,21 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
-    public async Task<(Status status, UserDTO? user)> PutAsync(CreateUserDTO user)
+    public async Task<(Status status, UserDTO? user)> CreateAsync(CreateUserDTO user)
     {
         User entity;
         switch (user.Type)
         {
             case "Student":
-                entity = new Student() {
+                entity = new Student()
+                {
                     Name = user.Name,
                     Email = user.Email
                 };
                 break;
             case "Teacher":
-                entity = new Teacher() {
+                entity = new Teacher()
+                {
                     Name = user.Name,
                     Email = user.Email
                 };
@@ -29,7 +31,7 @@ public class UserRepository : IUserRepository
             default:
                 return (BadRequest, null);
         }
-        
+
         _context.Users.Add(entity);
         await _context.SaveChangesAsync();
 
@@ -37,16 +39,16 @@ public class UserRepository : IUserRepository
         return (Created, details);
     }
 
-    public async Task<UserDTO?> GetAsync(int userId)
+    public async Task<UserDTO> ReadAsync(int userId)
     {
         var user = from u in _context.Users
-                    where u.Id == userId
-                    select new UserDTO(u.Id, u.Name, u.Email, u.TypeOfToString());
+                   where u.Id == userId
+                   select new UserDTO(u.Id, u.Name, u.Email, u.TypeOfToString());
 
         return await user.FirstOrDefaultAsync();
     }
 
-    public async Task<UserDTO?> GetAsync(string name)
+    public async Task<UserDTO> ReadAsync(string name)
     {
         var users = from u in _context.Users
                     where u.Name == name
@@ -58,9 +60,9 @@ public class UserRepository : IUserRepository
 
     public async Task<IReadOnlyCollection<UserDTO>> GetAsync()
     {
-         var users = (await _context.Users
-                             .Select(u => new UserDTO(u.Id, u.Name, u.Email, u.TypeOfToString()))
-                             .ToListAsync()).AsReadOnly();
+        var users = (await _context.Users
+                            .Select(u => new UserDTO(u.Id, u.Name, u.Email, u.TypeOfToString()))
+                            .ToListAsync()).AsReadOnly();
 
         return users;
     }

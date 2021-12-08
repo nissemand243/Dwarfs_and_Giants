@@ -9,7 +9,7 @@ public class CommentRepository : ICommentRepository
         _context = context;
     }
 
-    public async Task<(Status status, CommentDTO comment)> PutAsync(CreateCommentDTO comment)
+    public async Task<(Status status, CommentDTO comment)> CreateAsync(CreateCommentDTO comment)
     {
         var entity = new Comment()
         {
@@ -24,7 +24,7 @@ public class CommentRepository : ICommentRepository
         return (Created, details);
     }
 
-    public async Task<IReadOnlyCollection<CommentDTO>> GetAsync(int materialId)
+    public async Task<IReadOnlyCollection<CommentDTO>> ReadAsync(int materialId)
     {
         var comments = from c in _context.Comments
                        where c.MaterialId == materialId
@@ -33,7 +33,7 @@ public class CommentRepository : ICommentRepository
         return await comments.ToListAsync();
     }
 
-    public async Task<IReadOnlyCollection<CommentDTO>> GetAsync()
+    public async Task<IReadOnlyCollection<CommentDTO>> ReadAsync()
     {
         return (await _context.Comments
                              .Select(c => new CommentDTO(c.Id, c.MaterialId, c.UserId, c.Text))

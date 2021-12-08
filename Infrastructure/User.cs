@@ -3,9 +3,11 @@ public abstract class User
 {
     public int Id { get; set; }
 
+    [Required]
     [StringLength(75)]
     public string? Name { get; set; }
 
+    [Required]
     [EmailAddressAttribute]
     public string? Email { get; set; }
 

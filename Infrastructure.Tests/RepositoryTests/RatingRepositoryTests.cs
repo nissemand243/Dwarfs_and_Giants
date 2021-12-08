@@ -29,7 +29,7 @@ public class RatingRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_given_id_not_existing_returns_empty()
     {
-        var ratings33 = await repo.GetAsync(33);
+        var ratings33 = await repo.ReadAsync(33);
 
         Assert.Empty(ratings33);
     }
@@ -37,7 +37,7 @@ public class RatingRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_given_id_returns_tag()
     {
-        var ratings11 = await repo.GetAsync(11);
+        var ratings11 = await repo.ReadAsync(11);
 
         Assert.Collection(ratings11,
             rating => Assert.Equal(new RatingDTO(1, 11, 1, 5), rating)
@@ -47,7 +47,7 @@ public class RatingRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_returns_all_tags()
     {
-        var tags = await repo.GetAsync();
+        var tags = await repo.ReadAsync();
 
         Assert.Collection(tags,
             tag => Assert.Equal(new RatingDTO(1, 11, 1, 5), tag),
@@ -59,7 +59,7 @@ public class RatingRepositoryTests : IDisposable
     [Fact]
     public async void PutAsync_given_new_entity_returns_created()
     {
-        var result = await repo.PutAsync(new CreateRatingDTO(22, 3, 5));
+        var result = await repo.CreateAsync(new CreateRatingDTO(22, 3, 5));
 
         Assert.Equal(Created, result.status);
         Assert.Equal(new RatingDTO(4, 22, 3, 5), result.rating);
@@ -68,7 +68,7 @@ public class RatingRepositoryTests : IDisposable
     [Fact]
     public async void PostAsync_given_entity_with_id_not_existing_returns_NotFound()
     {
-        var status = await repo.PostAsync(new RatingDTO(4, 22, 3, 5));
+        var status = await repo.UpdateAsync(new RatingDTO(4, 22, 3, 5));
 
         Assert.Equal(NotFound, status);
     }
@@ -76,8 +76,8 @@ public class RatingRepositoryTests : IDisposable
     [Fact]
     public async void PostAsync_given_entity_returns_Updated()
     {
-        var status = await repo.PostAsync(new RatingDTO(1, 11, 1, 1));
-        var ratings11 = await repo.GetAsync(11);
+        var status = await repo.UpdateAsync(new RatingDTO(1, 11, 1, 1));
+        var ratings11 = await repo.ReadAsync(11);
 
         Assert.Equal(Updated, status);
         Assert.Collection(ratings11,
@@ -97,7 +97,7 @@ public class RatingRepositoryTests : IDisposable
     public async void DeleteAsync_given_id_returns_Deleted()
     {
         var status = await repo.DeleteAsync(1);
-        var tags11 = await repo.GetAsync(11);
+        var tags11 = await repo.ReadAsync(11);
 
         Assert.Equal(Deleted, status);
         Assert.Empty(tags11);

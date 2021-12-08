@@ -29,7 +29,7 @@ public class UserRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_given_id_not_existing_returns_null()
     {
-        var user4 = await repo.GetAsync(4);
+        var user4 = await repo.ReadAsync(4);
 
         Assert.Null(user4);
     }
@@ -37,7 +37,7 @@ public class UserRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_given_id_returns_user()
     {
-        var user1 = await repo.GetAsync(1);
+        var user1 = await repo.ReadAsync(1);
 
         Assert.Equal(new UserDTO(1, "Mads Cornelius", "maco@itu.dk", "Student"), user1);
     }
@@ -45,7 +45,7 @@ public class UserRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_given_name_not_existing_returns_null()
     {
-        var user4 = await repo.GetAsync("Paolo Tell");
+        var user4 = await repo.ReadAsync("Paolo Tell");
 
         Assert.Null(user4);
     }
@@ -53,7 +53,7 @@ public class UserRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_given_name_returns_user()
     {
-        var user1 = await repo.GetAsync("Iben Carb Wiener");
+        var user1 = await repo.ReadAsync("Iben Carb Wiener");
 
         Assert.Equal(new UserDTO(2, "Iben Carb Wiener", "icwiener@gmail.com", "Student"), user1);
     }
@@ -73,7 +73,7 @@ public class UserRepositoryTests : IDisposable
     [Fact]
     public async void PutAsync_given_new_entity_returns_created()
     {
-        var result = await repo.PutAsync(new CreateUserDTO("Paolo Tell", "pote@itu.dk", "Teacher"));
+        var result = await repo.CreateAsync(new CreateUserDTO("Paolo Tell", "pote@itu.dk", "Teacher"));
 
         Assert.Equal(Created, result.status);
         Assert.Equal(new UserDTO(4, "Paolo Tell", "pote@itu.dk", "Teacher"), result.user);
@@ -91,7 +91,7 @@ public class UserRepositoryTests : IDisposable
     public async void DeleteAsync_given_id_returns_Deleted()
     {
         var status = await repo.DeleteAsync(1);
-        var user1 = await repo.GetAsync(1);
+        var user1 = await repo.ReadAsync(1);
 
         Assert.Equal(Deleted, status);
         Assert.Null(user1);

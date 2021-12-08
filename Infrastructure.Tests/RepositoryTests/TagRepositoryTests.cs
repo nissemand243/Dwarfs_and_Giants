@@ -29,7 +29,7 @@ public class TagRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_given_id_not_existing_returns_empty()
     {
-        var tags33 = await repo.GetAsync(33);
+        var tags33 = await repo.ReadAsync(33);
 
         Assert.Empty(tags33);
     }
@@ -37,7 +37,7 @@ public class TagRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_given_id_returns_tag()
     {
-        var tags11 = await repo.GetAsync(11);
+        var tags11 = await repo.ReadAsync(11);
 
         Assert.Collection(tags11,
             tag => Assert.Equal(new TagDTO(1, 11, "Docker"), tag)
@@ -47,7 +47,7 @@ public class TagRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_returns_all_tags()
     {
-        var tags = await repo.GetAsync();
+        var tags = await repo.ReadAsync();
 
         Assert.Collection(tags,
             tag => Assert.Equal(new TagDTO(1, 11, "Docker"), tag),
@@ -59,7 +59,7 @@ public class TagRepositoryTests : IDisposable
     [Fact]
     public async void PutAsync_given_new_entity_returns_created()
     {
-        var result = await repo.PutAsync(new CreateTagDTO(33, "UML"));
+        var result = await repo.CreateAsync(new CreateTagDTO(33, "UML"));
 
         Assert.Equal(Created, result.status);
         Assert.Equal(new TagDTO(4, 33, "UML"), result.tag);
@@ -77,7 +77,7 @@ public class TagRepositoryTests : IDisposable
     public async void DeleteAsync_given_id_returns_Deleted()
     {
         var status = await repo.DeleteAsync(1);
-        var tags11 = await repo.GetAsync(11);
+        var tags11 = await repo.ReadAsync(11);
 
         Assert.Equal(Deleted, status);
         Assert.Empty(tags11);

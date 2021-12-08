@@ -7,6 +7,7 @@ public class Comment
     
     public int MaterialId { get; set; }
 
+    [Required]
     [StringLength(500)]
     public string? Text { get; set; }    
 }
