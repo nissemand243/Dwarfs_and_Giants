@@ -1,8 +1,10 @@
 @page "/table"
+@using Infrastructure
 @inject NavigationManager NavigationManager
 
 @if (materialList == null)
 {
+    <h2>Searching for @SearchString</h2>
     <p><em>Loading...</em></p>
 }
 else
@@ -48,8 +50,7 @@ else
     public String SearchString { get; set; }
 
 
-   private List<DetailsMaterialDTO> materialList = null;
- 
+    private List<DetailsMaterialDTO> materialList = null;
 
     private void ChosenMaterial(int MaterialID)
     {
@@ -57,7 +58,7 @@ else
     }
    protected override async Task OnInitializedAsync()
     {
-       materialList = await MaterialSetup.SetUpTestMaterialasync();
+       //materialList = await SearchEngine.SearchMaterialsByName(@SearchString);
     }
 
 
