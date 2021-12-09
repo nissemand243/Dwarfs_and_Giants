@@ -21,8 +21,8 @@ public static class SeedMaterial
 
                 await context.Database.MigrateAsync();
 
-            if (!await context.Materials.AnyAsync())
-            {
+             if (!await context.Materials.AnyAsync())
+             {
 
                 //Teachers 
                 var TeacherRasmus = new Teacher{Name = "Rasmus C# Guro", Email = "RasmusMail@itu.dk"};
@@ -74,7 +74,7 @@ public static class SeedMaterial
 
 
                 await context.SaveChangesAsync();
-            }
+             }
 
             
             
