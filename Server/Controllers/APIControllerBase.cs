@@ -22,9 +22,32 @@ public class APIControllerBase : IAPIControllerBase
     }
     [AllowAnonymous]
     [HttpGet("{id}")]
-    public Task<(Status, MaterialDTO)> Get(int id)
+    public async Task<(Status, DetailsMaterialDTO?)> Get(int id)
     {
-        throw new NotImplementedException();
+        var material = await _materialController.ReadMaterial(id);
+        if(material == null)
+        {
+            return (NotFound, null);
+        }
+
+        var commentsDTOs = await _commentController.ReadAllComments(id);
+        var computedRating = await _ratingController.ComputeRating(id);
+        // var tags = await _tagController.ReadAllTags(id); 
+        var tags = new List<TagDTO>(); // remove
+        
+        
+        var materialDTO = new DetailsMaterialDTO(
+            material.Id,
+            material.AuthorId,
+            material.Name,
+            material.Description,
+            material.FileType,
+            material.FilePath,     
+            tags, // tags
+            commentsDTOs.ToList(),
+            computedRating.rating
+        );
+        return (Created, materialDTO);
     }
 
     [AllowAnonymous]
@@ -34,7 +57,7 @@ public class APIControllerBase : IAPIControllerBase
         throw new NotImplementedException();
     }
     [AllowAnonymous]
-    [HttpPatch("{MaterialID}")] // find a different way 
+    [HttpPatch("{MaterialID}")] // find a different way to have two patch way methods
 
     public Task<Status> PatchRating(int MaterialID, RatingDTO rating)
     {

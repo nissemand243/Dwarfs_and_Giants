@@ -1,3 +1,4 @@
+
 namespace SE_training.Server.Controllers
 {
     public class CommentController : ControllerBase
@@ -9,6 +10,39 @@ namespace SE_training.Server.Controllers
         {
             _logger = logger;
             _repository = repository;
+        }
+
+        public Task<Status> DeleteComment(int commentId)
+        {
+            return _repository.DeleteAsync(commentId);
+        }
+
+        public Task<IReadOnlyCollection<CommentDTO>> ReadAllComments(int materialId)
+        {
+            return _repository.ReadAsync(materialId);
+        }
+
+        public Task<(Status, CommentDTO)> CreateComment(CreateCommentDTO comment)
+        {
+            return _repository.CreateAsync(comment);
+        }
+ 
+
+        public async Task<Status> DeleteAllComments(int materialId)
+        {
+            var status = Status.NotFound;
+            var comments = _repository.ReadAsync(materialId);
+
+            if(!comments.Result.Any())
+            {
+                return status; 
+            }
+            
+            foreach (var comment in comments.Result)
+            { 
+                status = await _repository.DeleteAsync(comment.Id);
+            }
+            return status;
         }
     }
 }
