@@ -3,10 +3,10 @@ namespace SE_training.Server.Controllers
 {
     public class MaterialController : ControllerBase
     {
-        private readonly MaterialRepository _repository;
+        private readonly IMaterialRepository _repository;
         private readonly ILogger<MaterialController> _logger;
 
-        public MaterialController(ILogger<MaterialController> logger, MaterialRepository repository) 
+        public MaterialController(ILogger<MaterialController> logger, IMaterialRepository repository) 
         {
             _logger = logger;
             _repository = repository;
@@ -14,7 +14,7 @@ namespace SE_training.Server.Controllers
 
         public Task<MaterialDTO> ReadMaterial(int materialId)
         {
-            return _repository.GetAsync(materialId);
+            return _repository.ReadAsync(materialId);
         }
 
         public Task<Status> DeleteMaterial(int materialId)

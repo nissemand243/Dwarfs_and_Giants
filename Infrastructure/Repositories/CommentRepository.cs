@@ -21,7 +21,7 @@ public class CommentRepository : ICommentRepository
         await _context.SaveChangesAsync();
 
         var details = new CommentDTO(entity.Id, entity.MaterialId, entity.UserId, entity.Text);
-        return (Created, details);
+        return (Status.Created, details);
     }
 
     public async Task<IReadOnlyCollection<CommentDTO>> ReadAsync(int materialId)
