@@ -14,7 +14,7 @@ namespace SE_training.Server.Controllers
 
         public Task<MaterialDTO> ReadMaterial(int materialId)
         {
-            return _repository.ReadAsync(materialId);
+            return _repository.GetAsync(materialId);
         }
 
         public Task<Status> DeleteMaterial(int materialId)
