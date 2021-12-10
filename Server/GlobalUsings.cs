@@ -7,3 +7,4 @@ global using Microsoft.OpenApi.Models;
 global using System.Text.Json.Serialization;
 
 global using SE_training.Core;
+global using static SE_training.Core.Roles;
