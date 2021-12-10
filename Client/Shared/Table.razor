@@ -16,6 +16,7 @@ else
                 <th>Title</th>
                 <th>Decription</th>
                 <th>Tags</th>
+                <th>Rating</th>
                 <th></th>
             </tr>
         </thead>
@@ -25,7 +26,7 @@ else
                 <tr>
                     <td>@material.Id</td>
                     <td>@material.Name</td>
-                    <td>@material.Description</td>
+                    <td><p>@material.Description</p></td>
                     <td>
                         <ul>
                             @foreach (var tag in material.Tags)
@@ -36,6 +37,7 @@ else
                             }
                         </ul>
                     </td>
+                    <td>@material.Rating</td>
                     <td><button class="btn btn-info" @onclick="@(() => ChosenMaterial(material.Id))">View</button></td>
                 </tr>
             }
@@ -58,6 +60,7 @@ else
     }
    protected override async Task OnInitializedAsync()
     {
+        materialList = await MaterialSetup.SetUpTestMaterialasync();
        //materialList = await SearchEngine.SearchMaterialsByName(@SearchString);
     }
 
