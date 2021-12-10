@@ -1,5 +1,3 @@
-using SE_training.Infrastructure;
-
 namespace SE_training.Server.Controllers;
 
 [Authorize]
@@ -22,22 +20,43 @@ public class APIControllerModerator : APIControllerBase, IAPIControllerModerator
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public Task<Status> DeleteMaterial(int MaterialId)
+    public async Task<Status> DeleteMaterial(int MaterialId)
     {
-        throw new NotImplementedException();
+        var status =_materialController.DeleteMaterial(MaterialId);
+        Status commentStatus, ratingStatus;
+        
+        if(status.Result == Status.Deleted)
+        {
+            commentStatus =_commentController.DeleteAllComments(MaterialId).Result;
+            ratingStatus = _ratingController.DeleteAllRatings(MaterialId).Result;
+        } else{
+            return Status.BadRequest;
+        }
+
+        return await status;
+        
     }
 
     //[Authorize(User = $"Teacher")]
     [HttpPost]
-    public Task<(Status, MaterialDTO)> PostMaterial(int MaterialId, CreateMaterialDTO material)
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<(Status, MaterialDTO?)> PostMaterial(CreateMaterialDTO material)
     {
-        throw new NotImplementedException();
+        var created = await _materialController.CreateMaterial(material);
+        if(created.status != Status.Created)
+        {
+            return (Status.BadRequest, null); // fy fy?
+        }
+       
+        return (created.status, created.material); 
     }
 
     //[Authorize(User = $"Teacher")] 
     [HttpPost("{MaterialId}")]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public Task<Status> PutMaterial(int MaterialId, MaterialDTO material)
     {
-        throw new NotImplementedException();
+        return _materialController.UpdateMaterial(MaterialId, material);
     }
 }
