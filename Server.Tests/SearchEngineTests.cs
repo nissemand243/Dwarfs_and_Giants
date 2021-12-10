@@ -2,13 +2,13 @@ using Xunit;
 
 namespace Infrastructure.Tests;
 
-public class SerializerTests
+public class SearchEngineTests : IDisposable
 {
     private readonly IDatabaseContext _context;
     private readonly SearchEngine _searchEngine;
     private bool _disposed;
 
-    public SerializerTests()
+    /*public SearchEngineTests()
     {
         var connection = new SqliteConnection("Filename=:memory:");
         connection.Open();
@@ -56,7 +56,7 @@ public class SerializerTests
     public void Test()
     {
 
-    }
+    }*/
 
     protected virtual void Dispose(bool disposing)
     {
