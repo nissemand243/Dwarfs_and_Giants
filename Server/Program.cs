@@ -16,13 +16,29 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddKeyPerFile("/run/secrets", optional: true);
 
 // Add services to the container.
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApi(options =>
+    {
+        builder.Configuration.Bind("AzureAd", options);
+        options.TokenValidationParameters.RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
+    },
+    options => builder.Configuration.Bind("AzureAd", options)
+    );
+
+builder.Services.Configure<JwtBearerOptions>(
+    JwtBearerDefaults.AuthenticationScheme, options => 
+    {
+        options.TokenValidationParameters.NameClaimType = "name";
+    });
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// see more about swagger at: https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {

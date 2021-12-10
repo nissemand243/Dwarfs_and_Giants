@@ -16,7 +16,7 @@ public class APIControllerModerator : APIControllerBase, IAPIControllerModerator
         _logger = logger;
     }
 
-    //[Authorize(User = $"Teacher")]
+    [Authorize(Roles = Administrator)]
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -37,7 +37,7 @@ public class APIControllerModerator : APIControllerBase, IAPIControllerModerator
         
     }
 
-    //[Authorize(User = $"Teacher")]
+    [Authorize(Roles = Administrator)]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -52,7 +52,7 @@ public class APIControllerModerator : APIControllerBase, IAPIControllerModerator
         return (created.status, created.material); 
     }
 
-    //[Authorize(User = $"Teacher")] 
+    [Authorize(Roles = Administrator)] 
     [HttpPost("{MaterialId}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public Task<Status> PutMaterial(int MaterialId, MaterialDTO material)
