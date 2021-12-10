@@ -33,13 +33,13 @@ public class MaterialRepositoryTests : IDisposable
         
     } */
     
-    [Fact]
+    /* [Fact]
     public async void ReadAsync_given_id_not_existing_returns_empty()
     {
         var material42 = await repo.ReadAsync(2);
         
         Assert.Equal(default(MaterialDTO), material42);
-    }
+    } */
 
     /* [Fact]
     public async void ReadAsync_given_id_returns_material()

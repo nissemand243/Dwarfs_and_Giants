@@ -1,0 +1,889 @@
+{
+  "Core.dll": {
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Core\\DTOs\\CommentDTO.cs": {
+      "SE_training.Core.CreateCommentDTO": {
+        "System.Int32 SE_training.Core.CreateCommentDTO::get_MaterialId()": {
+          "Lines": {
+            "3": 47
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Core.CommentDTO": {
+        "System.Int32 SE_training.Core.CommentDTO::get_Id()": {
+          "Lines": {
+            "4": 20
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Core\\DTOs\\MaterialDTO.cs": {
+      "SE_training.Core.CreateMaterialDTO": {
+        "System.Int32 SE_training.Core.CreateMaterialDTO::get_AuthorId()": {
+          "Lines": {
+            "3": 0
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Core.MaterialDTO": {
+        "System.Int32 SE_training.Core.MaterialDTO::get_Id()": {
+          "Lines": {
+            "4": 0
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Core.DetailsMaterialDTO": {
+        "System.Collections.Generic.ICollection`1<SE_training.Core.TagDTO> SE_training.Core.DetailsMaterialDTO::get_Tags()": {
+          "Lines": {
+            "24": 0
+          },
+          "Branches": []
+        },
+        "System.Collections.Generic.ICollection`1<SE_training.Core.CommentDTO> SE_training.Core.DetailsMaterialDTO::get_Comments()": {
+          "Lines": {
+            "26": 0
+          },
+          "Branches": []
+        },
+        "System.Double SE_training.Core.DetailsMaterialDTO::get_Rating()": {
+          "Lines": {
+            "28": 0
+          },
+          "Branches": []
+        },
+        "System.Void SE_training.Core.DetailsMaterialDTO::.ctor(System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.Collections.Generic.ICollection`1<SE_training.Core.TagDTO>,System.Collections.Generic.ICollection`1<SE_training.Core.CommentDTO>,System.Double)": {
+          "Lines": {
+            "29": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Core\\DTOs\\RatingDTO.cs": {
+      "SE_training.Core.CreateRatingDTO": {
+        "System.Int32 SE_training.Core.CreateRatingDTO::get_MaterialId()": {
+          "Lines": {
+            "3": 64
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Core.RatingDTO": {
+        "System.Int32 SE_training.Core.RatingDTO::get_Id()": {
+          "Lines": {
+            "4": 30
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Core\\DTOs\\TagDTO.cs": {
+      "SE_training.Core.CreateTagDTO": {
+        "System.Int32 SE_training.Core.CreateTagDTO::get_MaterialId()": {
+          "Lines": {
+            "3": 35
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Core.TagDTO": {
+        "System.Int32 SE_training.Core.TagDTO::get_Id()": {
+          "Lines": {
+            "4": 20
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Core\\DTOs\\UserDTO.cs": {
+      "SE_training.Core.CreateUserDTO": {
+        "System.String SE_training.Core.CreateUserDTO::get_Name()": {
+          "Lines": {
+            "3": 55
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Core.UserDTO": {
+        "System.Int32 SE_training.Core.UserDTO::get_Id()": {
+          "Lines": {
+            "4": 24
+          },
+          "Branches": []
+        }
+      }
+    }
+  },
+  "Infrastructure.dll": {
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Infrastructure\\Comment.cs": {
+      "SE_training.Infrastructure.Comment": {
+        "System.Int32 SE_training.Infrastructure.Comment::get_Id()": {
+          "Lines": {
+            "9": 19
+          },
+          "Branches": []
+        },
+        "System.Int32 SE_training.Infrastructure.Comment::get_UserId()": {
+          "Lines": {
+            "11": 20
+          },
+          "Branches": []
+        },
+        "System.Int32 SE_training.Infrastructure.Comment::get_MaterialId()": {
+          "Lines": {
+            "12": 20
+          },
+          "Branches": []
+        },
+        "System.String SE_training.Infrastructure.Comment::get_Text()": {
+          "Lines": {
+            "16": 20
+          },
+          "Branches": []
+        },
+        "System.Void SE_training.Infrastructure.Comment::.ctor()": {
+          "Lines": {
+            "4": 0
+          },
+          "Branches": []
+        },
+        "System.Void SE_training.Infrastructure.Comment::.ctor(System.String)": {
+          "Lines": {
+            "5": 19,
+            "6": 19,
+            "7": 19,
+            "8": 19
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Infrastructure\\Context\\DatabaseContext.cs": {
+      "SE_training.Infrastructure.DatabaseContext": {
+        "Microsoft.EntityFrameworkCore.DbSet`1<SE_training.Infrastructure.User> SE_training.Infrastructure.DatabaseContext::get_Users()": {
+          "Lines": {
+            "5": 18
+          },
+          "Branches": []
+        },
+        "Microsoft.EntityFrameworkCore.DbSet`1<SE_training.Infrastructure.Material> SE_training.Infrastructure.DatabaseContext::get_Materials()": {
+          "Lines": {
+            "7": 0
+          },
+          "Branches": []
+        },
+        "Microsoft.EntityFrameworkCore.DbSet`1<SE_training.Infrastructure.Tag> SE_training.Infrastructure.DatabaseContext::get_Tags()": {
+          "Lines": {
+            "8": 14
+          },
+          "Branches": []
+        },
+        "Microsoft.EntityFrameworkCore.DbSet`1<SE_training.Infrastructure.Rating> SE_training.Infrastructure.DatabaseContext::get_Ratings()": {
+          "Lines": {
+            "9": 19
+          },
+          "Branches": []
+        },
+        "Microsoft.EntityFrameworkCore.DbSet`1<SE_training.Infrastructure.Comment> SE_training.Infrastructure.DatabaseContext::get_Comments()": {
+          "Lines": {
+            "10": 14
+          },
+          "Branches": []
+        },
+        "System.Void SE_training.Infrastructure.DatabaseContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)": {
+          "Lines": {
+            "15": 2,
+            "16": 2,
+            "17": 2,
+            "19": 2,
+            "20": 2,
+            "21": 2,
+            "23": 2,
+            "35": 2,
+            "36": 2,
+            "37": 2,
+            "39": 2,
+            "40": 2
+          },
+          "Branches": []
+        },
+        "System.Void SE_training.Infrastructure.DatabaseContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions`1<SE_training.Infrastructure.DatabaseContext>)": {
+          "Lines": {
+            "12": 84
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Infrastructure\\Material.cs": {
+      "SE_training.Infrastructure.Material": {
+        "System.Int32 SE_training.Infrastructure.Material::get_Id()": {
+          "Lines": {
+            "6": 0
+          },
+          "Branches": []
+        },
+        "System.Int32 SE_training.Infrastructure.Material::get_AuthorId()": {
+          "Lines": {
+            "7": 0
+          },
+          "Branches": []
+        },
+        "System.String SE_training.Infrastructure.Material::get_Name()": {
+          "Lines": {
+            "8": 0
+          },
+          "Branches": []
+        },
+        "System.String SE_training.Infrastructure.Material::get_Description()": {
+          "Lines": {
+            "9": 0
+          },
+          "Branches": []
+        },
+        "SE_training.Infrastructure.FileType SE_training.Infrastructure.Material::get_FileType()": {
+          "Lines": {
+            "10": 0
+          },
+          "Branches": []
+        },
+        "System.String SE_training.Infrastructure.Material::get_FilePath()": {
+          "Lines": {
+            "13": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Infrastructure\\Rating.cs": {
+      "SE_training.Infrastructure.Rating": {
+        "System.Int32 SE_training.Infrastructure.Rating::get_Id()": {
+          "Lines": {
+            "12": 25
+          },
+          "Branches": []
+        },
+        "System.Int32 SE_training.Infrastructure.Rating::get_MaterialId()": {
+          "Lines": {
+            "13": 26
+          },
+          "Branches": []
+        },
+        "System.Int32 SE_training.Infrastructure.Rating::get_UserId()": {
+          "Lines": {
+            "14": 26
+          },
+          "Branches": []
+        },
+        "System.Int32 SE_training.Infrastructure.Rating::get_Value()": {
+          "Lines": {
+            "16": 27
+          },
+          "Branches": []
+        },
+        "System.Void SE_training.Infrastructure.Rating::.ctor()": {
+          "Lines": {
+            "4": 0
+          },
+          "Branches": []
+        },
+        "System.Void SE_training.Infrastructure.Rating::.ctor(System.Int32,System.Int32,System.Int32)": {
+          "Lines": {
+            "5": 25,
+            "6": 25,
+            "7": 25,
+            "8": 25,
+            "9": 25,
+            "10": 25
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Infrastructure\\Repositories\\CommentRepository.cs": {
+      "SE_training.Infrastructure.CommentRepository": {
+        "System.Void SE_training.Infrastructure.CommentRepository::.ctor(SE_training.Infrastructure.DatabaseContext)": {
+          "Lines": {
+            "7": 6,
+            "8": 6,
+            "9": 6,
+            "10": 6
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Infrastructure.CommentRepository/<DeleteAsync>d__5": {
+        "System.Void SE_training.Infrastructure.CommentRepository/<DeleteAsync>d__5::MoveNext()": {
+          "Lines": {
+            "43": 2,
+            "44": 2,
+            "46": 3,
+            "48": 1,
+            "49": 1,
+            "51": 1,
+            "52": 2
+          },
+          "Branches": [
+            {
+              "Line": 46,
+              "Offset": 198,
+              "EndOffset": 200,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 46,
+              "Offset": 198,
+              "EndOffset": 207,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "SE_training.Infrastructure.CommentRepository/<GetAsync>d__3": {
+        "System.Void SE_training.Infrastructure.CommentRepository/<GetAsync>d__3::MoveNext()": {
+          "Lines": {
+            "27": 3,
+            "28": 3,
+            "29": 3,
+            "30": 3,
+            "32": 3,
+            "33": 3
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Infrastructure.CommentRepository/<GetAsync>d__4": {
+        "System.Void SE_training.Infrastructure.CommentRepository/<GetAsync>d__4::MoveNext()": {
+          "Lines": {
+            "36": 1,
+            "37": 1,
+            "38": 1,
+            "39": 1,
+            "40": 1
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Infrastructure.CommentRepository/<PutAsync>d__2": {
+        "System.Void SE_training.Infrastructure.CommentRepository/<PutAsync>d__2::MoveNext()": {
+          "Lines": {
+            "13": 1,
+            "14": 1,
+            "15": 1,
+            "16": 1,
+            "17": 1,
+            "18": 1,
+            "19": 1,
+            "20": 1,
+            "22": 1,
+            "23": 1,
+            "24": 1
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Infrastructure\\Repositories\\MaterialRepository.cs": {
+      "SE_training.Infrastructure.MaterialRepository": {
+        "System.Void SE_training.Infrastructure.MaterialRepository::.ctor(SE_training.Infrastructure.IDatabaseContext)": {
+          "Lines": {
+            "12": 0,
+            "13": 0,
+            "14": 0,
+            "15": 0
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Infrastructure.MaterialRepository/<CreateAsync>d__2": {
+        "System.Void SE_training.Infrastructure.MaterialRepository/<CreateAsync>d__2::MoveNext()": {
+          "Lines": {
+            "19": 0,
+            "20": 0
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Infrastructure.MaterialRepository/<DeleteAsync>d__5": {
+        "System.Void SE_training.Infrastructure.MaterialRepository/<DeleteAsync>d__5::MoveNext()": {
+          "Lines": {
+            "37": 0,
+            "38": 0
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Infrastructure.MaterialRepository/<ReadAsync>d__3": {
+        "System.Void SE_training.Infrastructure.MaterialRepository/<ReadAsync>d__3::MoveNext()": {
+          "Lines": {
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "28": 0,
+            "29": 0
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Infrastructure.MaterialRepository/<ReadAsync>d__4": {
+        "System.Void SE_training.Infrastructure.MaterialRepository/<ReadAsync>d__4::MoveNext()": {
+          "Lines": {
+            "32": 0,
+            "33": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Infrastructure\\Repositories\\RatingRepository.cs": {
+      "SE_training.Infrastructure.RatingRepository": {
+        "System.Void SE_training.Infrastructure.RatingRepository::.ctor(SE_training.Infrastructure.DatabaseContext)": {
+          "Lines": {
+            "7": 8,
+            "8": 8,
+            "9": 8,
+            "10": 8
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Infrastructure.RatingRepository/<DeleteAsync>d__6": {
+        "System.Void SE_training.Infrastructure.RatingRepository/<DeleteAsync>d__6::MoveNext()": {
+          "Lines": {
+            "51": 2,
+            "52": 2,
+            "54": 3,
+            "56": 1,
+            "57": 1,
+            "59": 1,
+            "60": 2
+          },
+          "Branches": [
+            {
+              "Line": 54,
+              "Offset": 198,
+              "EndOffset": 200,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 54,
+              "Offset": 198,
+              "EndOffset": 207,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "SE_training.Infrastructure.RatingRepository/<GetAsync>d__3": {
+        "System.Void SE_training.Infrastructure.RatingRepository/<GetAsync>d__3::MoveNext()": {
+          "Lines": {
+            "24": 4,
+            "25": 4,
+            "26": 4,
+            "27": 4,
+            "29": 4,
+            "30": 4
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Infrastructure.RatingRepository/<GetAsync>d__4": {
+        "System.Void SE_training.Infrastructure.RatingRepository/<GetAsync>d__4::MoveNext()": {
+          "Lines": {
+            "33": 1,
+            "34": 1,
+            "35": 1,
+            "36": 1,
+            "37": 1
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Infrastructure.RatingRepository/<PostAsync>d__5": {
+        "System.Void SE_training.Infrastructure.RatingRepository/<PostAsync>d__5::MoveNext()": {
+          "Lines": {
+            "40": 2,
+            "41": 2,
+            "43": 3,
+            "45": 1,
+            "46": 1,
+            "47": 1,
+            "48": 2
+          },
+          "Branches": [
+            {
+              "Line": 43,
+              "Offset": 203,
+              "EndOffset": 205,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 43,
+              "Offset": 203,
+              "EndOffset": 212,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "SE_training.Infrastructure.RatingRepository/<PutAsync>d__2": {
+        "System.Void SE_training.Infrastructure.RatingRepository/<PutAsync>d__2::MoveNext()": {
+          "Lines": {
+            "13": 1,
+            "14": 1,
+            "16": 1,
+            "17": 1,
+            "19": 1,
+            "20": 1,
+            "21": 1
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Infrastructure\\Repositories\\TagRepository.cs": {
+      "SE_training.Infrastructure.TagRepository": {
+        "System.Void SE_training.Infrastructure.TagRepository::.ctor(SE_training.Infrastructure.DatabaseContext)": {
+          "Lines": {
+            "7": 6,
+            "8": 6,
+            "9": 6,
+            "10": 6
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Infrastructure.TagRepository/<DeleteAsync>d__5": {
+        "System.Void SE_training.Infrastructure.TagRepository/<DeleteAsync>d__5::MoveNext()": {
+          "Lines": {
+            "42": 2,
+            "43": 2,
+            "45": 3,
+            "47": 1,
+            "48": 1,
+            "50": 1,
+            "51": 2
+          },
+          "Branches": [
+            {
+              "Line": 45,
+              "Offset": 198,
+              "EndOffset": 200,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 45,
+              "Offset": 198,
+              "EndOffset": 207,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "SE_training.Infrastructure.TagRepository/<GetAsync>d__3": {
+        "System.Void SE_training.Infrastructure.TagRepository/<GetAsync>d__3::MoveNext()": {
+          "Lines": {
+            "26": 3,
+            "27": 3,
+            "28": 3,
+            "29": 3,
+            "31": 3,
+            "32": 3
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Infrastructure.TagRepository/<GetAsync>d__4": {
+        "System.Void SE_training.Infrastructure.TagRepository/<GetAsync>d__4::MoveNext()": {
+          "Lines": {
+            "35": 1,
+            "36": 1,
+            "37": 1,
+            "38": 1,
+            "39": 1
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Infrastructure.TagRepository/<PutAsync>d__2": {
+        "System.Void SE_training.Infrastructure.TagRepository/<PutAsync>d__2::MoveNext()": {
+          "Lines": {
+            "13": 1,
+            "14": 1,
+            "15": 1,
+            "16": 1,
+            "17": 1,
+            "18": 1,
+            "19": 1,
+            "21": 1,
+            "22": 1,
+            "23": 1
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Infrastructure\\Repositories\\UserRepository.cs": {
+      "SE_training.Infrastructure.UserRepository": {
+        "System.Void SE_training.Infrastructure.UserRepository::.ctor(SE_training.Infrastructure.DatabaseContext)": {
+          "Lines": {
+            "7": 8,
+            "8": 8,
+            "9": 8,
+            "10": 8
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Infrastructure.UserRepository/<DeleteAsync>d__6": {
+        "System.Void SE_training.Infrastructure.UserRepository/<DeleteAsync>d__6::MoveNext()": {
+          "Lines": {
+            "64": 2,
+            "65": 2,
+            "67": 3,
+            "69": 1,
+            "70": 1,
+            "72": 1,
+            "73": 2
+          },
+          "Branches": [
+            {
+              "Line": 67,
+              "Offset": 198,
+              "EndOffset": 200,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 67,
+              "Offset": 198,
+              "EndOffset": 207,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "SE_training.Infrastructure.UserRepository/<GetAsync>d__3": {
+        "System.Void SE_training.Infrastructure.UserRepository/<GetAsync>d__3::MoveNext()": {
+          "Lines": {
+            "35": 3,
+            "36": 3,
+            "37": 3,
+            "38": 3,
+            "40": 3,
+            "41": 3
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Infrastructure.UserRepository/<GetAsync>d__4": {
+        "System.Void SE_training.Infrastructure.UserRepository/<GetAsync>d__4::MoveNext()": {
+          "Lines": {
+            "44": 2,
+            "45": 2,
+            "46": 2,
+            "47": 2,
+            "49": 2,
+            "50": 2
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Infrastructure.UserRepository/<GetAsync>d__5": {
+        "System.Void SE_training.Infrastructure.UserRepository/<GetAsync>d__5::MoveNext()": {
+          "Lines": {
+            "54": 1,
+            "55": 1,
+            "56": 1,
+            "57": 1,
+            "59": 1,
+            "60": 1
+          },
+          "Branches": []
+        }
+      },
+      "SE_training.Infrastructure.UserRepository/<PutAsync>d__2": {
+        "System.Void SE_training.Infrastructure.UserRepository/<PutAsync>d__2::MoveNext()": {
+          "Lines": {
+            "13": 1,
+            "15": 1,
+            "18": 0,
+            "19": 0,
+            "21": 1,
+            "22": 1,
+            "24": 0,
+            "27": 1,
+            "28": 1,
+            "30": 1,
+            "31": 1,
+            "32": 1
+          },
+          "Branches": [
+            {
+              "Line": 15,
+              "Offset": 55,
+              "EndOffset": 57,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 15,
+              "Offset": 55,
+              "EndOffset": 72,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 15,
+              "Offset": 68,
+              "EndOffset": 107,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 1
+            },
+            {
+              "Line": 15,
+              "Offset": 68,
+              "EndOffset": 142,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Infrastructure\\Student.cs": {
+      "SE_training.Infrastructure.Student": {
+        "System.String SE_training.Infrastructure.Student::TypeOfToString()": {
+          "Lines": {
+            "6": 4
+          },
+          "Branches": []
+        },
+        "System.Void SE_training.Infrastructure.Student::.ctor(System.String,System.String)": {
+          "Lines": {
+            "5": 48
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Infrastructure\\Tag.cs": {
+      "SE_training.Infrastructure.Tag": {
+        "System.Int32 SE_training.Infrastructure.Tag::get_Id()": {
+          "Lines": {
+            "10": 19
+          },
+          "Branches": []
+        },
+        "System.Int32 SE_training.Infrastructure.Tag::get_MaterialId()": {
+          "Lines": {
+            "11": 20
+          },
+          "Branches": []
+        },
+        "System.String SE_training.Infrastructure.Tag::get_TagName()": {
+          "Lines": {
+            "12": 20
+          },
+          "Branches": []
+        },
+        "System.Void SE_training.Infrastructure.Tag::.ctor()": {
+          "Lines": {
+            "5": 0
+          },
+          "Branches": []
+        },
+        "System.Void SE_training.Infrastructure.Tag::.ctor(System.String)": {
+          "Lines": {
+            "6": 19,
+            "7": 19,
+            "8": 19,
+            "9": 19
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Infrastructure\\Teacher.cs": {
+      "SE_training.Infrastructure.Teacher": {
+        "System.String SE_training.Infrastructure.Teacher::TypeOfToString()": {
+          "Lines": {
+            "6": 2
+          },
+          "Branches": []
+        },
+        "System.Void SE_training.Infrastructure.Teacher::.ctor(System.String,System.String)": {
+          "Lines": {
+            "5": 27
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\xande\\OneDrive\\Dokumenter\\Uni\\3.rd\\BDSA\\project\\Dwarfs_and_Giants\\Infrastructure\\User.cs": {
+      "SE_training.Infrastructure.User": {
+        "System.Int32 SE_training.Infrastructure.User::get_Id()": {
+          "Lines": {
+            "10": 25
+          },
+          "Branches": []
+        },
+        "System.String SE_training.Infrastructure.User::get_Name()": {
+          "Lines": {
+            "15": 26
+          },
+          "Branches": []
+        },
+        "System.String SE_training.Infrastructure.User::get_Email()": {
+          "Lines": {
+            "19": 26
+          },
+          "Branches": []
+        },
+        "System.Void SE_training.Infrastructure.User::.ctor()": {
+          "Lines": {
+            "4": 0
+          },
+          "Branches": []
+        },
+        "System.Void SE_training.Infrastructure.User::.ctor(System.String,System.String)": {
+          "Lines": {
+            "5": 25,
+            "6": 25,
+            "7": 25,
+            "8": 25,
+            "9": 25
+          },
+          "Branches": []
+        }
+      }
+    }
+  }
+}
