@@ -17,11 +17,11 @@ public class SearchEngine : ISEarchEngine
         _ratingRepo = ratingRepo;
     }
 
-    public async Task<ICollection<DetailsMaterialDTO>> SearchMaterialsAsync(string searchString)
+    public async Task<IList<DetailsMaterialDTO>> SearchAsync(string searchString)
     {
         var matches = new List<DetailsMaterialDTO>();
 
-        var nameMatches = await SearchMaterialsByNameAsync(searchString);
+        var nameMatches = await SearchByNameAsync(searchString);
         foreach (var nameMatch in nameMatches)
         {
             if (!matches.Any(matchedMaterial => matchedMaterial.Id == nameMatch.Id))
@@ -30,7 +30,7 @@ public class SearchEngine : ISEarchEngine
             }
         }
 
-        var descriptionMatches = await SearchMaterialsByDescriptionAsync(searchString);
+        var descriptionMatches = await SearchByDescriptionAsync(searchString);
         foreach (var descriptionMatch in descriptionMatches)
         {
             if (!matches.Any(matchedMaterial => matchedMaterial.Id == descriptionMatch.Id))
@@ -39,7 +39,7 @@ public class SearchEngine : ISEarchEngine
             }
         }
 
-        var tagMatches = await SearchMaterialsByTagsAsync(searchString);
+        var tagMatches = await SearchByTagsAsync(searchString);
         foreach (var tagMatch in tagMatches)
         {
             if (!matches.Any(matchedMaterial => matchedMaterial.Id == tagMatch.Id))
@@ -48,7 +48,7 @@ public class SearchEngine : ISEarchEngine
             }
         }
 
-        var authorMatches = await SearchMaterialsByAuthorAsync(searchString);
+        var authorMatches = await SearchByAuthorAsync(searchString);
         foreach (var authorMatch in authorMatches)
         {
             if (!matches.Any(matchedMaterial => matchedMaterial.Id == authorMatch.Id))
@@ -60,7 +60,7 @@ public class SearchEngine : ISEarchEngine
         return matches;
     }
 
-    public async Task<ICollection<DetailsMaterialDTO>> SearchMaterialsByNameAsync(string searchString)
+    public async Task<IList<DetailsMaterialDTO>> SearchByNameAsync(string searchString)
     {
         searchString = searchString.ToLower();
 
@@ -77,7 +77,7 @@ public class SearchEngine : ISEarchEngine
         return matches;
     }
 
-    public async Task<ICollection<DetailsMaterialDTO>> SearchMaterialsByDescriptionAsync(string searchString)
+    public async Task<IList<DetailsMaterialDTO>> SearchByDescriptionAsync(string searchString)
     {
         searchString = searchString.ToLower();
 
@@ -94,7 +94,7 @@ public class SearchEngine : ISEarchEngine
         return matches;
     }
 
-    public async Task<ICollection<DetailsMaterialDTO>> SearchMaterialsByTagsAsync(string searchString)
+    public async Task<IList<DetailsMaterialDTO>> SearchByTagsAsync(string searchString)
     {
         searchString = searchString.ToLower();
 
@@ -116,7 +116,7 @@ public class SearchEngine : ISEarchEngine
         return matches;
     }
 
-    public async Task<ICollection<DetailsMaterialDTO>> SearchMaterialsByAuthorAsync(string searchString)
+    public async Task<IList<DetailsMaterialDTO>> SearchByAuthorAsync(string searchString)
     {
         searchString = searchString.ToLower();
 
@@ -167,7 +167,7 @@ public class SearchEngine : ISEarchEngine
         return new DetailsMaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType == null ? null : material.FileType.ToString(), material.FilePath, tags, comments, adv);
     }
 
-    public async Task<ICollection<DetailsMaterialDTO>> GetRelatedMaterialsByTags(int materialId)
+    public async Task<IList<DetailsMaterialDTO>> GetRelatedMaterialsByTagsAsync(int materialId)
     {
         var tagsOnMaterial = await _tagRepo.ReadAsync(materialId);
         var readAllTags = await _tagRepo.ReadAsync();
@@ -183,13 +183,14 @@ public class SearchEngine : ISEarchEngine
             var matchingTags = allTags.Where(t => t.TagName == tag.TagName);
             foreach (var matchingTag in matchingTags)
             {
-                if (!matches.Any(material => material.Id == matchingTag.MaterialId))
+                if (matchingTag.MaterialId != materialId && !matches.Any(material => material.Id == matchingTag.MaterialId))
                 {
                     var material = await _materialRepo.GetAsync(matchingTag.MaterialId);
                     matches.Add(await GetDetailedMaterialByIdAsync(material.Id));
                 }
             }
         }
+
         return matches;
     }
 }
