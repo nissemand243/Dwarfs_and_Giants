@@ -3,6 +3,7 @@ namespace SE_training.Infrastructure;
 public class DatabaseContext : DbContext, IDatabaseContext
 {
     public DbSet<User> Users => Set<User>();
+
     public DbSet<Material> Materials => Set<Material>();
     public DbSet<Tag> Tags => Set<Tag>();
     public DbSet<Rating> Ratings => Set<Rating>();
