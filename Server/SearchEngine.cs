@@ -160,7 +160,7 @@ public class SearchEngine : ISEarchEngine
             {
                 if (!matches.Any(material => material.Id == matchingTag.MaterialId))
                 {
-                    var material = await _materialRepo.GetAsync(matchingTag.MaterialId);
+                    var material = await _materialRepo.ReadAsync(matchingTag.MaterialId);
                     matches.Add(await GetDetailedMaterialByIdAsync(material.Id));
                 }
             }
