@@ -1,5 +1,5 @@
 ﻿@page "/specifikMaterial/{id}"
-
+@inject ISEarchEngine SearchEngine
 
 <PageTitle>SpecifikMaterial </PageTitle>
 
@@ -81,8 +81,10 @@ public List<DetailsMaterialDTO> recommendedMaterial;
 
     protected override async Task OnInitializedAsync()
     {
-        material = await MaterialSetup.setUptestasync(Id);
-        recommendedMaterial = await MaterialSetup.SetUpTestMaterialasync();
-
+        //material = await MaterialSetup.setUptestasync(Id);
+        material = await SearchEngine.GetDetailedMaterialByIdAsync(Int32.Parse(Id));
+        
+        var enumerable = await SearchEngine.GetRelatedMaterialsByTags(Int32.Parse(Id));
+        recommendedMaterial = new List<DetailsMaterialDTO>(enumerable);
     }
 }
