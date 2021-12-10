@@ -90,7 +90,7 @@ app.MapFallbackToFile("index.html");
 
 if (!app.Environment.IsEnvironment("Integration"))
 {
-    await app.SeedAsync();
+    app.SeedAsync();
 }
 
 app.Run();
