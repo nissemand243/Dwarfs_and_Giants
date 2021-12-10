@@ -2,9 +2,9 @@ namespace SE_training.Infrastructure;
 
 public class UserRepository : IUserRepository
 {
-    private readonly DatabaseContext _context;
+    private readonly IDatabaseContext _context;
 
-    public UserRepository(DatabaseContext context)
+    public UserRepository(IDatabaseContext context)
     {
         _context = context;
     }
@@ -56,6 +56,7 @@ public class UserRepository : IUserRepository
 
         return await users.FirstOrDefaultAsync();
     }
+
 
 
     public async Task<IReadOnlyCollection<UserDTO>> ReadAllAsync()
