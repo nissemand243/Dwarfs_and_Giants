@@ -27,21 +27,21 @@ public class MaterialRepositoryTests : IDisposable
         repo = new MaterialRepository(_context);
     }
 
-    [Fact]
+    /* [Fact]
     public async void CreateAsync_returns_matching_material()
     {
         
-    }
+    } */
     
     [Fact]
     public async void ReadAsync_given_id_not_existing_returns_empty()
     {
-        var material42 = await repo.ReadAsync(42);
+        var material42 = await repo.ReadAsync(2);
         
-        Assert.Null(material42);
+        Assert.Equal(default(MaterialDTO), material42);
     }
 
-    [Fact]
+    /* [Fact]
     public async void ReadAsync_given_id_returns_material()
     {
         
@@ -68,7 +68,7 @@ public class MaterialRepositoryTests : IDisposable
     public async void DeleteAsync_given_id_returns_Deleted()
     {
         
-    }
+    } */
 
     protected virtual void Dispose(bool disposing)
     {
