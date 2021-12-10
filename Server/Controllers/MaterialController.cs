@@ -1,6 +1,10 @@
 namespace SE_training.Server.Controllers
 
 {
+    [Authorize]
+    [ApiController]
+    [Route("api/[controller]")]
+    [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
     public class MaterialController : ControllerBase
     {
         private readonly MaterialRepository _repository;
