@@ -1,12 +1,11 @@
-
 namespace SE_training.Server.Controllers
 {
     public class CommentController : ControllerBase
     {
-        private readonly CommentRepository _repository;
+        private readonly ICommentRepository _repository;
         private readonly ILogger<CommentController> _logger;
 
-        public CommentController(ILogger<CommentController> logger, CommentRepository repository)
+        public CommentController(ILogger<CommentController> logger, ICommentRepository repository)
         {
             _logger = logger;
             _repository = repository;
@@ -21,10 +20,17 @@ namespace SE_training.Server.Controllers
         {
             return _repository.ReadAsync(materialId);
         }
-
-        public Task<(Status, CommentDTO)> CreateComment(CreateCommentDTO comment)
+       
+        public async Task<(Status status,CommentDTO comment)> CreateComment(CreateCommentDTO comment)
         {
-            return _repository.CreateAsync(comment);
+            var commentCreated = await _repository.CreateAsync(comment);
+            if(commentCreated.status == Status.Created)
+            {
+                return (Status.Created, commentCreated.comment);
+            }
+            return (Status.BadRequest, null);
+            
+           
         }
  
 

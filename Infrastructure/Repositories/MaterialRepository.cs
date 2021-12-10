@@ -24,7 +24,8 @@ public class MaterialRepository : IMaterialRepository
     {
         throw new NotImplementedException();
     }
-    public async Task<MaterialDTO> GetAsync(int MaterialId)
+
+    public async Task<MaterialDTO> ReadAsync(int MaterialId)
     {
         var materials = from m in _context.Materials
             where m.Id == MaterialId
@@ -32,7 +33,7 @@ public class MaterialRepository : IMaterialRepository
         return await materials.FirstOrDefaultAsync();
     }
 
-    public async Task<IReadOnlyCollection<MaterialDTO>> GetAsync()
+    public Task<IReadOnlyCollection<MaterialDTO>> ReadAllAsync()
     {
         throw new System.NotImplementedException();
     }

@@ -64,7 +64,7 @@ public class SearchEngine : ISEarchEngine
     {
         searchString = searchString.ToLower();
 
-        var materials = await _materialRepo.GetAsync();
+        var materials = await _materialRepo.ReadAllAsync();
 
         var matches = new List<DetailsMaterialDTO>();
         foreach (var material in materials)
@@ -108,7 +108,7 @@ public class SearchEngine : ISEarchEngine
             {
                 if (!matches.Any(material => material.Id == tag.MaterialId))
                 {
-                    var material = await _materialRepo.GetAsync(tag.MaterialId);
+                    var material = await _materialRepo.ReadAsync(tag.MaterialId);
                     matches.Add(await GetDetailedMaterialByIdAsync(material.Id));
                 }
             }
@@ -120,7 +120,7 @@ public class SearchEngine : ISEarchEngine
     {
         searchString = searchString.ToLower();
 
-        var materials = await _materialRepo.GetAsync();
+        var materials = await _materialRepo.ReadAllAsync();
 
         var matches = new List<DetailsMaterialDTO>();
         foreach (var material in materials)
@@ -136,7 +136,7 @@ public class SearchEngine : ISEarchEngine
 
     public async Task<DetailsMaterialDTO> GetDetailedMaterialByIdAsync(int materialId)
     {
-        var material = await _materialRepo.GetAsync(materialId);
+        var material = await _materialRepo.ReadAsync(materialId);
 
         var readTags = await _tagRepo.ReadAsync(material.Id);
         var readComments = await _commentRepo.ReadAsync(material.Id);
@@ -185,7 +185,7 @@ public class SearchEngine : ISEarchEngine
             {
                 if (matchingTag.MaterialId != materialId && !matches.Any(material => material.Id == matchingTag.MaterialId))
                 {
-                    var material = await _materialRepo.GetAsync(matchingTag.MaterialId);
+                    var material = await _materialRepo.ReadAsync(matchingTag.MaterialId);
                     matches.Add(await GetDetailedMaterialByIdAsync(material.Id));
                 }
             }
