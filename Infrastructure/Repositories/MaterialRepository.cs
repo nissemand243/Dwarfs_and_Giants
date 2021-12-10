@@ -15,12 +15,16 @@ public class MaterialRepository : IMaterialRepository
     }
 
 
-    public async Task<(Status, MaterialDTO)> CreateAsync(CreateMaterialDTO material)
+    public Task<(Status, MaterialDTO)> CreateMaterial(CreateMaterialDTO material)
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
 
-    public async Task<MaterialDTO> ReadAsync(int MaterialId)
+    public Task<Status> UpdateMaterial(int materialId, MaterialDTO material)
+    {
+        throw new NotImplementedException();
+    }
+    public async Task<MaterialDTO> GetAsync(int MaterialId)
     {
         var materials = from m in _context.Materials
             where m.Id == MaterialId
@@ -28,7 +32,7 @@ public class MaterialRepository : IMaterialRepository
         return await materials.FirstOrDefaultAsync();
     }
 
-    public async Task<IReadOnlyCollection<MaterialDTO>> ReadAsync()
+    public async Task<IReadOnlyCollection<MaterialDTO>> GetAsync()
     {
         throw new System.NotImplementedException();
     }
@@ -37,4 +41,7 @@ public class MaterialRepository : IMaterialRepository
     {
         throw new System.NotImplementedException();
     }
+
+    
+
 }
