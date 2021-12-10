@@ -1,4 +1,4 @@
-namespace SE_training.Infrastructure;
+namespace SE_training.Server;
 
 public class SearchEngine : ISEarchEngine
 {
@@ -7,7 +7,6 @@ public class SearchEngine : ISEarchEngine
     private readonly ITagRepository _tagRepo;
     private readonly ICommentRepository _commentRepo;
     private readonly IRatingRepository _ratingRepo;
-
 
     public SearchEngine(IUserRepository userRepo, IMaterialRepository materialRepo, ITagRepository tagRepo, ICommentRepository commentRepo, IRatingRepository ratingRepo)
     {
@@ -28,6 +27,15 @@ public class SearchEngine : ISEarchEngine
             if (!matches.Any(matchedMaterial => matchedMaterial.Id == nameMatch.Id))
             {
                 matches.Add(nameMatch);
+            }
+        }
+
+        var descriptionMatches = await SearchMaterialsByDescriptionAsync(searchString);
+        foreach (var descriptionMatch in descriptionMatches)
+        {
+            if (!matches.Any(matchedMaterial => matchedMaterial.Id == descriptionMatch.Id))
+            {
+                matches.Add(descriptionMatch);
             }
         }
 
@@ -62,6 +70,23 @@ public class SearchEngine : ISEarchEngine
         foreach (var material in materials)
         {
             if (material.Name != null && material.Name.ToLower().Contains(searchString))
+            {
+                matches.Add(await GetDetailedMaterialByIdAsync(material.Id));
+            }
+        }
+        return matches;
+    }
+
+    public async Task<ICollection<DetailsMaterialDTO>> SearchMaterialsByDescriptionAsync(string searchString)
+    {
+        searchString = searchString.ToLower();
+
+        var materials = await _materialRepo.GetAsync();
+
+        var matches = new List<DetailsMaterialDTO>();
+        foreach (var material in materials)
+        {
+            if (material.Description != null && material.Description.ToLower().Contains(searchString))
             {
                 matches.Add(await GetDetailedMaterialByIdAsync(material.Id));
             }
@@ -137,7 +162,7 @@ public class SearchEngine : ISEarchEngine
             adv += rating.Value;
             nRatings++;
         }
-        adv /= nRatings;
+        adv /= (nRatings == 0 ? 1 : nRatings);
 
         return new DetailsMaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType == null ? null : material.FileType.ToString(), material.FilePath, tags, comments, adv);
     }

@@ -2,6 +2,10 @@
 
 public enum FileType
 {
-    Link,
-    Pdf
+    link,
+    pdf,
+    jpg,
+    png,
+    gif,
+    mp4
 }
