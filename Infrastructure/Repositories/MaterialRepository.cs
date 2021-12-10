@@ -25,7 +25,7 @@ public class MaterialRepository : IMaterialRepository
         throw new NotImplementedException();
     }
 
-    public async Task<MaterialDTO> GetAsync(int MaterialId)
+    public async Task<MaterialDTO> ReadAsync(int MaterialId)
     {
         var materials = from m in _context.Materials
             where m.Id == MaterialId
