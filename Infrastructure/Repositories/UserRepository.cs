@@ -58,7 +58,7 @@ public class UserRepository : IUserRepository
     }
 
 
-    public async Task<IReadOnlyCollection<UserDTO>> GetAsync()
+    public async Task<IReadOnlyCollection<UserDTO>> ReadAllAsync()
     {
         var users = (await _context.Users
                             .Select(u => new UserDTO(u.Id, u.Name, u.Email, u.TypeOfToString()))

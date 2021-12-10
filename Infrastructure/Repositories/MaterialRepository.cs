@@ -52,12 +52,7 @@ public class MaterialRepository : IMaterialRepository
         throw new NotImplementedException();
     }
 
-    public Task<MaterialDTO> GetAsync(int MaterialId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<IReadOnlyCollection<MaterialDTO>> GetAsync()
+    public Task<IReadOnlyCollection<MaterialDTO>> ReadAllAsync()
     {
         throw new NotImplementedException();
     }
