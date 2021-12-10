@@ -15,7 +15,7 @@ public record DetailsMaterialDTO
     string? FileType,
 
     [Url]
-    string FilePath,
+    string? FilePath,
 
     ICollection<TagDTO> Tags,
 
