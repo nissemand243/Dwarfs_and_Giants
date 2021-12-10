@@ -81,7 +81,7 @@ public class SearchEngine : ISEarchEngine
     {
         searchString = searchString.ToLower();
 
-        var materials = await _materialRepo.GetAsync();
+        var materials = await _materialRepo.ReadAllAsync();
 
         var matches = new List<DetailsMaterialDTO>();
         foreach (var material in materials)
