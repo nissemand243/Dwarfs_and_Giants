@@ -45,9 +45,9 @@ public class RatingRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void ReadAsync_returns_all_tags()
+    public async void ReadAllAsync_returns_all_tags()
     {
-        var tags = await _repo.ReadAsync();
+        var tags = await _repo.ReadAllAsync();
 
         Assert.Collection(tags,
             tag => Assert.Equal(new RatingDTO(1, 11, 1, 5), tag),

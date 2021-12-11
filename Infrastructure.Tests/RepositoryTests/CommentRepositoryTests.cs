@@ -45,9 +45,9 @@ public class CommentRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void ReadAsync_returns_all_comments()
+    public async void ReadAllAsync_returns_all_comments()
     {
-        var comments = await _repo.ReadAsync();
+        var comments = await _repo.ReadAllAsync();
 
         Assert.Collection(comments,
             comment => Assert.Equal(new CommentDTO(1, 11, 1, "Nice work guys!"), comment),

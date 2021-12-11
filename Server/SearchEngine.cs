@@ -98,7 +98,7 @@ public class SearchEngine : ISEarchEngine
     {
         searchString = searchString.ToLower();
 
-        var tags = await _tagRepo.ReadAsync();
+        var tags = await _tagRepo.ReadAllAsync();
 
         var matches = new List<DetailsMaterialDTO>();
 
@@ -170,7 +170,7 @@ public class SearchEngine : ISEarchEngine
     public async Task<IList<DetailsMaterialDTO>> GetRelatedMaterialsByTagsAsync(int materialId)
     {
         var tagsOnMaterial = await _tagRepo.ReadAsync(materialId);
-        var readAllTags = await _tagRepo.ReadAsync();
+        var readAllTags = await _tagRepo.ReadAllAsync();
         var allTags = new List<TagDTO>();
         foreach (var tag in readAllTags)
         {
