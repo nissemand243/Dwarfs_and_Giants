@@ -27,7 +27,7 @@ public class TagRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void GetAsync_given_id_not_existing_returns_empty()
+    public async void ReadAsync_given_id_not_existing_returns_empty()
     {
         var tags33 = await _repo.ReadAsync(33);
 
@@ -35,7 +35,7 @@ public class TagRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void GetAsync_given_id_returns_tag()
+    public async void ReadAsync_given_id_returns_tag()
     {
         var tags11 = await _repo.ReadAsync(11);
 
@@ -45,7 +45,7 @@ public class TagRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void GetAsync_returns_all_tags()
+    public async void ReadAsync_returns_all_tags()
     {
         var tags = await _repo.ReadAsync();
 
@@ -57,7 +57,7 @@ public class TagRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void PutAsync_given_new_entity_returns_created()
+    public async void CreateAsync_given_new_entity_returns_created()
     {
         var result = await _repo.CreateAsync(new CreateTagDTO(33, "UML"));
 

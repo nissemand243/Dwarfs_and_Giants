@@ -27,7 +27,7 @@ public class CommentRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void GetAsync_given_id_not_existing_returns_empty()
+    public async void ReadAsync_given_id_not_existing_returns_empty()
     {
         var comments33 = await _repo.ReadAsync(33);
 
@@ -35,7 +35,7 @@ public class CommentRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void GetAsync_given_id_returns_comment()
+    public async void ReadAsync_given_id_returns_comment()
     {
         var comments11 = await _repo.ReadAsync(11);
 
@@ -45,7 +45,7 @@ public class CommentRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void GetAsync_returns_all_comments()
+    public async void ReadAsync_returns_all_comments()
     {
         var comments = await _repo.ReadAsync();
 
@@ -57,7 +57,7 @@ public class CommentRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void PutAsync_given_new_entity_returns_created()
+    public async void CreateAsync_given_new_entity_returns_created()
     {
         var result = await _repo.CreateAsync(new CreateCommentDTO(33, 2, "Awesome"));
 

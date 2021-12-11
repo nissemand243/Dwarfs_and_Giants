@@ -27,7 +27,7 @@ public class RatingRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void GetAsync_given_id_not_existing_returns_empty()
+    public async void ReadAsync_given_id_not_existing_returns_empty()
     {
         var ratings33 = await _repo.ReadAsync(33);
 
@@ -35,7 +35,7 @@ public class RatingRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void GetAsync_given_id_returns_tag()
+    public async void ReadAsync_given_id_returns_tag()
     {
         var ratings11 = await _repo.ReadAsync(11);
 
@@ -45,7 +45,7 @@ public class RatingRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void GetAsync_returns_all_tags()
+    public async void ReadAsync_returns_all_tags()
     {
         var tags = await _repo.ReadAsync();
 
@@ -57,7 +57,7 @@ public class RatingRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void PutAsync_given_new_entity_returns_created()
+    public async void CreateAsync_given_new_entity_returns_created()
     {
         var result = await _repo.CreateAsync(new CreateRatingDTO(22, 3, 5));
 
@@ -66,7 +66,7 @@ public class RatingRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void PostAsync_given_entity_with_id_not_existing_returns_NotFound()
+    public async void UpdateAsync_given_entity_with_id_not_existing_returns_NotFound()
     {
         var status = await _repo.UpdateAsync(new RatingDTO(4, 22, 3, 5));
 
@@ -74,7 +74,7 @@ public class RatingRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void PostAsync_given_entity_returns_Updated()
+    public async void UpdateAsync_given_entity_returns_Updated()
     {
         var status = await _repo.UpdateAsync(new RatingDTO(1, 11, 1, 1));
         var ratings11 = await _repo.ReadAsync(11);

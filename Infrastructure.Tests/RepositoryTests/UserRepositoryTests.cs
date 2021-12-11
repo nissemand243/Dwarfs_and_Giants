@@ -27,7 +27,7 @@ public class UserRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void GetAsync_given_id_not_existing_returns_null()
+    public async void ReadAsync_given_id_not_existing_returns_null()
     {
         var user4 = await _repo.ReadAsync(4);
 
@@ -35,7 +35,7 @@ public class UserRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void GetAsync_given_id_returns_user()
+    public async void ReadAsync_given_id_returns_user()
     {
         var user1 = await _repo.ReadAsync(1);
 
@@ -43,7 +43,7 @@ public class UserRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void GetAsync_given_name_not_existing_returns_null()
+    public async void ReadAsync_given_name_not_existing_returns_null()
     {
         var user4 = await _repo.ReadAsync("Paolo Tell");
 
@@ -51,7 +51,7 @@ public class UserRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void GetAsync_given_name_returns_user()
+    public async void ReadAsync_given_name_returns_user()
     {
         var user1 = await _repo.ReadAsync("Iben Carb Wiener");
 
@@ -59,7 +59,7 @@ public class UserRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void GetAllAsync_returns_all_users()
+    public async void ReadAllAsync_returns_all_users()
     {
         var users = await _repo.ReadAllAsync();
 
@@ -71,7 +71,7 @@ public class UserRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void PutAsync_given_new_entity_returns_created()
+    public async void CreateAsync_given_new_entity_returns_created()
     {
         var result = await _repo.CreateAsync(new CreateUserDTO("Paolo Tell", "pote@itu.dk", "Teacher"));
 
