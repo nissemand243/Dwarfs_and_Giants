@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -33,14 +35,24 @@ public class MaterialRepository : IMaterialRepository
         return await materials.FirstOrDefaultAsync();
     }
 
-    public Task<IReadOnlyCollection<MaterialDTO>> ReadAllAsync()
+    public async Task<IReadOnlyCollection<MaterialDTO>> ReadAllAsync()
     {
-        throw new System.NotImplementedException();
+        var materials = from m in _context.Materials
+            select new MaterialDTO(m.Id, m.AuthorId, m.Name, m.Description, m.FileType.ToString(), m.FilePath);
+        var materialsList = await materials.ToListAsync().ConfigureAwait(false);
+        return materialsList.AsReadOnly();
     }
 
     public async Task<Status> DeleteAsync(int MaterialId)
     {
-        throw new System.NotImplementedException();
+        Material material = _context.Materials.Find(MaterialId);
+        if(material is null) return Status.NotFound;
+        
+        _context.Materials.Remove(material);
+
+        _context.SaveChanges();
+
+        return Status.Deleted;
     }
 
     
