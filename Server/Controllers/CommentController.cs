@@ -15,23 +15,33 @@ namespace SE_training.Server.Controllers
             _logger = logger;
             _repository = repository;
         }
+        
         [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public Task<Status> DeleteComment(int commentId)
         {
             return _repository.DeleteAsync(commentId);
         }
-        [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
+
+        [Authorize(Roles = $"{Roles.Teacher},{Roles.Administrator}")]
         public Task<IReadOnlyCollection<CommentDTO>> ReadAllComments(int materialId)
         {
             return _repository.ReadAsync(materialId);
         }
+
         [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public Task<(Status, CommentDTO)> CreateComment(CreateCommentDTO comment)
         {
             return _repository.CreateAsync(comment);
         }
-        [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
 
+        [Authorize(Roles = $"{Roles.Teacher},{Roles.Administrator}")]
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<Status> DeleteAllComments(int materialId)
         {
             var status = Status.NotFound;
