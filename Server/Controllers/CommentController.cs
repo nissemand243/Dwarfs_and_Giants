@@ -15,22 +15,22 @@ namespace SE_training.Server.Controllers
             _logger = logger;
             _repository = repository;
         }
-
+        [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
         public Task<Status> DeleteComment(int commentId)
         {
             return _repository.DeleteAsync(commentId);
         }
-
+        [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
         public Task<IReadOnlyCollection<CommentDTO>> ReadAllComments(int materialId)
         {
             return _repository.ReadAsync(materialId);
         }
-
+        [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
         public Task<(Status, CommentDTO)> CreateComment(CreateCommentDTO comment)
         {
             return _repository.CreateAsync(comment);
         }
- 
+        [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
 
         public async Task<Status> DeleteAllComments(int materialId)
         {
