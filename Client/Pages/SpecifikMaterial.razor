@@ -1,5 +1,5 @@
 ﻿@page "/specifikMaterial/{id}"
-
+@attribute [Authorize]
 
 <PageTitle>SpecifikMaterial </PageTitle>
 
@@ -66,9 +66,25 @@ else
                 }
             </tbody>
         </table> 
-    @* @foreach (var comment in comments)
-    {
-    }  *@
+        <h1>CommentSection</h1>
+          <table class="table">
+            <thead>
+                <tr>
+                    <th>Write a Comment</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td>Write a Comment</td>
+                        <td/>
+    
+                        <td><button class="btn btn-info">View</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table> 
+    <CommentSection MaterialID=@material.Id/>
 }
 
 @code {
