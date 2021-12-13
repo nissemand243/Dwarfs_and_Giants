@@ -1,0 +1,67 @@
+@page "/CommenSection"
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize]
+
+@if (CommentList == null)
+{
+    <p><em>Loading Comments...</em></p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>User Id's</th>
+                <th>Comments</th>
+                @if(Teacher){
+                <th>Action</th>
+                }
+               
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var comment in CommentList)
+            {
+                <tr>
+                    <td>@comment.UserId</td>
+                    <td>@comment.Text</td>  
+                    @if(Teacher){
+                        <td>
+                            <a class="btn btn-danger" @onclick="@(() => DeleteComment(comment.UserId))"> Delete</a>
+                        </td>
+                    }
+                   
+             
+                 
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code{
+
+
+    [Parameter]
+    public int MaterialID { get; set; }
+
+    private List<CommentDTO> CommentList {get; set;}
+    private bool Teacher;
+
+     protected override async Task OnInitializedAsync()
+    {
+       CommentList = await MaterialSetup.GetCommentTestMaterial();
+       Teacher = await MaterialSetup.GetTeacher();
+    }
+
+
+    private void DeleteComment(int UserId){
+
+        //Delete not yet implemented
+
+
+    }
+}
+
+  
