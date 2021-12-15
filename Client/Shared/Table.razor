@@ -1,8 +1,8 @@
 @page "/table"
 @using Infrastructure
 @inject NavigationManager NavigationManager
+@attribute [Authorize]
 @inject ISEarchEngine SearchEngine
-
 @if (materialList == null)
 {
     <h2>Searching for @SearchString</h2>

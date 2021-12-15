@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
+using SE_training.Server;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,7 @@ builder.Configuration.AddKeyPerFile("/run/secrets", optional: true);
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));*/
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+
     .AddMicrosoftIdentityWebApi(options =>
     {
         builder.Configuration.Bind("AzureAd", options);
@@ -36,6 +38,7 @@ builder.Services.Configure<JwtBearerOptions>(
     });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+
     .AddMicrosoftIdentityWebApi(options =>
     {
         builder.Configuration.Bind("AzureAd", options);
@@ -101,6 +104,12 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
+
+if (!app.Environment.IsEnvironment("Integration"))
+{
+    app.SeedAsync();
+}
+
 
 app.Run();
 

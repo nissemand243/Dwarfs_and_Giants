@@ -61,7 +61,9 @@ public class UserRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_returns_all_users()
     {
-        var users = await _repo.ReadAsync();
+
+        var users = await repo.ReadAllAsync();
+
 
         Assert.Collection(users,
             user => Assert.Equal(new UserDTO(1, "Mads Cornelius", "maco@itu.dk", "Student"), user),

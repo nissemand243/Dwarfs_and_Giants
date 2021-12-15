@@ -4,7 +4,7 @@ public interface IMaterialRepository
 {
     Task<(Status, MaterialDTO)> CreateMaterial(CreateMaterialDTO material);
     Task<Status> UpdateMaterial(int materialId, MaterialDTO material);
-    Task<MaterialDTO> GetAsync(int MaterialId);
-    Task<IReadOnlyCollection<MaterialDTO>> GetAsync();
+    Task<MaterialDTO> ReadAsync(int MaterialId);
+    Task<IReadOnlyCollection<MaterialDTO>> ReadAllAsync();
     Task<Status> DeleteAsync(int MaterialId);
 }

@@ -1,11 +1,12 @@
 ﻿@page "/specifikMaterial/{id}"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
 @inject ISEarchEngine SearchEngine
 
 <PageTitle>SpecifikMaterial </PageTitle>
 
-
 <h1> The chosen materials id is @Id </h1>
-
+<hr>
 
 @if (material == null)
 {
@@ -21,7 +22,6 @@ else
          @foreach (var tag in material.Tags)
         {
             <li>@tag.TagName</li>
-
         }  
 
     </ul>
@@ -32,7 +32,7 @@ else
     <h1>PDF Example with iframe</h1>
         <iframe src=@material.FilePath width="80%" height="1000px">
         </iframe>
-
+<hr>
    <h1>Recommended Material</h1>
     <table class="table">
             <thead>
@@ -66,10 +66,27 @@ else
                 }
             </tbody>
         </table> 
-    @* @foreach (var comment in comments)
-    {
-    }  *@
+        <hr>
+        <h1>CommentSection</h1>
+
+          <table class="table">
+            <thead>
+                <tr>
+                    <th>Write a Comment</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td> <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea></td>
+                        <td><button class="btn btn-info">Comment</button></td>
+                    </tr>
+                
+            </tbody>
+        </table> 
+    <CommentSection MaterialID=@material.Id/>
 }
+
 
 @code {
 
