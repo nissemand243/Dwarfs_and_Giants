@@ -31,13 +31,36 @@ public class MaterialRepositoryTests : IDisposable
      [Fact]
     public async void CreateAsync_returns_matching_material()
     {
-        throw new NotImplementedException();
+        var material = await repo.CreateMaterialAsync(new CreateMaterialDTO(2, "Testing", "Testing for dummies.", FileType.Pdf.ToString(),
+            "MaterialsData/test.pdf"));
+
+        var expected = new MaterialDTO(4,2, "Testing", "Testing for dummies.", FileType.Pdf.ToString(),
+            "MaterialsData/test.pdf");
+        Assert.Equal(expected ,material.Item2);
     } 
     
     [Fact]
     public async void CreateAsync_given_new_entity_returns_created()
     {
-        throw new NotImplementedException();
+        var material = await repo.CreateMaterialAsync(new MaterialDTO(42, 2, "Testing", "Testing for dummies.", FileType.Pdf.ToString(),
+            "MaterialsData/test.pdf"));
+        Assert.Equal(Status.Created,material.Item1);
+    }
+
+    [Fact] public async void UpdateMaterialAsync_given_id_and_DTO_returns_updated()
+    {
+        var actual = await repo.UpdateMaterialAsync(2, new CreateMaterialDTO(2, "Testing", "Testing for dummies.", FileType.Pdf.ToString(),
+            "MaterialsData/test.pdf"));
+        
+        Assert.Equal(Updated, actual);
+    }
+    
+    [Fact] public async void UpdateMaterialAsync_given_non_existing_id_returns_NotFound()
+    {
+        var actual = await repo.UpdateMaterialAsync(42, new CreateMaterialDTO(2, "Testing", "Testing for dummies.", FileType.Pdf.ToString(),
+            "MaterialsData/test.pdf"));
+        
+        Assert.Equal(NotFound, actual);
     }
     
     [Fact]
