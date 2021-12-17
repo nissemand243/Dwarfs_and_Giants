@@ -1,4 +1,6 @@
 ﻿@page "/"
+@using System.Net.Http.Json
+@using System.Text.Json.Serialization
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
@@ -36,7 +38,7 @@ else
 
 private async Task TestMethodasync()
     {
-      returTest = await Http.GetFromJsonAsync<TagDTO>($"api/Test/{testtag}");  
+      var returTest = await Http.GetFromJsonAsync<string>($"api/Test/{testtag}");  
         
     }
 

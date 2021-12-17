@@ -64,11 +64,13 @@ public class APIControllerBase : ControllerBase
 
 //***********************************THIS ONE
     [AllowAnonymous]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [HttpGet("{Test}")]
-   public async Task<ActionResult> GetTest(TagDTO Test)
+   public async Task<ActionResult<TagDTO>> GetTest(TagDTO Test)
     {
         var ting =  new TagDTO(2,3,Test.TagName);
-        return Ok();
+        return Ok("Sut");
     }
 
 
