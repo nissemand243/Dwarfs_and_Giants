@@ -62,7 +62,7 @@ public class UserRepositoryTests : IDisposable
     public async void GetAsync_returns_all_users()
     {
 
-        var users = await repo.ReadAllAsync();
+        var users = await _repo.ReadAllAsync();
 
 
         Assert.Collection(users,
