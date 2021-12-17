@@ -60,6 +60,9 @@ public class APIControllerBase : ControllerBase
 
 
 
+
+
+//***********************************THIS ONE
     [AllowAnonymous]
     [HttpGet("{Test}")]
    public async Task<ActionResult> GetTest(TagDTO Test)
