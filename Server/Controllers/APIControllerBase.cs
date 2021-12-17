@@ -5,7 +5,8 @@ namespace SE_training.Server.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
-public class APIControllerBase : IAPIControllerBase
+
+public class APIControllerBase : ControllerBase 
 {
     internal readonly CommentController _commentController;
     internal readonly RatingController _ratingController;
@@ -22,36 +23,59 @@ public class APIControllerBase : IAPIControllerBase
     }
     [AllowAnonymous]
     [HttpGet("{id}")]
-    public async Task<(Status, DetailsMaterialDTO?)> Get(int id)
-    {
-        var material = await _materialController.ReadMaterial(id);
-        if(material == null)
-        {
-            return (NotFound, null);
-        }
+    // public async Task<(Status, DetailsMaterialDTO?)> Get(int id)
+    // {
+    //     var material = await _materialController.ReadMaterial(id);
+    //     if(material == null)
+    //     {
+    //         return (NotFound, null);
+    //     }
 
-        var commentsDTOs = await _commentController.ReadAllComments(id);
-        var computedRating = await _ratingController.ComputeRating(id);
-        // var tags = await _tagController.ReadAllTags(id); 
-        var tags = new List<TagDTO>(); // remove
+    //     var commentsDTOs = await _commentController.ReadAllComments(id);
+    //     var computedRating = await _ratingController.ComputeRating(id);
+    //     // var tags = await _tagController.ReadAllTags(id); 
+    //     var tags = new List<TagDTO>(); // remove
         
         
-        var materialDTO = new DetailsMaterialDTO(
-            material.Id,
-            material.AuthorId,
-            material.Name,
-            material.Description,
-            material.FileType,
-            material.FilePath,     
-            tags, // tags
-            commentsDTOs.ToList(),
-            computedRating.rating
-        );
-        return (Created, materialDTO);
-    }
+    //     var materialDTO = new DetailsMaterialDTO(
+    //         material.Id,
+    //         material.AuthorId,
+    //         material.Name,
+    //         material.Description,
+    //         material.FileType,
+    //         material.FilePath,     
+    //         tags, // tags
+    //         commentsDTOs.ToList(),
+    //         computedRating.rating
+    //     );
+    //     return (Created, materialDTO);
+    // }
+
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(List<DetailsMaterialDTO>), StatusCodes.Status200OK)]
+    [HttpGet("{SearchString}")]
+    public async Task<ActionResult<List<DetailsMaterialDTO>>> GetSearchMaterial(string searchString)
+        => throw new NotImplementedException();
+
+
 
     [AllowAnonymous]
-    [HttpPatch("{MaterialId}")]
+    [HttpGet("{Test}")]
+   public async Task<ActionResult> GetTest(TagDTO Test)
+    {
+        var ting =  new TagDTO(2,3,Test.TagName);
+        return Ok();
+    }
+
+
+
+
+    
+    [AllowAnonymous]
+    [HttpPatch("{MaterialID}")]
+
+
     public Task<Status> PatchComment(int MaterialId, CommentDTO comment)
     {
         throw new NotImplementedException();
