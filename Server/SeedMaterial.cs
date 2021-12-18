@@ -1,5 +1,7 @@
 namespace SE_training.Server;
 
+using SE_training.Core;
+
 public static class SeedMaterial
     {
     
@@ -8,8 +10,7 @@ public static class SeedMaterial
             using (var scope = host.Services.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
-        
-
+                
                 await SeedMaterialAsync(context);
             }
             return host;
@@ -51,24 +52,24 @@ public static class SeedMaterial
             var path = "MaterialsData/";
 
             context.Materials.AddRange(
-                    new Material{AuthorId = 1,Name = "Lecture03 Lambdas",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture03.pdf"},
-                    new Material{AuthorId = 1,Name = "Lecture04 Data Access",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture04.pdf"},
-                    new Material{AuthorId = 1,Name = "Lecture05 Dependency Injection",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture05.pdf"},   
-                    new Material{AuthorId = 1,Name = "Lecture06 Asynchronous",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture06.pdf"},  
-                    new Material{AuthorId = 1,Name = "Lecture07 JSON and Rest",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture07.pdf"},   
-                    new Material{AuthorId = 1,Name = "Lecture08 ASP.NET Core Web API",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture08.pdf"},
-                    new Material{AuthorId = 1,Name = "Lecture09 Web Applications",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture09.pdf"},
-                    new Material{AuthorId = 1,Name = "Lecture10 Mobile Applications",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture10.pdf"},      
-                    new Material{AuthorId = 1,Name = "Lecture11 Security",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture11.pdf"},    
-                    new Material{AuthorId = 2,Name = "BDSA01 Software Enginere",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"BDSA21_01.pdf"}, 
-                    new Material{AuthorId = 2,Name = "BDSA02 Requirements Engineering",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"BDSA21_02.pdf"}, 
-                    new Material{AuthorId = 2,Name = "BDSA03 UML Diagrams",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"BDSA21_03.pdf"},        
-                    new Material{AuthorId = 2,Name = "BDSA05 SOLID Principles",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"BDSA21_05.pdf"},   
-                    new Material{AuthorId = 2,Name = "BDSA07 Architectural and Object Oriented Design Part 1",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"BDSA21_07_P1.pdf"},  
-                    new Material{AuthorId = 2,Name = "BDSA07 Architectural and Object Oriented Design Part 2",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"BDSA21_07_P2.pdf"},     
-                    new Material{AuthorId = 2,Name = "BDSA07 Architectural and Object Oriented Design Part 3",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"BDSA21_07_P3.pdf"},      
-                    new Material{AuthorId = 2,Name = "TEST DOKUMENT",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Test.pdf"},    
-                    new Material{AuthorId = 1,Name = "The Gilded Rose Assignment",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"The_Gilded_Rose.pdf"});
+                    new Material{AuthorId = 1,Name = "Lecture03 Lambdas",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture03.pdf"},
+                    new Material{AuthorId = 1,Name = "Lecture04 Data Access",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture04.pdf"},
+                    new Material{AuthorId = 1,Name = "Lecture05 Dependency Injection",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture05.pdf"},   
+                    new Material{AuthorId = 1,Name = "Lecture06 Asynchronous",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture06.pdf"},  
+                    new Material{AuthorId = 1,Name = "Lecture07 JSON and Rest",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture07.pdf"},   
+                    new Material{AuthorId = 1,Name = "Lecture08 ASP.NET Core Web API",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture08.pdf"},
+                    new Material{AuthorId = 1,Name = "Lecture09 Web Applications",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture09.pdf"},
+                    new Material{AuthorId = 1,Name = "Lecture10 Mobile Applications",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture10.pdf"},      
+                    new Material{AuthorId = 1,Name = "Lecture11 Security",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture11.pdf"},    
+                    new Material{AuthorId = 2,Name = "BDSA01 Software Enginere",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"BDSA21_01.pdf"}, 
+                    new Material{AuthorId = 2,Name = "BDSA02 Requirements Engineering",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"BDSA21_02.pdf"}, 
+                    new Material{AuthorId = 2,Name = "BDSA03 UML Diagrams",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"BDSA21_03.pdf"},        
+                    new Material{AuthorId = 2,Name = "BDSA05 SOLID Principles",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"BDSA21_05.pdf"},   
+                    new Material{AuthorId = 2,Name = "BDSA07 Architectural and Object Oriented Design Part 1",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"BDSA21_07_P1.pdf"},  
+                    new Material{AuthorId = 2,Name = "BDSA07 Architectural and Object Oriented Design Part 2",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"BDSA21_07_P2.pdf"},     
+                    new Material{AuthorId = 2,Name = "BDSA07 Architectural and Object Oriented Design Part 3",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"BDSA21_07_P3.pdf"},      
+                    new Material{AuthorId = 2,Name = "TEST DOKUMENT",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Test.pdf"},    
+                    new Material{AuthorId = 1,Name = "The Gilded Rose Assignment",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"The_Gilded_Rose.pdf"});
 
             context.Tags.AddRange(
             PutTogether(

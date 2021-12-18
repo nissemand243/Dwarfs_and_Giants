@@ -42,7 +42,21 @@ namespace SE_training.Server.Controllers
             
            
         }
+ 
 
+        [Authorize]
+        [HttpGet("Comments/{MaterialID}")]
+        public async Task<ActionResult<List<CommentDTO>>> GetMaterialComments(int MaterialID)
+        {  
+            throw new NotImplementedException();
+            // var List = await // Material database call
+            // return Ok(List);
+        }
+
+  
+
+
+   
         [Authorize(Roles = $"{Roles.Teacher},{Roles.Administrator}")]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

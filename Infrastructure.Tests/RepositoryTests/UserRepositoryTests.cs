@@ -4,9 +4,9 @@ namespace Infrastructure.Tests;
 
 public class UserRepositoryTests : IDisposable
 {
-    private readonly IDatabaseContext context;
-    private readonly UserRepository repo;
-    private bool disposed;
+    private readonly IDatabaseContext _context;
+    private readonly UserRepository _repo;
+    private bool _disposed;
 
     public UserRepositoryTests()
     {
@@ -14,22 +14,22 @@ public class UserRepositoryTests : IDisposable
         connection.Open();
         var builder = new DbContextOptionsBuilder<DatabaseContext>();
         builder.UseSqlite(connection);
-        var _context = new DatabaseContext(builder.Options);
-        _context.Database.EnsureCreated();
-        _context.Users.AddRange(
+        var context = new DatabaseContext(builder.Options);
+        context.Database.EnsureCreated();
+        context.Users.AddRange(
             new Student() { Id = 1, Name = "Mads Cornelius", Email = "maco@itu.dk" },
             new Student() { Id = 2, Name = "Iben Carb Wiener", Email = "icwiener@gmail.com" },
             new Teacher() { Id = 3, Name = "OndFisk", Email = "evilFish@microsoft.com" });
-        _context.SaveChanges();
+        context.SaveChanges();
 
-        context = _context;
-        repo = new UserRepository(_context);
+        _context = context;
+        _repo = new UserRepository(context);
     }
 
     [Fact]
     public async void GetAsync_given_id_not_existing_returns_null()
     {
-        var user4 = await repo.ReadAsync(4);
+        var user4 = await _repo.ReadAsync(4);
 
         Assert.Null(user4);
     }
@@ -37,7 +37,7 @@ public class UserRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_given_id_returns_user()
     {
-        var user1 = await repo.ReadAsync(1);
+        var user1 = await _repo.ReadAsync(1);
 
         Assert.Equal(new UserDTO(1, "Mads Cornelius", "maco@itu.dk", "Student"), user1);
     }
@@ -45,7 +45,7 @@ public class UserRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_given_name_not_existing_returns_null()
     {
-        var user4 = await repo.ReadAsync("Paolo Tell");
+        var user4 = await _repo.ReadAsync("Paolo Tell");
 
         Assert.Null(user4);
     }
@@ -53,7 +53,7 @@ public class UserRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_given_name_returns_user()
     {
-        var user1 = await repo.ReadAsync("Iben Carb Wiener");
+        var user1 = await _repo.ReadAsync("Iben Carb Wiener");
 
         Assert.Equal(new UserDTO(2, "Iben Carb Wiener", "icwiener@gmail.com", "Student"), user1);
     }
@@ -61,7 +61,9 @@ public class UserRepositoryTests : IDisposable
     [Fact]
     public async void GetAsync_returns_all_users()
     {
-        var users = await repo.ReadAllAsync();
+
+        var users = await _repo.ReadAllAsync();
+
 
         Assert.Collection(users,
             user => Assert.Equal(new UserDTO(1, "Mads Cornelius", "maco@itu.dk", "Student"), user),
@@ -73,7 +75,7 @@ public class UserRepositoryTests : IDisposable
     [Fact]
     public async void PutAsync_given_new_entity_returns_created()
     {
-        var result = await repo.CreateAsync(new CreateUserDTO("Paolo Tell", "pote@itu.dk", "Teacher"));
+        var result = await _repo.CreateAsync(new CreateUserDTO("Paolo Tell", "pote@itu.dk", "Teacher"));
 
         Assert.Equal(Created, result.status);
         Assert.Equal(new UserDTO(4, "Paolo Tell", "pote@itu.dk", "Teacher"), result.user);
@@ -82,7 +84,7 @@ public class UserRepositoryTests : IDisposable
     [Fact]
     public async void DeleteAsync_given_id_not_existing_returns_NotFound()
     {
-        var status = await repo.DeleteAsync(4);
+        var status = await _repo.DeleteAsync(4);
 
         Assert.Equal(NotFound, status);
     }
@@ -90,8 +92,8 @@ public class UserRepositoryTests : IDisposable
     [Fact]
     public async void DeleteAsync_given_id_returns_Deleted()
     {
-        var status = await repo.DeleteAsync(1);
-        var user1 = await repo.ReadAsync(1);
+        var status = await _repo.DeleteAsync(1);
+        var user1 = await _repo.ReadAsync(1);
 
         Assert.Equal(Deleted, status);
         Assert.Null(user1);
@@ -99,14 +101,14 @@ public class UserRepositoryTests : IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
-        if (!disposed)
+        if (!_disposed)
         {
             if (disposing)
             {
-                context.Dispose();
+                _context.Dispose();
             }
 
-            disposed = true;
+            _disposed = true;
         }
     }
 

@@ -18,8 +18,11 @@
     <PackageReference Include="Moq" Version="4.16.1"/>
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0"/>
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj"/>
-    <ProjectReference Include="..\Server\SE_training.Server.csproj"/>
+    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Server\SE_training.Server.csproj" />
   </ItemGroup>
+
 </Project>

@@ -1,7 +1,8 @@
 @page "/CommenSection"
-@inject NavigationManager NavigationManager
-@inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize]
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
 
 @if (CommentList == null)
 {
@@ -51,7 +52,11 @@ else
 
      protected override async Task OnInitializedAsync()
     {
-       CommentList = await MaterialSetup.GetCommentTestMaterial();
+        CommentList = await Http.GetFromJsonAsync<List<CommentDTO>>($"api/Comment/Comments/{MaterialID}");  
+
+            // Test Visual Comments
+        // CommentList = await MaterialSetup.GetCommentTestMaterial();
+
        Teacher = await MaterialSetup.GetTeacher();
     }
 

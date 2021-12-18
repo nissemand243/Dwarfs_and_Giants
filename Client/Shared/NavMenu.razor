@@ -47,7 +47,7 @@
     {
         if (e.Code == "Enter" || e.Code == "NumpadEnter")
         {
-             NavigationManager.NavigateTo("searchMaterial/"+SearchContent);
+             Search();
         }
     }
     private void ToggleNavMenu()
@@ -57,7 +57,16 @@
     private string SearchContent;
     private void Search()
     {
-      NavigationManager.NavigateTo("searchMaterial/"+SearchContent);
+         if (SearchContent != null)
+        {
+               if (SearchContent.Length != 0)
+        {
+            NavigationManager.NavigateTo("searchMaterial/"+SearchContent);
+
+        }
+
+        }
+     
     }
 
 }
