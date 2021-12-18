@@ -77,7 +77,6 @@ if (!app.Environment.IsEnvironment("Integration"))
     app.SeedAsync();
 }
 
-
 app.Run();
 
 

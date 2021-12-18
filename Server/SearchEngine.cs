@@ -8,6 +8,8 @@ public class SearchEngine : ISEarchEngine
     private readonly ICommentRepository _commentRepo;
     private readonly IRatingRepository _ratingRepo;
 
+    public static SearchEngine INSTANCE { get; set; }
+
     public SearchEngine(IUserRepository userRepo, IMaterialRepository materialRepo, ITagRepository tagRepo, ICommentRepository commentRepo, IRatingRepository ratingRepo)
     {
         _userRepo = userRepo;
@@ -17,7 +19,7 @@ public class SearchEngine : ISEarchEngine
         _ratingRepo = ratingRepo;
     }
 
-    public async Task<IList<DetailsMaterialDTO>> SearchAsync(string searchString)
+    public async Task<List<DetailsMaterialDTO>> SearchAsync(string searchString)
     {
         var matches = new List<DetailsMaterialDTO>();
 
@@ -60,7 +62,7 @@ public class SearchEngine : ISEarchEngine
         return matches;
     }
 
-    public async Task<IList<DetailsMaterialDTO>> SearchByNameAsync(string searchString)
+    public async Task<List<DetailsMaterialDTO>> SearchByNameAsync(string searchString)
     {
         searchString = searchString.ToLower();
 
@@ -77,7 +79,7 @@ public class SearchEngine : ISEarchEngine
         return matches;
     }
 
-    public async Task<IList<DetailsMaterialDTO>> SearchByDescriptionAsync(string searchString)
+    public async Task<List<DetailsMaterialDTO>> SearchByDescriptionAsync(string searchString)
     {
         searchString = searchString.ToLower();
 
@@ -94,7 +96,7 @@ public class SearchEngine : ISEarchEngine
         return matches;
     }
 
-    public async Task<IList<DetailsMaterialDTO>> SearchByTagsAsync(string searchString)
+    public async Task<List<DetailsMaterialDTO>> SearchByTagsAsync(string searchString)
     {
         searchString = searchString.ToLower();
 
@@ -115,7 +117,7 @@ public class SearchEngine : ISEarchEngine
         return matches;
     }
 
-    public async Task<IList<DetailsMaterialDTO>> SearchByAuthorAsync(string searchString)
+    public async Task<List<DetailsMaterialDTO>> SearchByAuthorAsync(string searchString)
     {
         searchString = searchString.ToLower();
 
@@ -171,7 +173,7 @@ public class SearchEngine : ISEarchEngine
         return new DetailsMaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType == null ? null : material.FileType.ToString(), material.FilePath, tags, comments, adv);
     }
 
-    public async Task<IList<DetailsMaterialDTO>> GetRelatedMaterialsByTagsAsync(int materialId)
+    public async Task<List<DetailsMaterialDTO>> GetRelatedMaterialsByTagsAsync(int materialId)
     {
         var tagsOnMaterial = await _tagRepo.ReadAsync(materialId);
         var readAllTags = await _tagRepo.ReadAllAsync();

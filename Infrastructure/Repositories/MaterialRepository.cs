@@ -2,7 +2,8 @@ namespace SE_training.Infrastructure;
 
 public class MaterialRepository : IMaterialRepository
 {
-    private readonly IDatabaseContext _context;
+    //private readonly IDatabaseContext _context;
+    public IDatabaseContext _context {init; get;}
 
     public MaterialRepository(IDatabaseContext context)
     {
@@ -60,7 +61,7 @@ public class MaterialRepository : IMaterialRepository
     {
         var materials = from m in _context.Materials
             select new MaterialDTO(m.Id, m.AuthorId, m.Name, m.Description, m.FileType.ToString(), m.FilePath);
-        var materialsList = await materials.ToListAsync().ConfigureAwait(false);
+        var materialsList = await materials.ToListAsync();
         return materialsList.AsReadOnly();
     }
 
