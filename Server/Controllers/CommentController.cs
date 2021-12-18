@@ -43,6 +43,47 @@ namespace SE_training.Server.Controllers
            
         }
 
+//****************************** Down Here ************************************************************
+    [Authorize]
+    [HttpGet("{SearchString}")]
+    public async Task<ActionResult<List<DetailsMaterialDTO>>> GetSearchMaterial(string SearchString)
+    {  
+        throw new NotImplementedException();
+        // var List = await // Material database call
+        // return Ok(List);
+    }
+
+    [Authorize]
+    [HttpGet("Specifik/{MaterialID}")]
+    public async Task<ActionResult<DetailsMaterialDTO>> GetSpecifikMaterial(int MaterialID)
+    {  
+        throw new NotImplementedException();
+        // var List = await // Material database call
+        // return Ok(List);
+    }
+
+    [Authorize]
+    [HttpGet("Comments/{MaterialID}")]
+    public async Task<ActionResult<List<CommentDTO>>> GetMaterialComments(int MaterialID)
+    {  
+        throw new NotImplementedException();
+        // var List = await // Material database call
+        // return Ok(List);
+    }
+
+    [Authorize]
+    [HttpGet("Material/{MaterialID}")]
+    public async Task<ActionResult<List<DetailsMaterialDTO>>> GetMaterialRecomended(int MaterialID)
+    {  
+        throw new NotImplementedException();
+        // var List = await // Material database call
+        // return Ok(List);
+    }
+
+    
+
+
+   
         [Authorize(Roles = $"{Roles.Teacher},{Roles.Administrator}")]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
