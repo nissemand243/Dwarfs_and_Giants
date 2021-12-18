@@ -103,9 +103,9 @@ else
 
   [Parameter]
     public string Id { get; set; }
-public DetailsMaterialDTO material;
+public DetailsMaterialDTO? material;
 
-public List<DetailsMaterialDTO> recommendedMaterial;
+public List<DetailsMaterialDTO>? recommendedMaterial;
 
     protected override async Task OnInitializedAsync()
     {
