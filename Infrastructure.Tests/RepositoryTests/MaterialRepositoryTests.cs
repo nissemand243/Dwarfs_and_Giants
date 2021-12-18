@@ -28,46 +28,49 @@ public class MaterialRepositoryTests : IDisposable
         repo = new MaterialRepository(_context);
     }
 
-     [Fact]
+    [Fact]
     public async void CreateAsync_returns_matching_material()
     {
         var material = await repo.CreateMaterialAsync(new CreateMaterialDTO(2, "Testing", "Testing for dummies.", FileType.pdf.ToString(),
             "MaterialsData/test.pdf"));
 
-        var expected = new MaterialDTO(4,2, "Testing", "Testing for dummies.", FileType.pdf.ToString(),
+        var expected = new MaterialDTO(4, 2, "Testing", "Testing for dummies.", FileType.pdf.ToString(),
             "MaterialsData/test.pdf");
-        Assert.Equal(expected ,material.Item2);
-    } 
-    
+            
+        Assert.Equal(expected, material.Item2);
+    }
+
     [Fact]
     public async void CreateAsync_given_new_entity_returns_created()
     {
         var material = await repo.CreateMaterialAsync(new MaterialDTO(42, 2, "Testing", "Testing for dummies.", FileType.pdf.ToString(),
             "MaterialsData/test.pdf"));
-        Assert.Equal(Status.Created,material.Item1);
+        Assert.Equal(Status.Created, material.Item1);
     }
 
-    [Fact] public async void UpdateMaterialAsync_given_id_and_DTO_returns_updated()
+    [Fact]
+    public async void UpdateMaterialAsync_given_id_and_DTO_returns_updated()
     {
         var actual = await repo.UpdateMaterialAsync(2, new CreateMaterialDTO(2, "Testing", "Testing for dummies.", FileType.pdf.ToString(),
             "MaterialsData/test.pdf"));
-        
+
         Assert.Equal(Updated, actual);
     }
-    
-    [Fact] public async void UpdateMaterialAsync_given_non_existing_id_returns_NotFound()
+
+    [Fact]
+    public async void UpdateMaterialAsync_given_non_existing_id_returns_NotFound()
     {
         var actual = await repo.UpdateMaterialAsync(42, new CreateMaterialDTO(2, "Testing", "Testing for dummies.", FileType.pdf.ToString(),
             "MaterialsData/test.pdf"));
-        
+
         Assert.Equal(NotFound, actual);
     }
-    
+
     [Fact]
     public async void ReadAsync_given_id_not_existing_returns_empty()
     {
         var material42 = await repo.ReadAsync(42);
-        
+
         Assert.Null(material42);
     }
 
@@ -92,14 +95,14 @@ public class MaterialRepositoryTests : IDisposable
     };
         var actual = await repo.ReadAllAsync();
 
-    Assert.Equal(expMaterialList, actual);
+        Assert.Equal(expMaterialList, actual);
     }
 
     [Fact]
     public async void DeleteAsync_given_id_not_existing_returns_NotFound()
     {
         var actual = await repo.DeleteAsync(42);
-        
+
         Assert.Equal(Status.NotFound, actual);
     }
 
@@ -107,7 +110,7 @@ public class MaterialRepositoryTests : IDisposable
     public async void DeleteAsync_given_id_returns_Deleted()
     {
         var actual = await repo.DeleteAsync(1);
-        
+
         Assert.Equal(Status.Deleted, actual);
     }
 

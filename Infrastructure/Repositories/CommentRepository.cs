@@ -33,7 +33,7 @@ public class CommentRepository : ICommentRepository
         return await comments.ToListAsync();
     }
 
-    public async Task<IReadOnlyCollection<CommentDTO>> ReadAsync()
+    public async Task<IReadOnlyCollection<CommentDTO>> ReadAllAsync()
     {
         return (await _context.Comments
                              .Select(c => new CommentDTO(c.Id, c.MaterialId, c.UserId, c.Text))
