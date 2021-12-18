@@ -16,6 +16,25 @@ namespace SE_training.Server.Controllers
             _repository = repository;
         }
 
+
+         [Authorize]
+         [HttpGet("{SearchString}")]
+         public async Task<ActionResult<List<DetailsMaterialDTO>>> GetSearchMaterial(string SearchString)
+        {  
+            throw new NotImplementedException();
+            // var List = await // Material database call
+            // return Ok(List);
+        }
+        
+        [Authorize]
+        [HttpGet("Material/{MaterialID}")]
+        public async Task<ActionResult<List<DetailsMaterialDTO>>> GetMaterialRecomended(int MaterialID)
+        {  
+            throw new NotImplementedException();
+            // var List = await // Material database call
+            // return Ok(List);
+        }
+
         public Task<MaterialDTO> ReadMaterial(int materialId)
         {
             return _repository.ReadAsync(materialId);
