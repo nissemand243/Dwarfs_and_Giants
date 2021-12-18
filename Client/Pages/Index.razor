@@ -1,9 +1,6 @@
 ﻿@page "/"
-@using System.Net.Http.Json
-@using System.Text.Json.Serialization
-@inject HttpClient Http
-@inject NavigationManager NavigationManager
-@inject IJSRuntime JSRuntime
+
+
 
 
 <PageTitle>Index</PageTitle>
@@ -15,35 +12,7 @@
 This is our slice for BDSA 2021 exam assignment.<br>hence certain features will not be available since they are not a part of our slice
 </p>
 
-@if (returTest == null)
-{
-    <h2>Tap it i dear you</h2>
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <h2>@returTest.TagName</h2>
-    
-}
-<button class="btn btn-info" @onclick="@(() => TestMethodasync())">View</button>
-
-
-
-@code{
-
-    private TagDTO? returTest = null;
-    private TagDTO testtag =  new TagDTO(1,2,"TEST TAGE NAME");
-
-
-
-private async Task TestMethodasync()
-    {
-      var returTest = await Http.GetFromJsonAsync<string>($"api/Test/{testtag}");  
-        
-    }
 
 
 
 
-
-}
