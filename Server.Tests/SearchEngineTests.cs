@@ -243,24 +243,6 @@ public class SearchEngineTests : IDisposable
             comment => Assert.Equal(new CommentDTO(4, 3, 2, "Can you explain in further detail."), comment)
         );
         Assert.Equal(0, result.Rating);
-
-        /*Assert.Equal(
-            new DetailsMaterialDTO(
-                3,
-                4,
-                "Prooving the impossible: 0 / 0 = 42",
-                "You better watch out! You better not cry!",
-                "mp4",
-                "https://www.youtube.com/watch?v=BRRolKTlF6Q",
-                new List<TagDTO>()
-                {
-                    //none
-                },
-                new List<CommentDTO>() {
-                    new CommentDTO(3, 1, 4, "So delicious ;)"),
-                },
-                4
-            ), result);*/
     }
 
     [Fact]

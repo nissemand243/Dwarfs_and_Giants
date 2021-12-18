@@ -108,8 +108,7 @@ public class SearchEngine : ISEarchEngine
             {
                 if (!matches.Any(material => material.Id == tag.MaterialId))
                 {
-                    var material = await _materialRepo.ReadAsync(tag.MaterialId);
-                    matches.Add(await GetDetailedMaterialByIdAsync(material.Id));
+                    matches.Add(await GetDetailedMaterialByIdAsync(tag.MaterialId));
                 }
             }
         }
@@ -190,8 +189,7 @@ public class SearchEngine : ISEarchEngine
             {
                 if (matchingTag.MaterialId != materialId && !matches.Any(material => material.Id == matchingTag.MaterialId))
                 {
-                    var material = await _materialRepo.ReadAsync(matchingTag.MaterialId);
-                    matches.Add(await GetDetailedMaterialByIdAsync(material.Id));
+                    matches.Add(await GetDetailedMaterialByIdAsync(matchingTag.MaterialId));
                 }
             }
         }
