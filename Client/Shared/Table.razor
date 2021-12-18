@@ -1,8 +1,9 @@
 @page "/table"
-@using Infrastructure
-@inject NavigationManager NavigationManager
 @attribute [Authorize]
-@inject ISEarchEngine SearchEngine
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
 @if (materialList == null)
 {
     <h2>Searching for @SearchString</h2>
@@ -61,9 +62,11 @@ else
     }
    protected override async Task OnInitializedAsync()
     {
+        materialList = await Http.GetFromJsonAsync<List<DetailsMaterialDTO>>($"api/Comment/{SearchString}");  
+
+          // Test Visual Material
        // materialList = await MaterialSetup.SetUpTestMaterialasync();
-        var enumerable = await SearchEngine.SearchMaterialsAsync(@SearchString);
-        materialList = new List<DetailsMaterialDTO>(enumerable); 
+        
     }
 
 
