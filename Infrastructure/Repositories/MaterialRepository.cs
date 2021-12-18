@@ -9,7 +9,6 @@ public class MaterialRepository : IMaterialRepository
       _context = context;
     }
 
-
     public async Task<(Status, MaterialDTO)> CreateMaterialAsync(CreateMaterialDTO material)
     {
         var newMaterial = new Material
@@ -76,7 +75,4 @@ public class MaterialRepository : IMaterialRepository
 
         return Status.Deleted;
     }
-
-    
-
 }

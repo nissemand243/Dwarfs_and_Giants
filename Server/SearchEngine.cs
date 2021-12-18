@@ -138,6 +138,11 @@ public class SearchEngine : ISEarchEngine
     {
         var material = await _materialRepo.ReadAsync(materialId);
 
+        if (material == null)
+        {
+            return null;
+        }
+
         var readTags = await _tagRepo.ReadAsync(material.Id);
         var readComments = await _commentRepo.ReadAsync(material.Id);
         var readRatings = await _ratingRepo.ReadAsync(material.Id);
