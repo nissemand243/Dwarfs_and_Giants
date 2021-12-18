@@ -1,8 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-
 namespace SE_training.Infrastructure;
 
 public class MaterialRepository : IMaterialRepository
@@ -15,14 +10,43 @@ public class MaterialRepository : IMaterialRepository
     }
 
 
-    public Task<(Status, MaterialDTO)> CreateMaterial(CreateMaterialDTO material)
+    public async Task<(Status, MaterialDTO)> CreateMaterialAsync(CreateMaterialDTO material)
     {
-        throw new NotImplementedException();
+        var newMaterial = new Material
+        {
+            AuthorId = material.AuthorId,
+            Description = material.Description,
+            FilePath = material.FilePath,
+            FileType = (FileType) Enum.Parse(typeof(FileType), material.FileType),
+            Name = material.Name
+        };
+        _context.Materials.Add(newMaterial);
+
+        await _context.SaveChangesAsync();
+
+        return (Status.Created, new MaterialDTO(
+            newMaterial.Id, 
+            newMaterial.AuthorId, 
+            newMaterial.Name, 
+            newMaterial.Description, 
+            newMaterial.FileType.ToString(), 
+            newMaterial.FilePath));
     }
 
-    public Task<Status> UpdateMaterial(int materialId, MaterialDTO material)
+    public async Task<Status> UpdateMaterialAsync(int materialId, CreateMaterialDTO material)
     {
-        throw new NotImplementedException();
+        var entity = await _context.Materials.FirstOrDefaultAsync(m => m.Id == materialId);
+        if (entity is null) return NotFound;
+
+        entity.AuthorId = material.AuthorId;
+        entity.Name = material.Name;
+        entity.Description = material.Description;
+        entity.FileType = (FileType) Enum.Parse(typeof(FileType), material.FileType);
+        entity.FilePath = material.FilePath;
+
+        await _context.SaveChangesAsync();
+
+        return Status.Updated;
     }
 
     public async Task<MaterialDTO> ReadAsync(int MaterialId)
@@ -33,14 +57,24 @@ public class MaterialRepository : IMaterialRepository
         return await materials.FirstOrDefaultAsync();
     }
 
-    public Task<IReadOnlyCollection<MaterialDTO>> ReadAllAsync()
+    public async Task<IReadOnlyCollection<MaterialDTO>> ReadAllAsync()
     {
-        throw new System.NotImplementedException();
+        var materials = from m in _context.Materials
+            select new MaterialDTO(m.Id, m.AuthorId, m.Name, m.Description, m.FileType.ToString(), m.FilePath);
+        var materialsList = await materials.ToListAsync().ConfigureAwait(false);
+        return materialsList.AsReadOnly();
     }
 
     public async Task<Status> DeleteAsync(int MaterialId)
     {
-        throw new System.NotImplementedException();
+        var material = _context.Materials.FindAsync(MaterialId);
+        if(material.Result is null) return Status.NotFound;
+        
+        _context.Materials.Remove(material.Result);
+
+        await _context.SaveChangesAsync();
+
+        return Status.Deleted;
     }
 
     
