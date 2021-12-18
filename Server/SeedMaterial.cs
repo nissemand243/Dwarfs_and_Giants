@@ -1,5 +1,7 @@
 namespace SE_training.Server;
 
+using SE_training.Core;
+
 public static class SeedMaterial
     {
     
@@ -8,8 +10,7 @@ public static class SeedMaterial
             using (var scope = host.Services.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
-        
-
+                
                 await SeedMaterialAsync(context);
             }
             return host;

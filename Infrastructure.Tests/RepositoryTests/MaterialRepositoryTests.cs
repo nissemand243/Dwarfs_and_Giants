@@ -19,9 +19,9 @@ public class MaterialRepositoryTests : IDisposable
         var _context = new DatabaseContext(builder.Options);
         _context.Database.EnsureCreated();
         _context.Materials.AddRange(
-            new Material() { Id = 1, AuthorId = 1, Name = "Docker is (not) fun", Description = "blabladockerblabla", FileType = FileType.pdf, FilePath = "MaterialsData/test.pdf" },
-            new Material() { Id = 2, AuthorId = 1, Name = "C# global using functionality", Description = "Global using is an easy way to import packages globally", FileType = FileType.pdf, FilePath = "MaterialsData/test.pdf" },
-            new Material() { Id = 3, AuthorId = 2, Name = "SwEng theory is tough", Description = "Theory for Software engineering is difficult, but very useful when developing larger systems.", FileType = FileType.pdf, FilePath = "MaterialsData/test.pdf" });
+            new Material(){Id = 1, AuthorId = 1, Name = "Docker is (not) fun", Description = "blabladockerblabla",FileType = FileType.pdf, FilePath = "MaterialsData/test.pdf" },
+            new Material(){Id = 2, AuthorId = 1, Name = "C# global using functionality", Description = "Global using is an easy way to import packages globally",FileType = FileType.pdf, FilePath = "MaterialsData/test.pdf" },
+            new Material(){Id = 3, AuthorId = 2, Name = "SwEng theory is tough", Description = "Theory for Software engineering is difficult, but very useful when developing larger systems.", FileType = FileType.pdf, FilePath = "MaterialsData/test.pdf" });
         _context.SaveChanges();
 
         context = _context;
@@ -36,6 +36,7 @@ public class MaterialRepositoryTests : IDisposable
 
         var expected = new MaterialDTO(4, 2, "Testing", "Testing for dummies.", FileType.pdf.ToString(),
             "MaterialsData/test.pdf");
+            
         Assert.Equal(expected, material.Item2);
     }
 
@@ -77,8 +78,8 @@ public class MaterialRepositoryTests : IDisposable
     public async void ReadAsync_given_id_returns_materialDTO()
     {
         var material2 = await repo.ReadAsync(2);
-
-        var expMaterial = new MaterialDTO(2, 1, "C# global using functionality", "Global using is an easy way to import packages globally", "pdf", "MaterialsData/test.pdf");
+        
+        var expMaterial = new MaterialDTO(2, 1, "C# global using functionality", "Global using is an easy way to import packages globally", "pdf","MaterialsData/test.pdf" );
         Assert.Equal(expMaterial, material2);
     }
 
