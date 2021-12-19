@@ -63,10 +63,23 @@ public class MaterialControllerTests
     public async Task ReadAll_returns_materialDTo()
     {
         // Arrange
-        
-    
+        var materialDTOOne = new MaterialDTO(0, 1, "Lorem", "Ipsum master", FileType.Mp4, "url.com"); 
+        var materialDTOTwo = new MaterialDTO(0, 2, "Ipsum", "Lorem master", FileType.Mp4, "url.com"); 
+
+        var expected = new List<MaterialDTO>(){materialDTOOne, materialDTOTwo}.AsReadOnly();
+        var logger = new Mock<ILogger<MaterialController>>();
+        var repository = new Mock<IMaterialRepository>();
+        repository.Setup(repo => repo.ReadAllAsync()).ReturnsAsync(expected);
+        var controller = new MaterialController(logger.Object, repository.Object);
+
+
         // Act
-    
+        var actual = await controller.ReadAllAsync();
+
         // Assert
+        Assert.Collection(actual,
+            aDTO => Assert.Equal(expected[0].Name, aDTO.Name),
+            aDTO => Assert.Equal(expected[1].Name, aDTO.Name)
+        );
     }
 }
