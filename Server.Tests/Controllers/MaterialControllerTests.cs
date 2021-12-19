@@ -23,7 +23,7 @@ public class MaterialControllerTests
         // Assert
         Assert.Equal(expected.materialDTO, actual.material);
         Assert.Equal(expected.Created, actual.status);
-    }
+    } 
 
     [Fact]
     public async Task ReadMaterial_given_existing_id_returns_MaterialDTO()
@@ -57,6 +57,23 @@ public class MaterialControllerTests
     
         // Assert
         Assert.Equal(expected,actual);
+    }
+
+    [Fact]
+    public async Task DeleteMaterial_given_existing_returns_status_Deleted()
+    {
+        // Arrrange
+        var expected = Status.Deleted;
+        var logger = new Mock<ILogger<MaterialController>>();
+        var repository = new Mock<IMaterialRepository>();
+        repository.Setup(repo => repo.DeleteAsync(1)).ReturnsAsync(expected);
+        var controller = new MaterialController(logger.Object, repository.Object);
+
+        // Act
+        var actual = await controller.DeleteMaterial(1);
+    
+        // Assert
+        Assert.Equal(expected, actual);
     }
 
     [Fact]
