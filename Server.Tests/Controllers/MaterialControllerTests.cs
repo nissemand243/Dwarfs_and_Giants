@@ -92,7 +92,7 @@ public class MaterialControllerTests
 
         // Act
         var actual = await controller.ReadAllAsync();
-
+        
         // Assert
         Assert.Collection(actual,
             aDTO => Assert.Equal(expected[0].Name, aDTO.Name),
