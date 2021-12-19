@@ -126,13 +126,13 @@ public List<DetailsMaterialDTO>? recommendedMaterial;
 
     protected override async Task OnInitializedAsync()
     {
-       // material = await Http.GetFromJsonAsync<DetailsMaterialDTO>($"api/Material/Specifik/{Id}");  
+        material = await Http.GetFromJsonAsync<DetailsMaterialDTO>($"api/Material/Specifik/{Id}");  
         
-       // recommendedMaterial = await Http.GetFromJsonAsync<List<DetailsMaterialDTO>>($"api/Material/Material/{Id}");  
+        recommendedMaterial = await Http.GetFromJsonAsync<List<DetailsMaterialDTO>>($"api/Material/Material/{Id}");  
 
             // Test Material and recommendedMaterial
-          material = await MaterialSetup.setUptestasync(Id);
-          recommendedMaterial = await MaterialSetup.SetUpTestMaterialasync();
+         // material = await MaterialSetup.setUptestasync(Id);
+          // recommendedMaterial = await MaterialSetup.SetUpTestMaterialasync();
 
              
     }
