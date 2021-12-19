@@ -12,12 +12,12 @@ public class CommentControllerTests
         var commentDTO = new CommentDTO(1,1,1,"Lorem Ipsum");
         var Expected = (Status.Created, commentDTO);
 
-        var mockRepository = new Mock<ICommentRepository>();
-        mockRepository.Setup(repo => repo.CreateAsync(createCommentDto)).ReturnsAsync(Expected);
-        var mockLogger = new Mock<ILogger<CommentController>>();
+        var repository = new Mock<ICommentRepository>();
+        repository.Setup(repo => repo.CreateAsync(createCommentDto)).ReturnsAsync(Expected);
+        var logger = new Mock<ILogger<CommentController>>();
         
 
-        var controller = new CommentController(mockLogger.Object, mockRepository.Object);
+        var controller = new CommentController(logger.Object, repository.Object);
 
         // Act
         var result = await controller.CreateComment(createCommentDto);
