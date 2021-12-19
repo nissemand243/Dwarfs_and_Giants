@@ -92,6 +92,7 @@ public class MaterialControllerTests
 
         // Act
         var actual = await controller.ReadAllAsync();
+        v
 
         // Assert
         Assert.Collection(actual,
