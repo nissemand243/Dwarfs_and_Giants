@@ -62,7 +62,7 @@ else
     }
    protected override async Task OnInitializedAsync()
     {
-        materialList = await Http.GetFromJsonAsync<List<DetailsMaterialDTO>>($"api/Comment/{SearchString}");  
+        materialList = await Http.GetFromJsonAsync<List<DetailsMaterialDTO>>($"api/Material/{SearchString}");  
 
           // Test Visual Material
        // materialList = await MaterialSetup.SetUpTestMaterialasync();
