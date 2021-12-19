@@ -20,18 +20,18 @@ else
     <h2> Author Id is @material.AuthorId </h2>
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col border border-dark">
                 <h1> @material.Name</h1>
             </div>
-            <div class="col">           
+            <div class="col border border-dark">           
                 <h2 >Rating : @material.Rating</h2>
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col border border-dark">
                <p>@material.Description</p>
             </div>
-            <div class="col ">
+            <div class="col border border-dark">
                 <h3 class="font-weight-bold">Tags</h3>
                 <ul class="mr-3 mt-3">
                     @foreach (var tag in material.Tags)
