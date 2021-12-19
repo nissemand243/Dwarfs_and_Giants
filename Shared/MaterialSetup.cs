@@ -129,5 +129,26 @@ using SE_training.Core;
             averageRating /= numOfRatings;
             return averageRating;
         }
+
+         public static  async Task<List<CommentDTO>> GetCommentTestMaterial()
+        {
+           await Task.Delay(500); 
+
+            var CommentList = new List<CommentDTO>(){
+                {new CommentDTO(1024,2,2,"Lorem Ipsum is simply dummy text of the printing and typesetting industry.")},
+                {new CommentDTO(123,2,23,"Lorem Ipsum is simply dummy text of the printing and typesetting industry.")},
+                {new CommentDTO(10324,2,244,"Lorem Ipsum is simply dummy text of the printing and typesetting industry.")},
+                {new CommentDTO(1023424,2,52,"Lorem Ipsum is simply dummy text of the printing and typesetting industry.")},
+                {new CommentDTO(10224,2,232,"HA BSH sadn asnd asjd kasj hsand")}
+            };
+            return CommentList;
+        }
+
+        public static async Task<bool>GetTeacher()  
+        {
+            Random rng = new Random();
+            return rng.Next(2) > 0;
+
+        }
     }
 

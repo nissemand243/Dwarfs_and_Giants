@@ -32,7 +32,7 @@ public class TagRepository : ITagRepository
         return await tags.ToListAsync();
     }
 
-    public async Task<IReadOnlyCollection<TagDTO>> ReadAsync()
+    public async Task<IReadOnlyCollection<TagDTO>> ReadAllAsync()
     {
         return (await _context.Tags
                              .Select(t => new TagDTO(t.Id, t.MaterialId, t.TagName))

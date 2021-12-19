@@ -1,11 +1,15 @@
 ﻿@page "/specifikMaterial/{id}"
+@attribute [Authorize]
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
 
 
 <PageTitle>SpecifikMaterial </PageTitle>
 
-
 <h1> The chosen materials id is @Id </h1>
-
+<hr>
 
 @if (material == null)
 {
@@ -21,7 +25,6 @@ else
          @foreach (var tag in material.Tags)
         {
             <li>@tag.TagName</li>
-
         }  
 
     </ul>
@@ -32,57 +35,88 @@ else
     <h1>PDF Example with iframe</h1>
         <iframe src=@material.FilePath width="80%" height="1000px">
         </iframe>
-
+<hr>
    <h1>Recommended Material</h1>
-    <table class="table">
+        @if (recommendedMaterial == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Material Id</th>
+                        <th>Title</th>
+                        <th>Decription</th>
+                        <th>Tags</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var material in recommendedMaterial)
+                    {
+                        <tr>
+                            <td>@material.Id</td>
+                            <td>@material.Name</td>
+                            <td>@material.Description</td>
+                            <td>
+                                <ul>
+                                    @foreach (var tag in material.Tags)
+                                    {
+                                        <li>
+                                            @tag.TagName
+                                        </li>
+                                    }
+                                </ul> 
+                            </td>
+                            <td><button class="btn btn-info">View</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table> 
+        }
+        <hr>
+        <h1>CommentSection</h1>
+
+          <table class="table">
             <thead>
                 <tr>
-                    <th>Material Id</th>
-                    <th>Title</th>
-                    <th>Decription</th>
-                    <th>Tags</th>
+                    <th>Write a Comment</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var material in recommendedMaterial)
-                {
                     <tr>
-                        <td>@material.Id</td>
-                        <td>@material.Name</td>
-                        <td>@material.Description</td>
-                        <td>
-                            <ul>
-                                @foreach (var tag in material.Tags)
-                                {
-                                    <li>
-                                        @tag.TagName
-                                    </li>
-                                }
-                            </ul> 
-                        </td>
-                        <td><button class="btn btn-info">View</button></td>
+                        <td> <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea></td>
+                        <td><button class="btn btn-info">Comment</button></td>
                     </tr>
-                }
+                
             </tbody>
         </table> 
-    @* @foreach (var comment in comments)
-    {
-    }  *@
+    <CommentSection MaterialID=@material.Id/>
 }
+
 
 @code {
 
   [Parameter]
     public string Id { get; set; }
-public DetailsMaterialDTO material;
+public DetailsMaterialDTO? material;
 
-public List<DetailsMaterialDTO> recommendedMaterial;
+public List<DetailsMaterialDTO>? recommendedMaterial;
 
     protected override async Task OnInitializedAsync()
     {
-        material = await MaterialSetup.setUptestasync(Id);
-        recommendedMaterial = await MaterialSetup.SetUpTestMaterialasync();
+        material = await Http.GetFromJsonAsync<DetailsMaterialDTO>($"api/Material/Specifik/{Id}");  
+        
+        recommendedMaterial = await Http.GetFromJsonAsync<List<DetailsMaterialDTO>>($"api/Material/Material/{Id}");  
 
+            // Test Material and recommendedMaterial
+        //  material = await MaterialSetup.setUptestasync(Id);
+        //  recommendedMaterial = await MaterialSetup.SetUpTestMaterialasync();
+
+             
     }
 }

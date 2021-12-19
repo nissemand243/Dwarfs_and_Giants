@@ -4,9 +4,9 @@ namespace Infrastructure.Tests;
 
 public class RatingRepositoryTests : IDisposable
 {
-    private readonly IDatabaseContext context;
-    private readonly RatingRepository repo;
-    private bool disposed;
+    private readonly IDatabaseContext _context;
+    private readonly RatingRepository _repo;
+    private bool _disposed;
 
     public RatingRepositoryTests()
     {
@@ -14,30 +14,30 @@ public class RatingRepositoryTests : IDisposable
         connection.Open();
         var builder = new DbContextOptionsBuilder<DatabaseContext>();
         builder.UseSqlite(connection);
-        var _context = new DatabaseContext(builder.Options);
-        _context.Database.EnsureCreated();
-        _context.Ratings.AddRange(
+        var context = new DatabaseContext(builder.Options);
+        context.Database.EnsureCreated();
+        context.Ratings.AddRange(
             new Rating() { Id = 1, MaterialId = 11, UserId = 1, Value = 5 },
             new Rating() { Id = 2, MaterialId = 22, UserId = 1, Value = 1 },
             new Rating() { Id = 3, MaterialId = 22, UserId = 2, Value = 5 });
-        _context.SaveChanges();
+        context.SaveChanges();
 
-        context = _context;
-        repo = new RatingRepository(_context);
+        _context = context;
+        _repo = new RatingRepository(context);
     }
 
     [Fact]
-    public async void GetAsync_given_id_not_existing_returns_empty()
+    public async void ReadAsync_given_id_not_existing_returns_empty()
     {
-        var ratings33 = await repo.ReadAsync(33);
+        var ratings33 = await _repo.ReadAsync(33);
 
         Assert.Empty(ratings33);
     }
 
     [Fact]
-    public async void GetAsync_given_id_returns_tag()
+    public async void ReadAsync_given_id_returns_tag()
     {
-        var ratings11 = await repo.ReadAsync(11);
+        var ratings11 = await _repo.ReadAsync(11);
 
         Assert.Collection(ratings11,
             rating => Assert.Equal(new RatingDTO(1, 11, 1, 5), rating)
@@ -45,9 +45,9 @@ public class RatingRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void GetAsync_returns_all_tags()
+    public async void ReadAllAsync_returns_all_tags()
     {
-        var tags = await repo.ReadAsync();
+        var tags = await _repo.ReadAllAsync();
 
         Assert.Collection(tags,
             tag => Assert.Equal(new RatingDTO(1, 11, 1, 5), tag),
@@ -57,27 +57,27 @@ public class RatingRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void PutAsync_given_new_entity_returns_created()
+    public async void CreateAsync_given_new_entity_returns_created()
     {
-        var result = await repo.CreateAsync(new CreateRatingDTO(22, 3, 5));
+        var result = await _repo.CreateAsync(new CreateRatingDTO(22, 3, 5));
 
         Assert.Equal(Created, result.status);
         Assert.Equal(new RatingDTO(4, 22, 3, 5), result.rating);
     }
 
     [Fact]
-    public async void PostAsync_given_entity_with_id_not_existing_returns_NotFound()
+    public async void UpdateAsync_given_entity_with_id_not_existing_returns_NotFound()
     {
-        var status = await repo.UpdateAsync(new RatingDTO(4, 22, 3, 5));
+        var status = await _repo.UpdateAsync(new RatingDTO(4, 22, 3, 5));
 
         Assert.Equal(NotFound, status);
     }
 
     [Fact]
-    public async void PostAsync_given_entity_returns_Updated()
+    public async void UpdateAsync_given_entity_returns_Updated()
     {
-        var status = await repo.UpdateAsync(new RatingDTO(1, 11, 1, 1));
-        var ratings11 = await repo.ReadAsync(11);
+        var status = await _repo.UpdateAsync(new RatingDTO(1, 11, 1, 1));
+        var ratings11 = await _repo.ReadAsync(11);
 
         Assert.Equal(Updated, status);
         Assert.Collection(ratings11,
@@ -88,7 +88,7 @@ public class RatingRepositoryTests : IDisposable
     [Fact]
     public async void DeleteAsync_given_id_not_existing_returns_NotFound()
     {
-        var status = await repo.DeleteAsync(4);
+        var status = await _repo.DeleteAsync(4);
 
         Assert.Equal(NotFound, status);
     }
@@ -96,8 +96,8 @@ public class RatingRepositoryTests : IDisposable
     [Fact]
     public async void DeleteAsync_given_id_returns_Deleted()
     {
-        var status = await repo.DeleteAsync(1);
-        var tags11 = await repo.ReadAsync(11);
+        var status = await _repo.DeleteAsync(1);
+        var tags11 = await _repo.ReadAsync(11);
 
         Assert.Equal(Deleted, status);
         Assert.Empty(tags11);
@@ -105,14 +105,14 @@ public class RatingRepositoryTests : IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
-        if (!disposed)
+        if (!_disposed)
         {
             if (disposing)
             {
-                context.Dispose();
+                _context.Dispose();
             }
 
-            disposed = true;
+            _disposed = true;
         }
     }
 

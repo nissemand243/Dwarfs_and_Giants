@@ -1,25 +1,10 @@
-using System;
-using System.IO;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Identity.Web;
+using SE_training.Server;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddKeyPerFile("/run/secrets", optional: true);
 
 // Add services to the container.
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(options =>
     {
@@ -48,7 +33,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SE_training")));
 builder.Services.AddScoped<IDatabaseContext, DatabaseContext>();
-//builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
+builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 builder.Services.AddScoped<ITagRepository, TagRepository>();
@@ -86,6 +71,12 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
+
+if (!app.Environment.IsEnvironment("Integration"))
+{
+    app.SeedAsync();
+}
+
 
 app.Run();
 

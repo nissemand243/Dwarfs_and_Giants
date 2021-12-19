@@ -1,10 +1,8 @@
 ﻿@page "/searchMaterial/{SearchString}"
+@attribute [Authorize]
+
 
 <PageTitle>searchMaterial</PageTitle>
-
-<h1>searchMaterial</h1>
-<h2>Search keywords @SearchString</h2>
-
 
 <Table SearchString="@SearchString"/>
 

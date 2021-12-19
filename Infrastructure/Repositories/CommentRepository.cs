@@ -21,7 +21,7 @@ public class CommentRepository : ICommentRepository
         await _context.SaveChangesAsync();
 
         var details = new CommentDTO(entity.Id, entity.MaterialId, entity.UserId, entity.Text);
-        return (Created, details);
+        return (Status.Created, details);
     }
 
     public async Task<IReadOnlyCollection<CommentDTO>> ReadAsync(int materialId)
@@ -33,7 +33,7 @@ public class CommentRepository : ICommentRepository
         return await comments.ToListAsync();
     }
 
-    public async Task<IReadOnlyCollection<CommentDTO>> ReadAsync()
+    public async Task<IReadOnlyCollection<CommentDTO>> ReadAllAsync()
     {
         return (await _context.Comments
                              .Select(c => new CommentDTO(c.Id, c.MaterialId, c.UserId, c.Text))

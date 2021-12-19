@@ -1,11 +1,15 @@
 namespace SE_training.Server.Controllers
 {
+    [Authorize]
+    [ApiController]
+    [Route("api/[controller]")]
+    [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
     public class RatingController : ControllerBase
     {
-        private readonly RatingRepository _repository;
+        private readonly IRatingRepository _repository;
         private readonly ILogger<RatingController> _logger;
 
-        public RatingController(ILogger<RatingController> logger, RatingRepository repository)
+        public RatingController(ILogger<RatingController> logger, IRatingRepository repository)
         {
             _logger = logger;
             _repository = repository;

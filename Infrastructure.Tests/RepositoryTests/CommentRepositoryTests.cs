@@ -4,9 +4,9 @@ namespace Infrastructure.Tests;
 
 public class CommentRepositoryTests : IDisposable
 {
-    private readonly IDatabaseContext context;
-    private readonly CommentRepository repo;
-    private bool disposed;
+    private readonly IDatabaseContext _context;
+    private readonly CommentRepository _repo;
+    private bool _disposed;
 
     public CommentRepositoryTests()
     {
@@ -14,30 +14,30 @@ public class CommentRepositoryTests : IDisposable
         connection.Open();
         var builder = new DbContextOptionsBuilder<DatabaseContext>();
         builder.UseSqlite(connection);
-        var _context = new DatabaseContext(builder.Options);
-        _context.Database.EnsureCreated();
-        _context.Comments.AddRange(
+        var context = new DatabaseContext(builder.Options);
+        context.Database.EnsureCreated();
+        context.Comments.AddRange(
             new Comment() { Id = 1, UserId = 1, MaterialId = 11, Text = "Nice work guys!" },
             new Comment() { Id = 2, UserId = 1, MaterialId = 22, Text = "What is Docker?" },
             new Comment() { Id = 3, UserId = 1, MaterialId = 22, Text = "Can you explain in further detail." });
-        _context.SaveChanges();
+        context.SaveChanges();
 
-        context = _context;
-        repo = new CommentRepository(_context);
+        _context = context;
+        _repo = new CommentRepository(context);
     }
 
     [Fact]
-    public async void GetAsync_given_id_not_existing_returns_empty()
+    public async void ReadAsync_given_id_not_existing_returns_empty()
     {
-        var comments33 = await repo.ReadAsync(33);
+        var comments33 = await _repo.ReadAsync(33);
 
         Assert.Empty(comments33);
     }
 
     [Fact]
-    public async void GetAsync_given_id_returns_comment()
+    public async void ReadAsync_given_id_returns_comment()
     {
-        var comments11 = await repo.ReadAsync(11);
+        var comments11 = await _repo.ReadAsync(11);
 
         Assert.Collection(comments11,
             comment => Assert.Equal(new CommentDTO(1, 11, 1, "Nice work guys!"), comment)
@@ -45,9 +45,9 @@ public class CommentRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void GetAsync_returns_all_comments()
+    public async void ReadAllAsync_returns_all_comments()
     {
-        var comments = await repo.ReadAsync();
+        var comments = await _repo.ReadAllAsync();
 
         Assert.Collection(comments,
             comment => Assert.Equal(new CommentDTO(1, 11, 1, "Nice work guys!"), comment),
@@ -57,9 +57,9 @@ public class CommentRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void PutAsync_given_new_entity_returns_created()
+    public async void CreateAsync_given_new_entity_returns_created()
     {
-        var result = await repo.CreateAsync(new CreateCommentDTO(33, 2, "Awesome"));
+        var result = await _repo.CreateAsync(new CreateCommentDTO(33, 2, "Awesome"));
 
         Assert.Equal(Created, result.status);
         Assert.Equal(new CommentDTO(4, 33, 2, "Awesome"), result.comment);
@@ -68,7 +68,7 @@ public class CommentRepositoryTests : IDisposable
     [Fact]
     public async void DeleteAsync_given_id_not_existing_returns_NotFound()
     {
-        var status = await repo.DeleteAsync(4);
+        var status = await _repo.DeleteAsync(4);
 
         Assert.Equal(NotFound, status);
     }
@@ -76,8 +76,8 @@ public class CommentRepositoryTests : IDisposable
     [Fact]
     public async void DeleteAsync_given_id_returns_Deleted()
     {
-        var status = await repo.DeleteAsync(1);
-        var comments11 = await repo.ReadAsync(11);
+        var status = await _repo.DeleteAsync(1);
+        var comments11 = await _repo.ReadAsync(11);
 
         Assert.Equal(Deleted, status);
         Assert.Empty(comments11);
@@ -85,14 +85,14 @@ public class CommentRepositoryTests : IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
-        if (!disposed)
+        if (!_disposed)
         {
             if (disposing)
             {
-                context.Dispose();
+                _context.Dispose();
             }
 
-            disposed = true;
+            _disposed = true;
         }
     }
 

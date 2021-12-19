@@ -33,7 +33,7 @@ public class RatingRepository : IRatingRepository
         return await ratings.ToListAsync();
     }
 
-    public async Task<IReadOnlyCollection<RatingDTO>> ReadAsync()
+    public async Task<IReadOnlyCollection<RatingDTO>> ReadAllAsync()
     {
         return (await _context.Ratings
                              .Select(r => new RatingDTO(r.Id, r.MaterialId, r.UserId, r.Value))
