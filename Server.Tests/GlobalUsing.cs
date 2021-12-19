@@ -7,4 +7,4 @@ global using Xunit;
 global using SE_training.Core;
 global using SE_training.Infrastructure;
 global using SE_training.Server;
-global using static SE_training.Infrastructure.FileType;
+global using static SE_training.Core.FileType;

@@ -168,7 +168,7 @@ public class SearchEngine : ISEarchEngine
         }
         adv /= (nRatings == 0 ? 1 : nRatings);
 
-        return new DetailsMaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType == null ? null : material.FileType.ToString(), material.FilePath, tags, comments, adv);
+        return new DetailsMaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType, material.FilePath, tags, comments, adv);
     }
 
     public async Task<IList<DetailsMaterialDTO>> GetRelatedMaterialsByTagsAsync(int materialId)

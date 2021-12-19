@@ -16,7 +16,7 @@ public class MaterialRepository : IMaterialRepository
             AuthorId = material.AuthorId,
             Description = material.Description,
             FilePath = material.FilePath,
-            FileType = (FileType) Enum.Parse(typeof(FileType), material.FileType),
+            FileType = material.FileType,
             Name = material.Name
         };
         _context.Materials.Add(newMaterial);
@@ -28,7 +28,7 @@ public class MaterialRepository : IMaterialRepository
             newMaterial.AuthorId, 
             newMaterial.Name, 
             newMaterial.Description, 
-            newMaterial.FileType.ToString(), 
+            newMaterial.FileType, 
             newMaterial.FilePath));
     }
 
@@ -40,7 +40,7 @@ public class MaterialRepository : IMaterialRepository
         entity.AuthorId = material.AuthorId;
         entity.Name = material.Name;
         entity.Description = material.Description;
-        entity.FileType = (FileType) Enum.Parse(typeof(FileType), material.FileType);
+        entity.FileType =  material.FileType;
         entity.FilePath = material.FilePath;
 
         await _context.SaveChangesAsync();
@@ -52,14 +52,14 @@ public class MaterialRepository : IMaterialRepository
     {
         var materials = from m in _context.Materials
             where m.Id == MaterialId
-            select new MaterialDTO(m.Id, m.AuthorId, m.Name, m.Description, m.FileType.ToString(), m.FilePath);
+            select new MaterialDTO(m.Id, m.AuthorId, m.Name, m.Description, m.FileType, m.FilePath);
         return await materials.FirstOrDefaultAsync();
     }
 
     public async Task<IReadOnlyCollection<MaterialDTO>> ReadAllAsync()
     {
         var materials = from m in _context.Materials
-            select new MaterialDTO(m.Id, m.AuthorId, m.Name, m.Description, m.FileType.ToString(), m.FilePath);
+            select new MaterialDTO(m.Id, m.AuthorId, m.Name, m.Description, m.FileType, m.FilePath);
         var materialsList = await materials.ToListAsync().ConfigureAwait(false);
         return materialsList.AsReadOnly();
     }
