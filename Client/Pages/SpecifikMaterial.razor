@@ -17,24 +17,41 @@
 }
 else
 {
-    <h1> @material.Name</h1>
-    <h2> The Author of this material is @material.AuthorId </h2>
-    <h2>@material.Rating</h2>
-    <p>@material.Description</p>
-    <ul>
-         @foreach (var tag in material.Tags)
-        {
-            <li>@tag.TagName</li>
-        }  
+    <h2> Author Id is @material.AuthorId </h2>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1> @material.Name</h1>
+            </div>
+            <div class="col">           
+                <h2 >Rating : @material.Rating</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+               <p>@material.Description</p>
+            </div>
+            <div class="col ">
+                <h3 class="font-weight-bold">Tags</h3>
+                <ul class="mr-3 mt-3">
+                    @foreach (var tag in material.Tags)
+                    {
+                        <li>@tag.TagName</li>
+                    }  
+                </ul>
+            </div>
+        </div>
+    </div>
 
-    </ul>
+
+   
 
 
-
+<hr>
     <p>Open a @material.FileType file <a href=@material.FilePath>example</a>.</p>
     <h1>PDF Example with iframe</h1>
-        <iframe src=@material.FilePath width="80%" height="1000px">
-        </iframe>
+    <iframe src=@material.FilePath width="80%" height="1000px"/>
+
 <hr>
    <h1>Recommended Material</h1>
         @if (recommendedMaterial == null)
@@ -109,13 +126,13 @@ public List<DetailsMaterialDTO>? recommendedMaterial;
 
     protected override async Task OnInitializedAsync()
     {
-        material = await Http.GetFromJsonAsync<DetailsMaterialDTO>($"api/Material/Specifik/{Id}");  
+       // material = await Http.GetFromJsonAsync<DetailsMaterialDTO>($"api/Material/Specifik/{Id}");  
         
-        recommendedMaterial = await Http.GetFromJsonAsync<List<DetailsMaterialDTO>>($"api/Material/Material/{Id}");  
+       // recommendedMaterial = await Http.GetFromJsonAsync<List<DetailsMaterialDTO>>($"api/Material/Material/{Id}");  
 
             // Test Material and recommendedMaterial
-        //  material = await MaterialSetup.setUptestasync(Id);
-        //  recommendedMaterial = await MaterialSetup.SetUpTestMaterialasync();
+          material = await MaterialSetup.setUptestasync(Id);
+          recommendedMaterial = await MaterialSetup.SetUpTestMaterialasync();
 
              
     }
