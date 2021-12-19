@@ -6,3 +6,4 @@ global using Xunit;
 global using SE_training.Infrastructure;
 global using SE_training.Core;
 global using static SE_training.Core.Status;
+global using static SE_training.Core.FileType;

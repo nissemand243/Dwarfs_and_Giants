@@ -1,7 +1,7 @@
 namespace SE_training.Core;
 
-public record CreateMaterialDTO(int AuthorId, string? Name, string? Description, string? FileType, string? FilePath);
-public record MaterialDTO(int Id, int AuthorId, string? Name, string? Description, string? FileType, string? FilePath) : CreateMaterialDTO(AuthorId, Name, Description, FileType, FilePath);
+public record CreateMaterialDTO(int AuthorId, string? Name, string? Description, FileType FileType, string? FilePath);
+public record MaterialDTO(int Id, int AuthorId, string? Name, string? Description, FileType FileType, string? FilePath) : CreateMaterialDTO(AuthorId, Name, Description, FileType, FilePath);
 public record DetailsMaterialDTO
 (
     int Id,
@@ -12,7 +12,7 @@ public record DetailsMaterialDTO
 
     string? Description,
 
-    string? FileType,
+    FileType FileType,
 
     [Url]
     string? FilePath,

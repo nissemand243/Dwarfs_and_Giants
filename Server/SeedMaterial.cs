@@ -44,7 +44,7 @@ public static class SeedMaterial
                 var UML = new Tag(){TagName = "UML Diagrams"};
                 var JavaFX = new Tag(){TagName = "JavaFX"};
                 var JSON = new Tag(){TagName = "JSON"};
-                var PDF = new Tag(){TagName = "PDF"};
+                var Pdf = new Tag(){TagName = "Pdf"};
                 var LINQ = new Tag(){TagName = "LINQ"};
             
 
@@ -52,46 +52,46 @@ public static class SeedMaterial
             var path = "MaterialsData/";
 
             context.Materials.AddRange(
-                    new Material{AuthorId = 1,Name = "Lecture03 Lambdas",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture03.pdf"},
-                    new Material{AuthorId = 1,Name = "Lecture04 Data Access",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture04.pdf"},
-                    new Material{AuthorId = 1,Name = "Lecture05 Dependency Injection",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture05.pdf"},   
-                    new Material{AuthorId = 1,Name = "Lecture06 Asynchronous",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture06.pdf"},  
-                    new Material{AuthorId = 1,Name = "Lecture07 JSON and Rest",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture07.pdf"},   
-                    new Material{AuthorId = 1,Name = "Lecture08 ASP.NET Core Web API",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture08.pdf"},
-                    new Material{AuthorId = 1,Name = "Lecture09 Web Applications",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture09.pdf"},
-                    new Material{AuthorId = 1,Name = "Lecture10 Mobile Applications",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture10.pdf"},      
-                    new Material{AuthorId = 1,Name = "Lecture11 Security",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Lecture11.pdf"},    
-                    new Material{AuthorId = 2,Name = "BDSA01 Software Enginere",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"BDSA21_01.pdf"}, 
-                    new Material{AuthorId = 2,Name = "BDSA02 Requirements Engineering",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"BDSA21_02.pdf"}, 
-                    new Material{AuthorId = 2,Name = "BDSA03 UML Diagrams",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"BDSA21_03.pdf"},        
-                    new Material{AuthorId = 2,Name = "BDSA05 SOLID Principles",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"BDSA21_05.pdf"},   
-                    new Material{AuthorId = 2,Name = "BDSA07 Architectural and Object Oriented Design Part 1",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"BDSA21_07_P1.pdf"},  
-                    new Material{AuthorId = 2,Name = "BDSA07 Architectural and Object Oriented Design Part 2",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"BDSA21_07_P2.pdf"},     
-                    new Material{AuthorId = 2,Name = "BDSA07 Architectural and Object Oriented Design Part 3",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"BDSA21_07_P3.pdf"},      
-                    new Material{AuthorId = 2,Name = "TEST DOKUMENT",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"Test.pdf"},    
-                    new Material{AuthorId = 1,Name = "The Gilded Rose Assignment",Description = FillDescription, FileType = FileType.pdf,FilePath = path+"The_Gilded_Rose.pdf"});
+                    new Material{AuthorId = 1,Name = "Lecture03 Lambdas",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture03.Pdf"},
+                    new Material{AuthorId = 1,Name = "Lecture04 Data Access",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture04.Pdf"},
+                    new Material{AuthorId = 1,Name = "Lecture05 Dependency Injection",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture05.Pdf"},   
+                    new Material{AuthorId = 1,Name = "Lecture06 Asynchronous",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture06.Pdf"},  
+                    new Material{AuthorId = 1,Name = "Lecture07 JSON and Rest",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture07.Pdf"},   
+                    new Material{AuthorId = 1,Name = "Lecture08 ASP.NET Core Web API",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture08.Pdf"},
+                    new Material{AuthorId = 1,Name = "Lecture09 Web Applications",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture09.Pdf"},
+                    new Material{AuthorId = 1,Name = "Lecture10 Mobile Applications",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture10.Pdf"},      
+                    new Material{AuthorId = 1,Name = "Lecture11 Security",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Lecture11.Pdf"},    
+                    new Material{AuthorId = 2,Name = "BDSA01 Software Enginere",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"BDSA21_01.Pdf"}, 
+                    new Material{AuthorId = 2,Name = "BDSA02 Requirements Engineering",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"BDSA21_02.Pdf"}, 
+                    new Material{AuthorId = 2,Name = "BDSA03 UML Diagrams",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"BDSA21_03.Pdf"},        
+                    new Material{AuthorId = 2,Name = "BDSA05 SOLID Principles",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"BDSA21_05.Pdf"},   
+                    new Material{AuthorId = 2,Name = "BDSA07 Architectural and Object Oriented Design Part 1",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"BDSA21_07_P1.Pdf"},  
+                    new Material{AuthorId = 2,Name = "BDSA07 Architectural and Object Oriented Design Part 2",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"BDSA21_07_P2.Pdf"},     
+                    new Material{AuthorId = 2,Name = "BDSA07 Architectural and Object Oriented Design Part 3",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"BDSA21_07_P3.Pdf"},      
+                    new Material{AuthorId = 2,Name = "TEST DOKUMENT",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"Test.Pdf"},    
+                    new Material{AuthorId = 1,Name = "The Gilded Rose Assignment",Description = FillDescription, FileType = FileType.Pdf,FilePath = path+"The_Gilded_Rose.Pdf"});
 
             context.Tags.AddRange(
             PutTogether(
-                MakeTags(1, "C#", "LINQ", "PDF"),
-                MakeTags(2, "C#", "LINQ", "PDF"),
-                MakeTags(3, "C#", "LINQ", "PDF"),
-                MakeTags(4, "C#", "LINQ", "PDF"),
-                MakeTags(5, "C#", "LINQ", "PDF", "JSON"),
-                MakeTags(6, "C#", "LINQ", "PDF", "JavaFX"),
-                MakeTags(7, "C#", "LINQ", "PDF", "JavaFX"),
-                MakeTags(8, "C#", "LINQ", "PDF"),
-                MakeTags(9, "C#", "LINQ", "PDF"),
+                MakeTags(1, "C#", "LINQ", "Pdf"),
+                MakeTags(2, "C#", "LINQ", "Pdf"),
+                MakeTags(3, "C#", "LINQ", "Pdf"),
+                MakeTags(4, "C#", "LINQ", "Pdf"),
+                MakeTags(5, "C#", "LINQ", "Pdf", "JSON"),
+                MakeTags(6, "C#", "LINQ", "Pdf", "JavaFX"),
+                MakeTags(7, "C#", "LINQ", "Pdf", "JavaFX"),
+                MakeTags(8, "C#", "LINQ", "Pdf"),
+                MakeTags(9, "C#", "LINQ", "Pdf"),
 
-                MakeTags(10, "Software Enginere", "PDF"),
-                MakeTags(11, "Software Enginere", "PDF"),
-                MakeTags(12, "Software Enginere", "PDF", "UML"),
-                MakeTags(13, "Software Enginere", "PDF"),
-                MakeTags(14, "Software Enginere", "PDF"),
-                MakeTags(15, "Software Enginere", "PDF"),
-                MakeTags(16, "Software Enginere", "PDF"),
-                MakeTags(17, "Software Enginere", "PDF"),
-                MakeTags(18, "Software Enginere", "PDF")
+                MakeTags(10, "Software Enginere", "Pdf"),
+                MakeTags(11, "Software Enginere", "Pdf"),
+                MakeTags(12, "Software Enginere", "Pdf", "UML"),
+                MakeTags(13, "Software Enginere", "Pdf"),
+                MakeTags(14, "Software Enginere", "Pdf"),
+                MakeTags(15, "Software Enginere", "Pdf"),
+                MakeTags(16, "Software Enginere", "Pdf"),
+                MakeTags(17, "Software Enginere", "Pdf"),
+                MakeTags(18, "Software Enginere", "Pdf")
             ));
 
             await context.SaveChangesAsync();

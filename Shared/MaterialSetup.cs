@@ -2,6 +2,7 @@ namespace SE_training.Shared;
 
 using System.Collections.ObjectModel;
 using SE_training.Core;
+using static SE_training.Core.FileType;
 
     public class MaterialSetup
     {
@@ -14,7 +15,7 @@ using SE_training.Core;
             var AuthorId = 0;
             var Name = "This is a UI Test";
             var Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-            var FileType ="PDF";
+            var FileType = Pdf;
             var FilePath = "MaterialsData/test.pdf";
 
        
@@ -42,7 +43,7 @@ using SE_training.Core;
             var AuthorId = 0;
             var Name = "This is a UI Test";
             var Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-            var FileType ="PDF";
+            var FileType = Pdf;
             var FilePath = "MaterialsData/test.pdf";
      
             var Tags = new Collection<TagDTO>(){
@@ -61,7 +62,7 @@ using SE_training.Core;
             AuthorId = 1;
             Name = "THIS IS THE SECOUND WORLD";
             Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-            FileType ="PDF";
+            FileType = Pdf;
             FilePath = "MaterialsData/test.pdf";
      
             Tags = new Collection<TagDTO>(){
@@ -80,7 +81,7 @@ using SE_training.Core;
             AuthorId = 2;
             Name = "ASIUJBDIUBSIB asbd Docker??";
             Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-            FileType ="PDF";
+            FileType = Pdf;
             FilePath = "MaterialsData/test.pdf";
      
             Tags = new Collection<TagDTO>(){
@@ -98,7 +99,7 @@ using SE_training.Core;
             AuthorId = 0;
             Name = "NEJ NEJ NEJ NEJ NEJ NEJ NEJ NEJ NEJ NEJ";
             Description = "neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeej";
-            FileType ="PDF";
+            FileType = Pdf;
             FilePath = "MaterialsData/test.pdf";
      
             Tags = new Collection<TagDTO>(){
@@ -146,7 +147,7 @@ using SE_training.Core;
 
         public static async Task<bool>GetTeacher()  
         {
-            Random rng = new Random();
+            Random rng =  new Random();
             return rng.Next(2) > 0;
 
         }

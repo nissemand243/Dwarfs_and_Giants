@@ -54,7 +54,11 @@ namespace SE_training.Server.Controllers
         {
             return await _repository.UpdateMaterialAsync(materialId, material);
         }
-        
+
+        public async Task<IReadOnlyCollection<MaterialDTO>> ReadAllAsync()
+        {
+            return await _repository.ReadAllAsync();
+        }      
 
         
     }
