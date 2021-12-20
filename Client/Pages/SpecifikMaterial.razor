@@ -68,7 +68,6 @@ else
                         <th>Material Id</th>
                         <th>Title</th>
                         <th>Decription</th>
-                        <th>Tags</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -79,16 +78,6 @@ else
                             <td>@material.Id</td>
                             <td>@material.Name</td>
                             <td>@material.Description</td>
-                            <td>
-                                <ul>
-                                    @foreach (var tag in material.Tags)
-                                    {
-                                        <li>
-                                            @tag.TagName
-                                        </li>
-                                    }
-                                </ul> 
-                            </td>
                             <td><button class="btn btn-info">View</button></td>
                         </tr>
                     }
@@ -98,7 +87,7 @@ else
         <hr>
         <h1>CommentSection</h1>
        
-    <CommentSection MaterialID=@material.Id/>
+    <CommentSection Id=Id/>
 }
 
 
@@ -108,7 +97,7 @@ else
     public string? Id { get; set; }
     public DetailsMaterialDTO? material;
 
-    public List<DetailsMaterialDTO>? recommendedMaterial;
+    public MaterialDTO[] recommendedMaterial;
 
     private CreateUserDTO? userDTO;    
         
@@ -125,8 +114,8 @@ else
         }
         
 
-        material = await Http.GetFromJsonAsync<DetailsMaterialDTO>($"api/Material/Specifik/{Id}");  
-        recommendedMaterial = await Http.GetFromJsonAsync<List<DetailsMaterialDTO>>($"api/Material/Material/{Id}");  
+        material = await Http.GetFromJsonAsync<DetailsMaterialDTO>($"api/Basic/Material/{Id}");
+        recommendedMaterial = await Http.GetFromJsonAsync<MaterialDTO[]>($"api/Basic/Specifik/{Id}"); 
 
         // Test Material and recommendedMaterial
         //  material = await BlazorMaterialsTest.Show_a_specifik_Material(Id);
