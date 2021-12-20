@@ -42,7 +42,7 @@
         if (user.Identity?.IsAuthenticated == true)
         {
             message = $"You are logged in as: {user.Identity.Name}.";
-            claims = user.Claims;
+            claims = user.Claims; 
         }
         else
         {

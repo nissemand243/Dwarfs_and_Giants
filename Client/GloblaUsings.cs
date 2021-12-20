@@ -5,4 +5,7 @@ global using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 global using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
+global using System.Security.Claims;
+
 global using SE_training.Client;
+global using SE_training.Core;

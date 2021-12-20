@@ -3,6 +3,7 @@
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 
 
@@ -104,20 +105,30 @@ else
 @code {
 
     [Parameter]
-    public string Id { get; set; }
+    public string? Id { get; set; }
     public DetailsMaterialDTO? material;
 
     public List<DetailsMaterialDTO>? recommendedMaterial;
 
-   
-
+    private CreateUserDTO? userDTO;    
+        
     protected override async Task OnInitializedAsync()
     {
-        material = await Http.GetFromJsonAsync<DetailsMaterialDTO>($"api/Material/Specifik/{Id}");  
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        userDTO = UserClaims.CreateUserOrDefault(user);
+      
+        if(userDTO != null)
+        {
+            var response = await Http.PostAsJsonAsync("api/create", userDTO);
+            Console.WriteLine(userDTO);
+        }
         
+
+        material = await Http.GetFromJsonAsync<DetailsMaterialDTO>($"api/Material/Specifik/{Id}");  
         recommendedMaterial = await Http.GetFromJsonAsync<List<DetailsMaterialDTO>>($"api/Material/Material/{Id}");  
 
-            // Test Material and recommendedMaterial
+        // Test Material and recommendedMaterial
         //  material = await BlazorMaterialsTest.Show_a_specifik_Material(Id);
         //  recommendedMaterial = await BlazorMaterialsTest.Shows_a_list_of_Search_Relatede_Material();
 
