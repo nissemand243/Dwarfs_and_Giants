@@ -90,7 +90,7 @@ public class CommentRepositoryTests : IDisposable
         var expected = Deleted;
         
         // Act
-        var actual = await _repo.D(22);
+        var actual = await _repo.DeleteAllAsync(22);
     
         // Asssert
         Assert.Equal(expected, actual);
