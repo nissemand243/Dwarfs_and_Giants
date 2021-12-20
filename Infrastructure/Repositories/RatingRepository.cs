@@ -11,17 +11,27 @@ public class RatingRepository : IRatingRepository
 
     public async Task<(Status status, RatingDTO rating)> CreateAsync(CreateRatingDTO rating)
     {
-        var entity = new Rating() {
-            MaterialId = rating.MaterialId,
-            UserId = rating.UserId,
-            Value = rating.Value
-        };
-        
-        _context.Ratings.Add(entity);
+        var status = Created;       
+        var ratingExists = await OverrideRating(rating.MaterialId, rating.UserId);
+        if(ratingExists != null)
+        {
+            // _context.Ratings.Update(ratingExists).Entity.Value = rating.Value;
+            status = Updated;
+        } 
+        else
+        {
+            var entity = new Rating() 
+            {
+                MaterialId = rating.MaterialId,
+                UserId = rating.UserId,
+                Value = rating.Value            
+            };
+            await _context.Ratings.AddAsync(entity);
+        }
+       
         await _context.SaveChangesAsync();
-
-        var details = new RatingDTO(entity.Id, entity.MaterialId, entity.UserId, entity.Value);
-        return (Created, details);
+        // var details = new RatingDTO(entity.Id, entity.MaterialId, entity.UserId, entity.Value);
+        return (status, null);
     }
 
     public async Task<IReadOnlyCollection<RatingDTO>> ReadAsync(int materialId)
@@ -61,5 +71,25 @@ public class RatingRepository : IRatingRepository
         await _context.SaveChangesAsync();
 
         return Deleted;
+    }
+
+    private async Task<Rating> OverrideRating(int materialId, int userId)
+    {
+        var rating = await _context.Ratings
+                .Where(r => r.MaterialId == materialId)
+                .Where(r => r.UserId == userId)
+                .Select(r => new Rating
+                {
+                    Id = r.Id, 
+                    MaterialId = r.MaterialId, 
+                    UserId = r.UserId, 
+                    Value = r.Value
+                })
+                .SingleOrDefaultAsync();
+        if(rating == null)
+        {
+            return null;
+        }
+        return rating;
     }
 }
