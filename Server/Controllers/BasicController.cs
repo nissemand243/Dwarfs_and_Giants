@@ -3,16 +3,16 @@ namespace SE_training.Server.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
-public class StudentController : ControllerBase, IStudentController
+public class BasicController : ControllerBase, IBasicController
 {
     internal readonly CommentController _commentController;
     internal readonly RatingController _ratingController;
     internal readonly MaterialController _materialController;
 
     internal readonly ISEarchEngine _searchEngine;
-    private readonly ILogger<StudentController> _logger;
+    private readonly ILogger<BasicController> _logger;
 
-    public StudentController(ILogger<StudentController> logger, CommentController commentController, RatingController ratingController, 
+    public BasicController(ILogger<BasicController> logger, CommentController commentController, RatingController ratingController, 
     MaterialController materialController, SearchEngine searchEngine)
     {
         _logger = logger;

@@ -1,10 +1,10 @@
 namespace SE_training.Server.Controllers
 {
-    public class UserAuthController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IUserRepository _repository;
 
-        public UserAuthController(IUserRepository repository)
+        public UserController(IUserRepository repository)
         {
             _repository = repository;
         }

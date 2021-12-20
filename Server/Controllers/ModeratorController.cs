@@ -4,7 +4,7 @@ namespace SE_training.Server.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
-public class ModeratorController : StudentController, IModeratorController
+public class ModeratorController : BasicController, IModeratorController
 {
     private readonly ILogger<ModeratorController> _logger;
     public ModeratorController(
