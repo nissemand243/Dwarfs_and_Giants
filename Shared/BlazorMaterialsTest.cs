@@ -34,10 +34,10 @@ using static SE_training.Core.FileType;
            return material;
         }
 
-          public static  async Task<List<DetailsMaterialDTO>> Shows_a_list_of_Search_Relatede_Material()
+          public static  async Task<MaterialDTO[]> Shows_a_list_of_Search_Relatede_Material()
         {
-           await Task.Delay(2000);
-           var MaterialList = new List<DetailsMaterialDTO>();
+           await Task.Delay(1000);
+           var MaterialList = new MaterialDTO[4];
             
             var Id =  0;
             var AuthorId = 0;
@@ -46,18 +46,10 @@ using static SE_training.Core.FileType;
             var FileType = Pdf;
             var FilePath = "MaterialsData/test.pdf";
      
-            var Tags = new Collection<TagDTO>(){
-                {new TagDTO(2,2,"Docker")},
-                {new TagDTO(1,2,"Test")},
-                {new TagDTO(33,2,"xunit")}
-            };
-            var Comment = new Collection<CommentDTO>();
-        
-            var Rating = 4.6;
-
-           var material = new DetailsMaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath,Tags,Comment,Rating);
+          
+           var material = new MaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath);
             
-           MaterialList.Add(material);
+           MaterialList[0]=(material);
             Id =  1;
             AuthorId = 1;
             Name = "THIS IS THE WORLD";
@@ -65,16 +57,9 @@ using static SE_training.Core.FileType;
             FileType = Pdf;
             FilePath = "MaterialsData/test.pdf";
      
-            Tags = new Collection<TagDTO>(){
-                {new TagDTO(2,2,"C#")},
-                {new TagDTO(1,2,"Swing")},
-                 {new TagDTO(33,2,"Junit")}
-            };
-            Comment = new Collection<CommentDTO>();
-            Rating = 3.7;
 
-           material = new DetailsMaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath,Tags,Comment,Rating);
-           MaterialList.Add(material);
+           material = new MaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath);
+           MaterialList[1]=(material);
           
           
             Id =  3;
@@ -84,16 +69,10 @@ using static SE_training.Core.FileType;
             FileType = Pdf;
             FilePath = "MaterialsData/test.pdf";
      
-            Tags = new Collection<TagDTO>(){
-                {new TagDTO(2,2,"C#")},
-                {new TagDTO(1,2,"JavaFX")},
-                 {new TagDTO(33,2,"Junit")}
-            };
-            Comment = new Collection<CommentDTO>();
-            Rating = 4.2;
+        
 
-           material = new DetailsMaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath,Tags,Comment,Rating);
-           MaterialList.Add(material);
+           material = new MaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath);
+           MaterialList[2]=(material);
            
             Id =  4;
             AuthorId = 0;
@@ -101,17 +80,9 @@ using static SE_training.Core.FileType;
             Description = "Do not sleep in 48 hours";
             FileType = Pdf;
             FilePath = "MaterialsData/test.pdf";
-     
-            Tags = new Collection<TagDTO>(){
-                {new TagDTO(2,2,"Dont")},
-                {new TagDTO(1,2,"LifeHack")},
-                 {new TagDTO(33,2,"Sleep")}
-            };
-            Comment = new Collection<CommentDTO>();
-            Rating = 1.8;
 
-           material = new DetailsMaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath,Tags,Comment,Rating);
-           MaterialList.Add(material);
+           material = new MaterialDTO(Id, AuthorId, Name, Description, FileType, FilePath);
+            MaterialList[3]=(material);
            return MaterialList;
         }
 
