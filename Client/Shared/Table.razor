@@ -17,8 +17,6 @@ else
                 <th>Material Id</th>
                 <th>Title</th>
                 <th>Decription</th>
-                <th>Tags</th>
-                <th>Rating</th>
                 <th></th>
             </tr>
         </thead>
@@ -29,17 +27,6 @@ else
                     <td>@material.Id</td>
                     <td>@material.Name</td>
                     <td><p>@material.Description</p></td>
-                    <td>
-                        <ul>
-                            @foreach (var tag in material.Tags)
-                            {
-                                <li>
-                                    @tag.TagName
-                                </li>
-                            }
-                        </ul>
-                    </td>
-                    <td>@material.Rating</td>
                     <td><button class="btn btn-info" @onclick="@(() => ChosenMaterial(material.Id))">View</button></td>
                 </tr>
             }
@@ -54,7 +41,7 @@ else
     public String SearchString { get; set; }
 
 
-    private List<DetailsMaterialDTO> materialList = null;
+    private MaterialDTO[] materialList = null;
 
     private void ChosenMaterial(int MaterialID)
     {
@@ -62,7 +49,7 @@ else
     }
    protected override async Task OnInitializedAsync()
     {
-        materialList = await Http.GetFromJsonAsync<List<DetailsMaterialDTO>>($"api/Material/{SearchString}");  
+        materialList = await Http.GetFromJsonAsync<MaterialDTO[]>($"api/Basic/{SearchString}");  
 
           // Test Visual Material
        // materialList = await BlazorMaterialsTest.Shows_a_list_of_Search_Relatede_Material();

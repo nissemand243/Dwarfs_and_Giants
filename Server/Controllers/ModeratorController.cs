@@ -4,7 +4,7 @@ namespace SE_training.Server.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
-public class ModeratorController : BasicController, IModeratorController
+public class ModeratorController : BasicController//, IModeratorController
 {
     private readonly ILogger<ModeratorController> _logger;
     public ModeratorController(
@@ -19,9 +19,9 @@ public class ModeratorController : BasicController, IModeratorController
 
     [Authorize(Roles = $"{Roles.Teacher},{Administrator}")]
     [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<Status> DeleteMaterial(int MaterialId)
+    public async Task<ActionResult> DeleteMaterial(int MaterialId)
     {
         var status =_materialController.DeleteMaterial(MaterialId);
         Status commentStatus, ratingStatus;
@@ -31,33 +31,57 @@ public class ModeratorController : BasicController, IModeratorController
             commentStatus =_commentController.DeleteAllComments(MaterialId).Result;
             ratingStatus = _ratingController.DeleteAllRatings(MaterialId).Result;
         } else{
-            return Status.BadRequest;
+            return NotFound();
         }
 
-        return await status;
+        return Ok();
         
+    }
+       [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
+    [HttpDelete("Comment/{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> DeleteComment(int commentId)
+    {
+        var response = await _commentController.DeleteComment(commentId);
+        if (response == Deleted)
+        {
+            return Ok();
+        }
+        else
+        {
+            return NotFound();
+        }
     }
 
     [Authorize(Roles = $"{Roles.Teacher},{Administrator}")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<(Status, MaterialDTO?)> PostMaterial(CreateMaterialDTO material)
+    public async Task<ActionResult> PostMaterial(CreateMaterialDTO material)
     {
         var created = await _materialController.CreateMaterial(material);
         if(created.status != Status.Created)
         {
-            return (Status.BadRequest, null);
+            return BadRequest();
         }
        
-        return (created.status, created.material); 
+        return CreatedAtAction(nameof(Get), new { created.material.Id }, created); 
     }
 
     [Authorize(Roles = $"{Roles.Teacher},{Administrator}")] 
     [HttpPost("{MaterialId}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public Task<Status> PutMaterial(int MaterialId, MaterialDTO material)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult> PutMaterial(int MaterialId, MaterialDTO material)
     {
-        return _materialController.UpdateMaterial(MaterialId, material);
+        var respons = await _materialController.UpdateMaterial(MaterialId, material);
+       if(respons == Status.Updated) {
+           return Ok(); 
+        }
+        else
+        {
+            return NotFound();
+        }
     }
 }
