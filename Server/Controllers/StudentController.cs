@@ -21,7 +21,7 @@ public class StudentController : ControllerBase, IStudentController
         _materialController = materialController;
         _searchEngine = searchEngine;
     }
-    [AllowAnonymous]
+    [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
     [HttpGet("{id}")]
     public async Task<(Status, DetailsMaterialDTO?)> Get(int id)
     {
@@ -54,23 +54,23 @@ public class StudentController : ControllerBase, IStudentController
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
     [HttpPatch("{MaterialId}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public Task<(Status status, CommentDTO comment)> PathComment(CreateCommentDTO comment)
+    public Task<(Status status, CommentDTO comment)> PatchComment(CreateCommentDTO comment)
     {
         return _commentController.CreateComment(comment);
     }
-    [AllowAnonymous]
-    [HttpPatch("{MaterialID}")] // find a different way to have two patch way methods
 
-    public Task<Status> PatchRating(int MaterialID, RatingDTO rating)
+    [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
+    [HttpPatch("{MaterialID}")] // find a different way to have two patch way methods
+    public Task<(Status status, RatingDTO rating)> PatchRating(CreateRatingDTO rating)
     {
-        throw new NotImplementedException();
+        return _ratingController.CreateRating(rating);
     }
 
-    [AllowAnonymous]
+    [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
     [HttpGet]
-    public Task<(Status, IReadOnlyCollection<MaterialDTO>)> Search(string searchInput)
+    public Task<IReadOnlyCollection<MaterialDTO>> Search(string searchInput)
     {
-        throw new NotImplementedException();
+        return _searchEngine.SearchAsync(searchInput);
     }
 
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
@@ -79,6 +79,6 @@ public class StudentController : ControllerBase, IStudentController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<Status> DeleteComment(int commentId)
     {
-        DeleteComment(commentid);
+        return await _commentController.DeleteComment(commentId);
     }
 }

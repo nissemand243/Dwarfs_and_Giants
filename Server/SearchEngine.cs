@@ -17,7 +17,7 @@ public class SearchEngine : ISEarchEngine
         _ratingRepo = ratingRepo;
     }
 
-    public async Task<IList<MaterialDTO>> SearchAsync(string searchString)
+    public async Task<IReadOnlyCollection<MaterialDTO>> SearchAsync(string searchString)
     {
         var matches = new List<MaterialDTO>();
 
@@ -57,7 +57,7 @@ public class SearchEngine : ISEarchEngine
             }
         }
 
-        return matches;
+        return matches.AsReadOnly();
     }
 
     public async Task<IList<MaterialDTO>> SearchByNameAsync(string searchString)
