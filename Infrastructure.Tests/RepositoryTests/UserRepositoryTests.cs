@@ -27,19 +27,28 @@ public class UserRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void ReadAsync_given_existing_id_returns_userDTO()
+    public async void ReadAsync_given_id_not_existing_returns_null()
     {
-        // Arrange
-        var expected = new UserDTO(3, "OndFisk", "evilFish@microsoft.com");
+        var user4 = await _repo.ReadAsync(4);
 
-        // Act
-        var actual = await _repo.ReadAsyncId(3);
-
-        // Assert
-        Assert.Equal(expected,actual);
+        Assert.Null(user4);
     }
 
+    [Fact]
+    public async void ReadAsync_given_existing_id_returns_userDTO()
+    {
+        var actual = await _repo.ReadAsync(3);
 
+        Assert.Equal(new UserDTO(3, "OndFisk", "evilFish@microsoft.com"), actual);
+    }
+
+    [Fact]
+    public async void ReadAsync_given_email_not_existing_returns_null()
+    {
+        var noUser = await _repo.ReadAsync("goodShark@gmail.dk");
+
+        Assert.Null(noUser);
+    }
 
     [Fact]
     public async void ReadAsync_given_email_returns_user()
@@ -50,35 +59,33 @@ public class UserRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void ReadAsync_given_name_not_existing_returns_null()
-    {
-        var user4 = await _repo.ReadAsync("Paolo Tell");
-
-        Assert.Null(user4);
-    }
-
-
-    [Fact]
     public async void ReadAllAsync_returns_all_users()
     {
         var users = await _repo.ReadAllAsync();
 
         Assert.Collection(users,
-            user => Assert.Equal(new UserDTO(3, "OndFisk", "evilFish@microsoft.com"), user),
-            user => Assert.Equal(new UserDTO(2,"Iben Carb Wiener", "icwiener@gmail.com"), user),
-            user => Assert.Equal(new UserDTO(1, "Mads Cornelius", "maco@itu.dk"), user)
+            user => Assert.Equal(new UserDTO(1, "Mads Cornelius", "maco@itu.dk"), user),
+            user => Assert.Equal(new UserDTO(2, "Iben Carb Wiener", "icwiener@gmail.com"), user),
+            user => Assert.Equal(new UserDTO(3, "OndFisk", "evilFish@microsoft.com"), user)
         );
+    }
+
+    [Fact]
+    public async void CreateAsync_given_entity_with_email_existing_returns_conflict()
+    {
+        var result = await _repo.CreateAsync(new CreateUserDTO("The Copy Cat", "evilFish@microsoft.com"));
+
+        Assert.Equal(Conflict, result.status);
+        Assert.Equal(new UserDTO(3, "OndFisk", "evilFish@microsoft.com"), result.user);
     }
 
     [Fact]
     public async void CreateAsync_given_new_entity_returns_created()
     {
-        var expected = new UserDTO(0,"Paolo Tell", "pote@itu.dk");
         var result = await _repo.CreateAsync(new CreateUserDTO("Paolo Tell", "pote@itu.dk"));
 
         Assert.Equal(Created, result.status);
-        Assert.Equal(expected.Name, result.user.Name);
-        Assert.Equal(expected.Email, result.user.Email);
+        Assert.Equal(new UserDTO(4, "Paolo Tell", "pote@itu.dk"), result.user);
     }
 
     protected virtual void Dispose(bool disposing)

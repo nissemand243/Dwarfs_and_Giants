@@ -6,4 +6,6 @@ public interface ITagRepository
     Task<IReadOnlyCollection<TagDTO>> ReadAsync(int materialId);
     Task<IReadOnlyCollection<TagDTO>> ReadAllAsync();
     Task<Status> DeleteAsync(int tagId);
+    Task<Status> DeleteAllAsync(int tagId);
+
 }

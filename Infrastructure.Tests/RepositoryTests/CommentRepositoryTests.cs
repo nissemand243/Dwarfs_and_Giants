@@ -71,6 +71,25 @@ public class CommentRepositoryTests : IDisposable
         Assert.Empty(comments11);
     }
 
+    [Fact]
+    public async void DeleteAllAsync_given_id_not_existing_returns_NotFound()
+    {
+        var status = await _repo.DeleteAllAsync(33);
+
+        Assert.Equal(NotFound, status);
+    }
+
+    [Fact]
+    public async void DeleteAllAsync_given_id_returns_Deleted()
+    {
+        var status = await _repo.DeleteAllAsync(22);
+        var comments22 = await _repo.ReadAsync(22);
+
+        Assert.Equal(Deleted, status);
+        Assert.Empty(comments22);
+    }
+
+
     protected virtual void Dispose(bool disposing)
     {
         if (!_disposed)

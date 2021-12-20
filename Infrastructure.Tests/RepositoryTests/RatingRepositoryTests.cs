@@ -35,7 +35,7 @@ public class RatingRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void ReadAsync_given_id_returns_tag()
+    public async void ReadAsync_given_id_returns_rating()
     {
         var ratings = await _repo.ReadAsync(11);
 
@@ -44,7 +44,6 @@ public class RatingRepositoryTests : IDisposable
         );
     }
 
-
     [Fact]
     public async void CreateAsync_given_new_entity_returns_created()
     {
@@ -52,6 +51,15 @@ public class RatingRepositoryTests : IDisposable
 
         Assert.Equal(Created, result.status);
         Assert.Equal(new RatingDTO(0, 22, 3, 5), result.rating);
+    }
+
+    [Fact]
+    public async void CreateAsync_given_existing_userId_and_materialId_returns_Updated_and_ratingDTO()
+    {
+        var result = await _repo.CreateAsync(new CreateRatingDTO(11, 1, 4));
+
+        Assert.Equal(Updated, result.status);
+        Assert.Equal(new RatingDTO(1, 11, 1, 4), result.rating);
     }
 
     [Fact]
@@ -86,25 +94,28 @@ public class RatingRepositoryTests : IDisposable
     public async void DeleteAsync_given_id_returns_Deleted()
     {
         var status = await _repo.DeleteAsync(1);
-        var ratings = await _repo.ReadAsync(11);
+        var ratings11 = await _repo.ReadAsync(11);
 
         Assert.Equal(Deleted, status);
-        Assert.Empty(ratings);
+        Assert.Empty(ratings11);
     }
 
     [Fact]
-    public async void CreateAsync_given_existing_userId_and_materialId_returns_status_Updated_and_ratingDTO()
+    public async void DeleteAllAsync_given_id_not_existing_returns_NotFound()
     {
-        // Arrange
-        var rating = new CreateRatingDTO(11,1,6);
-        var expected = new RatingDTO(1,11,1,6);
+        var status = await _repo.DeleteAllAsync(33);
 
-        // Act
-        var actual = await _repo.CreateAsync(rating);
-    
-        // Assert
-        Assert.Equal(Updated, actual.status);
-        Assert.Equal(expected, actual.rating);
+        Assert.Equal(NotFound, status);
+    }
+
+    [Fact]
+    public async void DeleteAllAsync_given_id_returns_Deleted()
+    {
+        var status = await _repo.DeleteAllAsync(22);
+        var ratings22 = await _repo.ReadAsync(22);
+
+        Assert.Equal(Deleted, status);
+        Assert.Empty(ratings22);
     }
 
     protected virtual void Dispose(bool disposing)
