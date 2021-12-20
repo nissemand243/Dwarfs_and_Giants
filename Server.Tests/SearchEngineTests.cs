@@ -66,29 +66,8 @@ public class SearchEngineTests : IDisposable
         var results = await _searchEngine.SearchAsync(";)");
 
         Assert.Collection(results,
-            material => {
-                Assert.Equal(
-                    new MaterialDTO(4, 4, "How to make a true italian dessert ;)", "Remember lots of butter!", Gif, "https://www.youtube.com/watch?v=9xwbFww5LkM"), 
-                    new MaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType, material.FilePath));
-                Assert.Collection(material.Tags,
-                    tag => Assert.Equal(new TagDTO(4, 4, "Tiramisu"), tag)
-                );
-                Assert.Collection(material.Comments,
-                    comment => Assert.Equal(new CommentDTO(3, 4, 1, "So delicious ;)"), comment)
-                );
-                Assert.Equal(4, material.Rating);
-                },
-            material => {
-                Assert.Equal(
-                    new MaterialDTO(2, 3, "The best way to run your program", "spoler alert: use Docker ;)", Pdf, "https://github.com/ondfisk/BDSA2021/blob/main/Slides/Lecture08%20-%20ASP.NET%20Core%20Web%20API%20part%20deux.Pdf"), 
-                    new MaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType, material.FilePath));
-                Assert.Collection(material.Tags,
-                    tag => Assert.Equal(new TagDTO(2, 2, "Docker"), tag),
-                    tag => Assert.Equal(new TagDTO(3, 2, "BDSA"), tag)
-                );
-                Assert.Collection(material.Comments);
-                Assert.Equal(2, material.Rating);
-                }
+            material => Assert.Equal(new MaterialDTO(4, 4, "How to make a true italian dessert ;)", "Remember lots of butter!", Gif, "https://www.youtube.com/watch?v=9xwbFww5LkM"), material),
+            material => Assert.Equal(new MaterialDTO(2, 3, "The best way to run your program", "spoler alert: use Docker ;)", Pdf, "https://github.com/ondfisk/BDSA2021/blob/main/Slides/Lecture08%20-%20ASP.NET%20Core%20Web%20API%20part%20deux.Pdf"), material)
         );
     }
 
@@ -106,30 +85,8 @@ public class SearchEngineTests : IDisposable
         var results = await _searchEngine.SearchByNameAsync("OW to make ");
 
         Assert.Collection(results,
-            material => {
-                Assert.Equal(
-                    new MaterialDTO(1, 3, "How to make a dockerfile", "Also docker composed will be explained in better detail", Link, "https://learnit.itu.dk/course/view.php?id=3020927"), 
-                    new MaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType, material.FilePath));
-                Assert.Collection(material.Tags,
-                    tag => Assert.Equal(new TagDTO(1, 1, "Docker"), tag)
-                );
-                Assert.Collection(material.Comments,
-                    comment => Assert.Equal(new CommentDTO(1, 1, 1, "What is Docker?"), comment)
-                );
-                Assert.Equal(0, material.Rating);
-                },
-            material => {
-                Assert.Equal(
-                    new MaterialDTO(4, 4, "How to make a true italian dessert ;)", "Remember lots of butter!", Gif, "https://www.youtube.com/watch?v=9xwbFww5LkM"), 
-                    new MaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType, material.FilePath));
-                Assert.Collection(material.Tags,
-                    tag => Assert.Equal(new TagDTO(4, 4, "Tiramisu"), tag)
-                );
-                Assert.Collection(material.Comments,
-                    comment => Assert.Equal(new CommentDTO(3, 4, 1, "So delicious ;)"), comment)
-                );
-                Assert.Equal(4, material.Rating);
-                    }
+            material => Assert.Equal(new MaterialDTO(1, 3, "How to make a dockerfile", "Also docker composed will be explained in better detail", Link, "https://learnit.itu.dk/course/view.php?id=3020927"), material),
+            material => Assert.Equal(new MaterialDTO(4, 4, "How to make a true italian dessert ;)", "Remember lots of butter!", Gif, "https://www.youtube.com/watch?v=9xwbFww5LkM"), material)
         );
     }
 
@@ -147,29 +104,8 @@ public class SearchEngineTests : IDisposable
         var results = await _searchEngine.SearchByDescriptionAsync("better");
 
         Assert.Collection(results,
-            material => {
-                Assert.Equal(
-                    new MaterialDTO(1, 3, "How to make a dockerfile", "Also docker composed will be explained in better detail", Link, "https://learnit.itu.dk/course/view.php?id=3020927"), 
-                    new MaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType, material.FilePath));
-                Assert.Collection(material.Tags,
-                    tag => Assert.Equal(new TagDTO(1, 1, "Docker"), tag)
-                );
-                Assert.Collection(material.Comments,
-                    comment => Assert.Equal(new CommentDTO(1, 1, 1, "What is Docker?"), comment)
-                );
-                Assert.Equal(0, material.Rating);
-                },
-            material => {
-                Assert.Equal(
-                    new MaterialDTO(3, 4, "Prooving the impossible: 0 / 0 = 42", "You better watch out! You better not cry!", Mp4, "https://www.youtube.com/watch?v=BRRolKTlF6Q"),
-                    new MaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType, material.FilePath));
-                Assert.Collection(material.Tags);
-                Assert.Collection(material.Comments,
-                    comment => Assert.Equal(new CommentDTO(2, 3, 3, "But I thought it should equal 69?"), comment),
-                    comment => Assert.Equal(new CommentDTO(4, 3, 2, "Can you explain in further detail."), comment)
-                );
-                Assert.Equal(0, material.Rating);
-                }
+            material => Assert.Equal(new MaterialDTO(1, 3, "How to make a dockerfile", "Also docker composed will be explained in better detail", Link, "https://learnit.itu.dk/course/view.php?id=3020927"), material),
+            material => Assert.Equal(new MaterialDTO(3, 4, "Prooving the impossible: 0 / 0 = 42", "You better watch out! You better not cry!", Mp4, "https://www.youtube.com/watch?v=BRRolKTlF6Q"), material)          
         );
     }
 
@@ -187,29 +123,8 @@ public class SearchEngineTests : IDisposable
         var results = await _searchEngine.SearchByTagsAsync("docker");
 
         Assert.Collection(results,
-            material => {
-                Assert.Equal(
-                    new MaterialDTO(1, 3, "How to make a dockerfile", "Also docker composed will be explained in better detail", Link, "https://learnit.itu.dk/course/view.php?id=3020927"), 
-                    new MaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType, material.FilePath));
-                Assert.Collection(material.Tags,
-                    tag => Assert.Equal(new TagDTO(1, 1, "Docker"), tag)
-                );
-                Assert.Collection(material.Comments,
-                    comment => Assert.Equal(new CommentDTO(1, 1, 1, "What is Docker?"), comment)
-                );
-                Assert.Equal(0, material.Rating);
-                },
-            material => {
-                Assert.Equal(
-                    new MaterialDTO(2, 3, "The best way to run your program", "spoler alert: use Docker ;)", Pdf, "https://github.com/ondfisk/BDSA2021/blob/main/Slides/Lecture08%20-%20ASP.NET%20Core%20Web%20API%20part%20deux.Pdf"),
-                    new MaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType, material.FilePath));
-                Assert.Collection(material.Tags,
-                    tag => Assert.Equal(new TagDTO(2, 2, "Docker"), tag),
-                    tag => Assert.Equal(new TagDTO(3, 2, "BDSA"), tag)
-                );
-                Assert.Empty(material.Comments);
-                Assert.Equal(2, material.Rating);
-                }
+            material => Assert.Equal(new MaterialDTO(1, 3, "How to make a dockerfile", "Also docker composed will be explained in better detail", Link, "https://learnit.itu.dk/course/view.php?id=3020927"), material),
+            material => Assert.Equal(new MaterialDTO(2, 3, "The best way to run your program", "spoler alert: use Docker ;)", Pdf, "https://github.com/ondfisk/BDSA2021/blob/main/Slides/Lecture08%20-%20ASP.NET%20Core%20Web%20API%20part%20deux.Pdf"), material)
         );
     }
 
@@ -229,13 +144,13 @@ public class SearchEngineTests : IDisposable
         Assert.Null(result);
     }
 
-    [Fact]
+     [Fact]
     public async void GetDetailedMaterialById_given_id_returns_material_inclusive_tags_comments_rating()
     {
         var result = await _searchEngine.GetDetailedMaterialByIdAsync(3);
 
         Assert.Equal(
-            new MaterialDTO(3, 4, "Prooving the impossible: 0 / 0 = 42", "You better watch out! You better not cry!", Mp4, "https://www.youtube.com/watch?v=BRRolKTlF6Q"),
+            new MaterialDTO(3, 4, "Prooving the impossible: 0 / 0 = 42", "You better watch out! You better not cry!", "mp4", "https://www.youtube.com/watch?v=BRRolKTlF6Q"),
             new MaterialDTO(result.Id, result.AuthorId, result.Name, result.Description, result.FileType, result.FilePath));
         Assert.Collection(result.Tags);
         Assert.Collection(result.Comments,
@@ -251,29 +166,8 @@ public class SearchEngineTests : IDisposable
         var results = await _searchEngine.SearchByAuthorAsync("bru");
 
         Assert.Collection(results,
-            material => {
-                Assert.Equal(
-                    new MaterialDTO(3, 4, "Prooving the impossible: 0 / 0 = 42", "You better watch out! You better not cry!", Mp4, "https://www.youtube.com/watch?v=BRRolKTlF6Q"),
-                    new MaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType, material.FilePath));
-                Assert.Collection(material.Tags);
-                Assert.Collection(material.Comments,
-                    comment => Assert.Equal(new CommentDTO(2, 3, 3, "But I thought it should equal 69?"), comment),
-                    comment => Assert.Equal(new CommentDTO(4, 3, 2, "Can you explain in further detail."), comment)
-                );
-                Assert.Equal(0, material.Rating);
-                },
-                material => {
-                Assert.Equal(
-                    new MaterialDTO(4, 4, "How to make a true italian dessert ;)", "Remember lots of butter!", Gif, "https://www.youtube.com/watch?v=9xwbFww5LkM"), 
-                    new MaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType, material.FilePath));
-                Assert.Collection(material.Tags,
-                    tag => Assert.Equal(new TagDTO(4, 4, "Tiramisu"), tag)
-                );
-                Assert.Collection(material.Comments,
-                    comment => Assert.Equal(new CommentDTO(3, 4, 1, "So delicious ;)"), comment)
-                );
-                Assert.Equal(4, material.Rating);
-                }
+            material => Assert.Equal(new MaterialDTO(3, 4, "Prooving the impossible: 0 / 0 = 42", "You better watch out! You better not cry!", Mp4, "https://www.youtube.com/watch?v=BRRolKTlF6Q"), material),
+            material => Assert.Equal(new MaterialDTO(4, 4, "How to make a true italian dessert ;)", "Remember lots of butter!", Gif, "https://www.youtube.com/watch?v=9xwbFww5LkM"), material)
         );
     }
 
@@ -291,17 +185,7 @@ public class SearchEngineTests : IDisposable
         var results = await _searchEngine.GetRelatedMaterialsByTagsAsync(1);
 
         Assert.Collection(results,
-            material => {
-                Assert.Equal(
-                    new MaterialDTO(2, 3, "The best way to run your program", "spoler alert: use Docker ;)", Pdf, "https://github.com/ondfisk/BDSA2021/blob/main/Slides/Lecture08%20-%20ASP.NET%20Core%20Web%20API%20part%20deux.Pdf"),
-                    new MaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType, material.FilePath));
-                Assert.Collection(material.Tags,
-                    tag => Assert.Equal(new TagDTO(2, 2, "Docker"), tag),
-                    tag => Assert.Equal(new TagDTO(3, 2, "BDSA"), tag)
-                );
-                Assert.Collection(material.Comments);
-                Assert.Equal(2, material.Rating);
-                }
+            material => Assert.Equal(new MaterialDTO(2, 3, "The best way to run your program", "spoler alert: use Docker ;)", Pdf, "https://github.com/ondfisk/BDSA2021/blob/main/Slides/Lecture08%20-%20ASP.NET%20Core%20Web%20API%20part%20deux.Pdf"), material)
         );
     }
 

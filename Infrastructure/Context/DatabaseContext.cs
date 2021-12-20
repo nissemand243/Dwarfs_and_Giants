@@ -13,15 +13,20 @@ public class DatabaseContext : DbContext, IDatabaseContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Teacher>();
-        modelBuilder.Entity<Student>();
 
-        modelBuilder.Entity<User>()
+
+        //modelBuilder.Entity<Teacher>();
+        //modelBuilder.Entity<Student>();
+
+        /*modelBuilder.Entity<User>()
                     .HasIndex(u => u.Email)
-                    .IsUnique();
+                    .IsUnique();*/
 
-        modelBuilder.Entity<Material>();
+        modelBuilder.Entity<User>().ToTable("User");
+        modelBuilder.Entity<Material>().ToTable("Material");
 
+        modelBuilder.Entity<Tag>().ToTable("Tag");
+        modelBuilder.Entity<Rating>().ToTable("Rating");
         /*modelBuilder.Entity<Tag>()
                     .HasIndex(t => t.MaterialId)
                     .HasIndex(t => t.TagName)
@@ -32,9 +37,12 @@ public class DatabaseContext : DbContext, IDatabaseContext
                     .HasIndex(r => r.UserId)
                     .IsUnique();*/
 
-        modelBuilder.Entity<Comment>()
+        /*modelBuilder.Entity<Comment>()
                     .Property(c => c.Text)
-                    .HasMaxLength(500);
+                    .HasMaxLength(500);*/
+
+        modelBuilder.Entity<Comment>().ToTable("Comment");
+
 
         base.OnModelCreating(modelBuilder);
     }
