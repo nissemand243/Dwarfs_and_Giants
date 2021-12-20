@@ -10,18 +10,28 @@ public class RatingRepository : IRatingRepository
     }
 
     public async Task<(Status status, RatingDTO rating)> CreateAsync(CreateRatingDTO rating)
-    {
-        var entity = new Rating() {
-            MaterialId = rating.MaterialId,
-            UserId = rating.UserId,
-            Value = rating.Value
-        };
-        
-        _context.Ratings.Add(entity);
-        await _context.SaveChangesAsync();
-
-        var details = new RatingDTO(entity.Id, entity.MaterialId, entity.UserId, entity.Value);
-        return (Created, details);
+    {     
+        var ratingId = await OverrideRating(rating.MaterialId, rating.UserId);
+        if(ratingId != -1)
+        {
+            var ratingDTO = new RatingDTO(ratingId,rating.MaterialId,rating.UserId,rating.Value);
+            var status = await UpdateAsync(ratingDTO);
+            return(status, ratingDTO);
+            
+        } 
+        else
+        {
+            var entity = new Rating() 
+            {
+                MaterialId = rating.MaterialId,
+                UserId = rating.UserId,
+                Value = rating.Value            
+            };
+            await _context.SaveChangesAsync();
+            var details = new RatingDTO(entity.Id, entity.MaterialId, entity.UserId, entity.Value);
+            return (Created, details);
+        }      
+       
     }
 
     public async Task<IReadOnlyCollection<RatingDTO>> ReadAsync(int materialId)
@@ -61,5 +71,25 @@ public class RatingRepository : IRatingRepository
         await _context.SaveChangesAsync();
 
         return Deleted;
+    }
+
+    private async Task<int> OverrideRating(int materialId, int userId)
+    {
+        var rating = await _context.Ratings
+                .Where(r => r.MaterialId == materialId)
+                .Where(r => r.UserId == userId)
+                .Select(r => new RatingDTO
+                (
+                    r.Id, 
+                    r.MaterialId, 
+                    r.UserId, 
+                    r.Value
+                ))            
+                .SingleOrDefaultAsync();
+        if(rating == null)
+        {
+            return -1;
+        }
+        return rating.Id;
     }
 }
