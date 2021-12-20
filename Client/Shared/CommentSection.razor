@@ -15,9 +15,9 @@ else
             <tr>
                 <th>User Id's</th>
                 <th>Comments</th>
-                @if(Teacher){
+              
                 <th>Action</th>
-                }
+                
                
             </tr>
         </thead>
@@ -28,11 +28,9 @@ else
                 <tr>
                     <td>@comment.UserId</td>
                     <td>@comment.Text</td>  
-                    @if(Teacher){
                         <td>
                             <a class="btn btn-danger" @onclick="@(() => DeleteComment(comment.UserId))"> Delete</a>
                         </td>
-                    }
                    
              
                  
@@ -48,16 +46,14 @@ else
     public int MaterialID { get; set; }
 
     private List<CommentDTO> CommentList {get; set;}
-    private bool Teacher;
 
      protected override async Task OnInitializedAsync()
     {
         CommentList = await Http.GetFromJsonAsync<List<CommentDTO>>($"api/Comment/Comments/{MaterialID}");  
 
             // Test Visual Comments
-        // CommentList = await MaterialSetup.GetCommentTestMaterial();
+        // CommentList = await BlazorMaterialsTest.Show_a_list_of_Comments();
 
-       Teacher = await MaterialSetup.GetTeacher();
     }
 
 
