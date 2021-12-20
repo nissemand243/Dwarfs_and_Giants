@@ -3,7 +3,8 @@ namespace SE_training.Server.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
-public class BasicController : ControllerBase, IBasicController
+public class BasicController : ControllerBase//, IBasicController
+//this fails
 {
     internal readonly CommentController _commentController;
     internal readonly RatingController _ratingController;
@@ -23,14 +24,11 @@ public class BasicController : ControllerBase, IBasicController
     }
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
     [HttpGet("Material/{MaterialID}")]
-    public async Task<(Status, DetailsMaterialDTO?)> Get(int id)
+    public async Task<DetailsMaterialDTO?> Get(int id)
     {
+        // Does This Work?
         var detailedDto = await _searchEngine.GetDetailedMaterialByIdAsync(id);
-        if(detailedDto == null)
-        {
-            return(Status.NotFound, null);
-        }
-        return (Status.Found, detailedDto);
+        return (detailedDto);
     }
 
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
@@ -50,10 +48,31 @@ public class BasicController : ControllerBase, IBasicController
 
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
     [HttpGet("{SearchString}")]
-    public Task<IReadOnlyCollection<MaterialDTO>> Search(string searchInput)
+    public Task<(Status,IReadOnlyCollection<MaterialDTO>)> Search(string searchInput)
     {
-    
-        return _searchEngine.SearchAsync(searchInput);
+        //Search Code HERE
+        throw new NotImplementedException();
+      
+    }
+
+
+   
+
+    [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
+    [HttpGet("Recommended/{Id}")]
+    public Task<(Status,IReadOnlyCollection<MaterialDTO>)> FindRecommendedMaterials(string Id)
+    {
+         throw new NotImplementedException();
+        //Relatede Material Code HERE
+      
+    }
+    [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
+    [HttpGet("Comment/{Id}")]
+    public Task<IReadOnlyCollection<CommentDTO>> FindCommentsMaterials(string Id)
+    {
+         throw new NotImplementedException();
+        //Relatede Material Code HERE
+      
     }
 
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
@@ -64,4 +83,5 @@ public class BasicController : ControllerBase, IBasicController
     {
         return await _commentController.DeleteComment(commentId);
     }
+
 }
