@@ -1,4 +1,4 @@
-@page "/CommenSection/{id}"
+@page "/CommenSection/{Id}"
 @attribute [Authorize]
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
@@ -61,7 +61,7 @@ else
 [Parameter]
     public string Id { get; set; }
 
-    private List<CommentDTO> CommentList {get; set;}
+    private CommentDTO[] CommentList;
 
       private string CommentText;
     private async Task CreateComment()
@@ -78,12 +78,12 @@ else
 
                 if (response.IsSuccessStatusCode)
                 {
-                   CommentList = await Http.GetFromJsonAsync<List<CommentDTO>>($"api/Comment/Comments/{Id}");  
+                    CommentList = await Http.GetFromJsonAsync<CommentDTO[]>($"api/Basic/Comment/{Id}");  
                 }
                 else
                 {
                     CommentText = "UpLoad of Comment failed";
-                }
+                } 
         }
 
         }
@@ -92,7 +92,7 @@ else
 
      protected override async Task OnInitializedAsync()
     {
-        CommentList = await Http.GetFromJsonAsync<List<CommentDTO>>($"api/Comment/Comments/{Id}");  
+        CommentList = await Http.GetFromJsonAsync<CommentDTO[]>($"api/Basic/Comment/{Id}");  
 
             // Test Visual Comments
         // CommentList = await BlazorMaterialsTest.Show_a_list_of_Comments();
