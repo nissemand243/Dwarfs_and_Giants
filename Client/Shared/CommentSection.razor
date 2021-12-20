@@ -74,7 +74,7 @@ else
                 var commentInfo = new List<string>{Id,CommentText};
 
 
-                var response = await Http.PostAsJsonAsync("api/Comment", commentInfo);
+                var response = await Http.PostAsJsonAsync("api/Basic", commentInfo);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -82,7 +82,7 @@ else
                 }
                 else
                 {
-                    CommentText = "UpLoad of Comment failed";
+                    CommentText = "Upload of Comment failed";
                 } 
         }
 
@@ -92,18 +92,24 @@ else
 
      protected override async Task OnInitializedAsync()
     {
-        CommentList = await Http.GetFromJsonAsync<CommentDTO[]>($"api/Basic/Comment/{Id}");  
+        //CommentList = await Http.GetFromJsonAsync<CommentDTO[]>($"api/Basic/Comment/{Id}");  
 
             // Test Visual Comments
-        // CommentList = await BlazorMaterialsTest.Show_a_list_of_Comments();
+         CommentList = await BlazorMaterialsTest.Show_a_list_of_Comments();
 
     }
 
 
-    private void DeleteComment(int UserId){
+    private async Task DeleteComment(int UserId){
 
-        //Delete not yet implemented
-
+        
+                var response = await Http.DeleteAsync($"api/Moderator/Comment/{UserId}");
+                 if (response.IsSuccessStatusCode)
+                {
+                    CommentList = await Http.GetFromJsonAsync<CommentDTO[]>($"api/Basic/Comment/{Id}");  
+                }
+            
+               
 
     }
 }
