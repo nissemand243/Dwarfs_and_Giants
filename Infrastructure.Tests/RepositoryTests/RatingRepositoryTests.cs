@@ -23,36 +23,36 @@ public class RatingRepositoryTests : IDisposable
         context.SaveChanges();
 
         _context = context;
-        _repo = new RatingRepository(context);
+        _repo = new RatingRepository(_context);
     }
 
     [Fact]
     public async void ReadAsync_given_id_not_existing_returns_empty()
     {
-        var ratings33 = await _repo.ReadAsync(33);
+        var ratings = await _repo.ReadAsync(33);
 
-        Assert.Empty(ratings33);
+        Assert.Empty(ratings);
     }
 
     [Fact]
     public async void ReadAsync_given_id_returns_tag()
     {
-        var ratings11 = await _repo.ReadAsync(11);
+        var ratings = await _repo.ReadAsync(11);
 
-        Assert.Collection(ratings11,
+        Assert.Collection(ratings,
             rating => Assert.Equal(new RatingDTO(1, 11, 1, 5), rating)
         );
     }
 
     [Fact]
-    public async void ReadAllAsync_returns_all_tags()
+    public async void ReadAllAsync_returns_all_ratings()
     {
-        var tags = await _repo.ReadAllAsync();
+        var ratings = await _repo.ReadAllAsync();
 
-        Assert.Collection(tags,
-            tag => Assert.Equal(new RatingDTO(1, 11, 1, 5), tag),
-            tag => Assert.Equal(new RatingDTO(2, 22, 1, 1), tag),
-            tag => Assert.Equal(new RatingDTO(3, 22, 2, 5), tag)
+        Assert.Collection(ratings,
+            rating => Assert.Equal(new RatingDTO(1, 11, 1, 5), rating),
+            rating => Assert.Equal(new RatingDTO(2, 22, 1, 1), rating),
+            rating => Assert.Equal(new RatingDTO(3, 22, 2, 5), rating)
         );
     }
 
@@ -62,7 +62,7 @@ public class RatingRepositoryTests : IDisposable
         var result = await _repo.CreateAsync(new CreateRatingDTO(22, 3, 5));
 
         Assert.Equal(Created, result.status);
-        Assert.Equal(new RatingDTO(4, 22, 3, 5), result.rating);
+        Assert.Equal(new RatingDTO(0, 22, 3, 5), result.rating);
     }
 
     [Fact]
@@ -77,10 +77,10 @@ public class RatingRepositoryTests : IDisposable
     public async void UpdateAsync_given_entity_returns_Updated()
     {
         var status = await _repo.UpdateAsync(new RatingDTO(1, 11, 1, 1));
-        var ratings11 = await _repo.ReadAsync(11);
+        var ratings = await _repo.ReadAsync(11);
 
         Assert.Equal(Updated, status);
-        Assert.Collection(ratings11,
+        Assert.Collection(ratings,
             rating => Assert.Equal(new RatingDTO(1, 11, 1, 1), rating)
         );
     }
@@ -97,10 +97,25 @@ public class RatingRepositoryTests : IDisposable
     public async void DeleteAsync_given_id_returns_Deleted()
     {
         var status = await _repo.DeleteAsync(1);
-        var tags11 = await _repo.ReadAsync(11);
+        var ratings = await _repo.ReadAsync(11);
 
         Assert.Equal(Deleted, status);
-        Assert.Empty(tags11);
+        Assert.Empty(ratings);
+    }
+
+    [Fact]
+    public async void CreateAsync_given_existing_userId_and_materialId_returns_status_Updated_and_ratingDTO()
+    {
+        // Arrange
+        var rating = new CreateRatingDTO(11,1,6);
+        var expected = new RatingDTO(1,11,1,6);
+
+        // Act
+        var actual = await _repo.CreateAsync(rating);
+    
+        // Assert
+        Assert.Equal(Updated, actual.status);
+        Assert.Equal(expected, actual.rating);
     }
 
     protected virtual void Dispose(bool disposing)
