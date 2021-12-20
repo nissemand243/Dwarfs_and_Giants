@@ -13,14 +13,14 @@ public class DatabaseContext : DbContext, IDatabaseContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Teacher>();
-        modelBuilder.Entity<Student>();
+        modelBuilder.Entity<User>()
+                    .HasKey(u => u.Email);
 
         modelBuilder.Entity<User>()
-                    .HasIndex(u => u.Email)
+                    .HasIndex(u => u.Id)
                     .IsUnique();
-
-        //modelBuilder.Entity<User>().ToTable("User");
+                   
+                    
         modelBuilder.Entity<Material>().ToTable("Material");
 
         modelBuilder.Entity<Tag>().ToTable("Tag");

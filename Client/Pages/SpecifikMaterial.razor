@@ -96,33 +96,20 @@ else
         }
         <hr>
         <h1>CommentSection</h1>
-
-          <table class="table">
-            <thead>
-                <tr>
-                    <th>Write a Comment</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                    <tr>
-                        <td> <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea></td>
-                        <td><button class="btn btn-info">Comment</button></td>
-                    </tr>
-                
-            </tbody>
-        </table> 
+       
     <CommentSection MaterialID=@material.Id/>
 }
 
 
 @code {
 
-  [Parameter]
+    [Parameter]
     public string Id { get; set; }
-public DetailsMaterialDTO? material;
+    public DetailsMaterialDTO? material;
 
-public List<DetailsMaterialDTO>? recommendedMaterial;
+    public List<DetailsMaterialDTO>? recommendedMaterial;
+
+   
 
     protected override async Task OnInitializedAsync()
     {

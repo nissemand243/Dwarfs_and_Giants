@@ -4,14 +4,15 @@ namespace SE_training.Server.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
-public class ModeratorController : StudentController, IModeratorController
+public class ModeratorController : BasicController, IModeratorController
 {
     private readonly ILogger<ModeratorController> _logger;
     public ModeratorController(
         ILogger<ModeratorController> logger,
         CommentController commentController,
         RatingController ratingController,
-        MaterialController materialController) : base(logger, commentController, ratingController, materialController)
+        MaterialController materialController,
+        SearchEngine searchEngine) : base(logger, commentController, ratingController, materialController, searchEngine)
     {
         _logger = logger;
     }
@@ -46,7 +47,7 @@ public class ModeratorController : StudentController, IModeratorController
         var created = await _materialController.CreateMaterial(material);
         if(created.status != Status.Created)
         {
-            return (Status.BadRequest, null); // fy fy?
+            return (Status.BadRequest, null);
         }
        
         return (created.status, created.material); 

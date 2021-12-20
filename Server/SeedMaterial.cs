@@ -26,14 +26,14 @@ public static class SeedMaterial
             {
 
             //Teachers 
-            var TeacherRasmus = new Teacher{Name = "Rasmus C# Guro", Email = "RasmusMail@itu.dk"};
-            var TeacherPavlo = new Teacher{Name ="Pavlo Software Enginere",Email = "PavloMail@itu.dk"};
+            var TeacherRasmus = new User{Name = "Rasmus C# Guro", Email = "RasmusMail@itu.dk"};
+            var TeacherPavlo = new User{Name ="Pavlo Software Enginere",Email = "PavloMail@itu.dk"};
 
             //Students
-            var StudentMads = new Student{Name ="Mads Cornelius", Email = "mads@itu.dk"};
-            var StudentJack = new Student{Name ="Jack Jensen",Email ="jack@itu.dk"};
-            var StudentRasmus = new Student{Name ="Rasmus Balthazar",Email = "rasmus@itu.dk"};
-            var StudentAnton = new Student{Name ="Anton Grilles",Email = "anton@itu.dk"};
+            var StudentMads = new User{Name ="Mads Cornelius", Email = "mads@itu.dk"};
+            var StudentJack = new User{Name ="Jack Jensen",Email ="jack@itu.dk"};
+            var StudentRasmus = new User{Name ="Rasmus Balthazar",Email = "rasmus@itu.dk"};
+            var StudentAnton = new User{Name ="Anton Grilles",Email = "anton@itu.dk"};
 
             context.Users.AddRange(TeacherRasmus,TeacherPavlo,StudentJack,StudentAnton,StudentRasmus,StudentMads);
 

@@ -1,9 +1,6 @@
 namespace SE_training.Server.Controllers
 {
-    [Authorize]
-    [ApiController]
-    [Route("api/[controller]")]
-    [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
+   
     public class CommentController : ControllerBase
     {
         private readonly ICommentRepository _repository;
@@ -15,23 +12,17 @@ namespace SE_training.Server.Controllers
             _repository = repository;
         }
         
-        [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
-        [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        
         public async Task<Status> DeleteComment(int commentId)
         {
             return await _repository.DeleteAsync(commentId);
         }
 
-        [Authorize(Roles = $"{Roles.Teacher},{Roles.Administrator}")]
         public async Task<IReadOnlyCollection<CommentDTO>> ReadAllComments(int materialId)
         {
             return await _repository.ReadAsync(materialId);
         }
 
-        [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<(Status status,CommentDTO comment)> CreateComment(CreateCommentDTO comment)
         {
             var commentCreated = await _repository.CreateAsync(comment);
@@ -40,23 +31,22 @@ namespace SE_training.Server.Controllers
                 return (Status.Created, commentCreated.comment);
             }
             return (Status.BadRequest, null);
-            
-           
+        }
+
+        public async Task<IReadOnlyCollection<CommentDTO>> GetMaterialComments(int materialID)
+        {  
+            return await _repository.ReadAsync(materialID);
         }
 
         [Authorize]
-        [HttpGet("Comments/{MaterialID}")]
-        public async Task<ActionResult<List<CommentDTO>>> GetMaterialComments(int MaterialID)
+        [HttpPost("{CommentContent}")]
+        public async Task<ActionResult> GetMaterialComments(List<string> CommentContent)
         {  
             throw new NotImplementedException();
-            // var List = await // Material database call
-            // return Ok(List);
+            // Uploade
+            // return Ok();
         }
    
-        [Authorize(Roles = $"{Roles.Teacher},{Roles.Administrator}")]
-        [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<Status> DeleteAllComments(int materialId)
         {
             return await _repository.DeleteAllAsync(materialId);
