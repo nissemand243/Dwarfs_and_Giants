@@ -2,7 +2,7 @@ namespace SE_training.Core;
 
 public interface ISEarchEngine
 {
-    public Task<IList<MaterialDTO>> SearchAsync(string searchString);
+    public Task<IReadOnlyCollection<MaterialDTO>> SearchAsync(string searchString);
     public Task<IList<MaterialDTO>> SearchByNameAsync(string searchString);
     public Task<IList<MaterialDTO>> SearchByDescriptionAsync(string searchString);
     public Task<IList<MaterialDTO>> SearchByTagsAsync(string searchString);

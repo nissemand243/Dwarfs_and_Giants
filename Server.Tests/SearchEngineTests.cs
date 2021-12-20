@@ -18,10 +18,10 @@ public class SearchEngineTests : IDisposable
         context.Database.EnsureCreated();
 
         context.Users.AddRange(
-            new Student() { Id = 1, Name = "Mads Cornelius", Email = "maco@itu.dk" },
-            new Student() { Id = 2, Name = "Iben Carb Wiener", Email = "icwiener@gmail.com" },
-            new Teacher() { Id = 3, Name = "OndFisk", Email = "evilFish@microsoft.com" },
-            new Teacher() { Id = 4, Name = "Bruni", Email = "IHeartMath@foc.dm" });
+            new User() { Id = 1, Name = "Mads Cornelius", Email = "maco@itu.dk" },
+            new User() { Id = 2, Name = "Iben Carb Wiener", Email = "icwiener@gmail.com" },
+            new User() { Id = 3, Name = "OndFisk", Email = "evilFish@microsoft.com" },
+            new User() { Id = 4, Name = "Bruni", Email = "IHeartMath@foc.dm" });
 
         context.Materials.AddRange(
             new Material() { Id = 1, AuthorId = 3, Name = "How to make a dockerfile", Description = "Also docker composed will be explained in better detail", FileType = Link, FilePath = "https://learnit.itu.dk/course/view.php?id=3020927" },
