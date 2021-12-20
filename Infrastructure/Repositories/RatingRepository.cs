@@ -11,7 +11,7 @@ public class RatingRepository : IRatingRepository
 
     public async Task<(Status status, RatingDTO rating)> CreateAsync(CreateRatingDTO rating)
     {     
-        var ratingId = await OverrideRating(rating.MaterialId, rating.UserId);
+        var ratingId = await GetRatingIdIfExists(rating.MaterialId, rating.UserId);
         if(ratingId != -1)
         {
             var ratingDTO = new RatingDTO(ratingId,rating.MaterialId,rating.UserId,rating.Value);
@@ -73,7 +73,7 @@ public class RatingRepository : IRatingRepository
         return Deleted;
     }
 
-    private async Task<int> OverrideRating(int materialId, int userId)
+    private async Task<int> GetRatingIdIfExists(int materialId, int userId)
     {
         var rating = await _context.Ratings
                 .Where(r => r.MaterialId == materialId)
