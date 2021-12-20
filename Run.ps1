@@ -40,10 +40,12 @@ if ($SQL -eq "true")
 
     Write-Host "Seeding database"
     cd .\Infrastructure\
-    dotnet ef --startup-project ..\Server\ database update
+    dotnet ef --startup-project ..\Server\ database update | Out-Null
     cd ..
+    
+    $password = ""
+    $connectionString = ""
 }
 
 Write-Host "Starting App"
 dotnet run --project $project
-Write-Host "Now listening on: https://localhost:7018"
