@@ -86,7 +86,7 @@ public class CommentControllerTests
     }
 
     [Fact]
-    public async Task DeleteAllComments_given_existing_materialid_with_comments_returns_status_deleted()
+    public async Task DeleteAllComments_given_existing_materialid_returns_status_Deleted()
     {
         // Arrange
         var expected = Status.Deleted;
@@ -97,11 +97,27 @@ public class CommentControllerTests
         var controller = new CommentController(logger.Object, repository.Object);
     
         // Act
-    
         var actual = await controller.DeleteAllComments(1);
     
         // Assert
         Assert.Equal(expected, actual);
-
     }
+
+    [Fact]
+    public async Task DeleteAllComments_given_existing_materialid_with_no_comments_returns_status_NotFound()
+    {
+        // Arrange
+        var expected = Status.NotFound;
+        var repository = new Mock<ICommentRepository>();
+        repository.Setup(repo => repo.DeleteAllAsync(42)).ReturnsAsync(expected);
+        var logger = new Mock<ILogger<CommentController>>();
+        var controller = new CommentController(logger.Object, repository.Object);
+    
+        // Act
+        var actual = await controller.DeleteAllComments(42);
+    
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
 }

@@ -43,7 +43,6 @@ namespace SE_training.Server.Controllers
             
            
         }
- 
 
         [Authorize]
         [HttpGet("Comments/{MaterialID}")]
@@ -53,10 +52,6 @@ namespace SE_training.Server.Controllers
             // var List = await // Material database call
             // return Ok(List);
         }
-
-  
-
-
    
         [Authorize(Roles = $"{Roles.Teacher},{Roles.Administrator}")]
         [HttpDelete("{id}")]

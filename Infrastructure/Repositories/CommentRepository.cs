@@ -73,7 +73,6 @@ public class CommentRepository : ICommentRepository
         {
             _context.Comments.Remove(id);
         }
-
         await _context.SaveChangesAsync();
         
         return Deleted;
