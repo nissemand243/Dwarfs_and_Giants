@@ -7,9 +7,7 @@ public class SearchEngine : ISEarchEngine
     private readonly ITagRepository _tagRepo;
     private readonly ICommentRepository _commentRepo;
     private readonly IRatingRepository _ratingRepo;
-
-    public static SearchEngine INSTANCE { get; set; }
-
+    
     public SearchEngine(IUserRepository userRepo, IMaterialRepository materialRepo, ITagRepository tagRepo, ICommentRepository commentRepo, IRatingRepository ratingRepo)
     {
         _userRepo = userRepo;

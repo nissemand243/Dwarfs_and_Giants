@@ -21,19 +21,31 @@ namespace SE_training.Server.Controllers
         [HttpGet("{SearchString}")]
         public async Task<ActionResult<List<DetailsMaterialDTO>>> GetSearchMaterial(string SearchString)
         {
-            var context = ((MaterialRepository)_repository)._context;
-            var searchEngine = new SearchEngine(new UserRepository(context), new MaterialRepository(context), new TagRepository(context), new CommentRepository(context), new RatingRepository(context));
+            try
+            {
+                var results = await _repository.ReadAllAsync();
 
-            var results = await searchEngine.SearchAsync(SearchString);
-            return Ok(results);
+                //var searchEngine = new SearchEngine(new UserRepository(context), new MaterialRepository(context), new TagRepository(context), new CommentRepository(context), new RatingRepository(context));
+                //var results = await searchEngine.SearchAsync(SearchString);
+
+                return Ok(results);
+            }
+            catch (Exception e)
+            {
+                System.Console.WriteLine("START OF EXEPTION");
+                System.Console.WriteLine(e);
+                System.Console.WriteLine("END OF EXEPTIOPN");
+            }
+            return NotFound();
         }
 
         [Authorize]
         [HttpGet("Material/{MaterialID}")]
         public async Task<ActionResult<List<DetailsMaterialDTO>>> GetMaterialRecomended(int MaterialID)
         {
-            var results = await SearchEngine.INSTANCE.GetRelatedMaterialsByTagsAsync(MaterialID);
-            return Ok(results);
+            throw new NotImplementedException();
+            //var results = await SearchEngine.INSTANCE.GetRelatedMaterialsByTagsAsync(MaterialID);
+            //return Ok(results);
         }
 
         public Task<MaterialDTO> ReadMaterial(int materialId)
