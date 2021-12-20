@@ -150,7 +150,7 @@ public class SearchEngineTests : IDisposable
         var result = await _searchEngine.GetDetailedMaterialByIdAsync(3);
 
         Assert.Equal(
-            new MaterialDTO(3, 4, "Prooving the impossible: 0 / 0 = 42", "You better watch out! You better not cry!", "mp4", "https://www.youtube.com/watch?v=BRRolKTlF6Q"),
+            new MaterialDTO(3, 4, "Prooving the impossible: 0 / 0 = 42", "You better watch out! You better not cry!", FileType.Mp4, "https://www.youtube.com/watch?v=BRRolKTlF6Q"),
             new MaterialDTO(result.Id, result.AuthorId, result.Name, result.Description, result.FileType, result.FilePath));
         Assert.Collection(result.Tags);
         Assert.Collection(result.Comments,
