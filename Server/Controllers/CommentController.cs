@@ -52,6 +52,15 @@ namespace SE_training.Server.Controllers
             // var List = await // Material database call
             // return Ok(List);
         }
+
+        [Authorize]
+        [HttpPost("{CommentContent}")]
+        public async Task<ActionResult> GetMaterialComments(List<string> CommentContent)
+        {  
+            throw new NotImplementedException();
+            // Uploade
+            // return Ok();
+        }
    
         [Authorize(Roles = $"{Roles.Teacher},{Roles.Administrator}")]
         [HttpDelete("{id}")]
