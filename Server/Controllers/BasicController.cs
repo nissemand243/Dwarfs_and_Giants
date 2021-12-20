@@ -56,7 +56,7 @@ public class BasicController : ControllerBase, IBasicController
     }
 
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
-    [HttpDelete("{id}")]
+    [HttpDelete("specifikMaterial/{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<Status> DeleteComment(int commentId)

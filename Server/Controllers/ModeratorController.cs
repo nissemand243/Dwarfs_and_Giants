@@ -47,7 +47,7 @@ public class ModeratorController : BasicController, IModeratorController
         var created = await _materialController.CreateMaterial(material);
         if(created.status != Status.Created)
         {
-            return (Status.BadRequest, null); // fy fy?
+            return (Status.BadRequest, null);
         }
        
         return (created.status, created.material); 

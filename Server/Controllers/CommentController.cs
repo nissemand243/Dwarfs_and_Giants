@@ -33,11 +33,9 @@ namespace SE_training.Server.Controllers
             return (Status.BadRequest, null);
         }
 
-        public async Task<ActionResult<List<CommentDTO>>> GetMaterialComments(int MaterialID)
+        public async Task<IReadOnlyCollection<CommentDTO>> GetMaterialComments(int materialID)
         {  
-            throw new NotImplementedException();
-            // var List = await // Material database call
-            // return Ok(List);
+            return await _repository.ReadAsync(materialID);
         }
    
         public async Task<Status> DeleteAllComments(int materialId)
