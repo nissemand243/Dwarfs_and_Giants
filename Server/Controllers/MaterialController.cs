@@ -1,10 +1,6 @@
 namespace SE_training.Server.Controllers
 
 {
-    [Authorize]
-    [ApiController]
-    [Route("api/[controller]")]
-    [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
     public class MaterialController : ControllerBase
     {
         private readonly IMaterialRepository _repository;
@@ -26,8 +22,6 @@ namespace SE_training.Server.Controllers
             // return Ok(List);
         }
         
-        [Authorize]
-        [HttpGet("Material/{MaterialID}")]
         public async Task<ActionResult<List<DetailsMaterialDTO>>> GetMaterialRecomended(int MaterialID)
         {  
             throw new NotImplementedException();
