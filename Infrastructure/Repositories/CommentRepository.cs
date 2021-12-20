@@ -51,4 +51,30 @@ public class CommentRepository : ICommentRepository
 
         return Deleted;
     }
+
+    public async Task<Status> DeleteAllAsync(int materialId)
+    {
+        var comments = await _context.Comments
+                .Where(c => c.MaterialId == materialId)
+                .Select(c => new Comment
+                {
+                    Id = c.Id,
+                    MaterialId = c.MaterialId,
+                    UserId = c.UserId,
+                })
+                .ToListAsync();
+
+        if(!comments.Any())
+        {
+            return NotFound; 
+        }
+
+        foreach (var id in comments)
+        {
+            _context.Comments.Remove(id);
+        }
+        await _context.SaveChangesAsync();
+        
+        return Deleted;
+    }
 }

@@ -6,4 +6,6 @@ public interface ICommentRepository
     Task<IReadOnlyCollection<CommentDTO>> ReadAsync(int materialId);
     Task<IReadOnlyCollection<CommentDTO>> ReadAllAsync();
     Task<Status> DeleteAsync(int commentId);
+
+    Task<Status> DeleteAllAsync(int materialId);
 }

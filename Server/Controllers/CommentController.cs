@@ -19,16 +19,17 @@ namespace SE_training.Server.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public Task<Status> DeleteComment(int commentId)
+        public async Task<Status> DeleteComment(int commentId)
         {
-            return _repository.DeleteAsync(commentId);
+            return await _repository.DeleteAsync(commentId);
         }
 
         [Authorize(Roles = $"{Roles.Teacher},{Roles.Administrator}")]
-        public Task<IReadOnlyCollection<CommentDTO>> ReadAllComments(int materialId)
+        public async Task<IReadOnlyCollection<CommentDTO>> ReadAllComments(int materialId)
         {
-            return _repository.ReadAsync(materialId);
+            return await _repository.ReadAsync(materialId);
         }
+
         [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<(Status status,CommentDTO comment)> CreateComment(CreateCommentDTO comment)
@@ -42,7 +43,6 @@ namespace SE_training.Server.Controllers
             
            
         }
- 
 
         [Authorize]
         [HttpGet("Comments/{MaterialID}")]
@@ -52,10 +52,6 @@ namespace SE_training.Server.Controllers
             // var List = await // Material database call
             // return Ok(List);
         }
-
-  
-
-
    
         [Authorize(Roles = $"{Roles.Teacher},{Roles.Administrator}")]
         [HttpDelete("{id}")]
@@ -63,19 +59,7 @@ namespace SE_training.Server.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<Status> DeleteAllComments(int materialId)
         {
-            var status = Status.NotFound;
-            var comments = _repository.ReadAsync(materialId);
-
-            if(!comments.Result.Any())
-            {
-                return status; 
-            }
-            
-            foreach (var comment in comments.Result)
-            { 
-                status = await _repository.DeleteAsync(comment.Id);
-            }
-            return status;
+            return await _repository.DeleteAllAsync(materialId);
         }
     }
 }

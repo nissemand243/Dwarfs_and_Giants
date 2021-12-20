@@ -1,4 +1,4 @@
- namespace SE_training.Server.Tests.Controllers;
+namespace SE_training.Server.Tests.Controllers;
 
 public class MaterialControllerTests
 {
@@ -82,8 +82,8 @@ public class MaterialControllerTests
         // Arrange
         var materialDTOOne = new MaterialDTO(0, 1, "Lorem", "Ipsum master", Mp4, "url.com"); 
         var materialDTOTwo = new MaterialDTO(0, 2, "Ipsum", "Lorem master", Mp4, "url.com"); 
-
         var expected = new List<MaterialDTO>(){materialDTOOne, materialDTOTwo}.AsReadOnly();
+
         var logger = new Mock<ILogger<MaterialController>>();
         var repository = new Mock<IMaterialRepository>();
         repository.Setup(repo => repo.ReadAllAsync()).ReturnsAsync(expected);
@@ -95,8 +95,8 @@ public class MaterialControllerTests
 
         // Assert
         Assert.Collection(actual,
-            aDTO => Assert.Equal(expected[0].Name, aDTO.Name),
-            aDTO => Assert.Equal(expected[1].Name, aDTO.Name)
+            aDTO => Assert.Equal(expected[0], aDTO),
+            aDTO => Assert.Equal(expected[1], aDTO)
         );
     }
 }
