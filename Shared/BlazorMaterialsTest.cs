@@ -86,17 +86,17 @@ using static SE_training.Core.FileType;
            return MaterialList;
         }
 
-         public static  async Task<List<CommentDTO>> Show_a_list_of_Comments()
+         public static  async Task<CommentDTO[]> Show_a_list_of_Comments()
         {
            await Task.Delay(500); 
 
-            var CommentList = new List<CommentDTO>(){
-                {new CommentDTO(1024,2,2,"Lorem Ipsum is simply dummy text of the printing and typesetting industry.")},
-                {new CommentDTO(123,2,23,"Lorem Ipsum is simply dummy text of the printing and typesetting industry.")},
-                {new CommentDTO(10324,2,244,"Lorem Ipsum is simply dummy text of the printing and typesetting industry.")},
-                {new CommentDTO(1023424,2,52,"Lorem Ipsum is simply dummy text of the printing and typesetting industry.")},
-                {new CommentDTO(10224,2,232,"HA BSH sadn asnd asjd kasj hsand")}
-            };
+            var CommentList = new CommentDTO[5];
+               CommentList[0] = new CommentDTO(1024,2,2,"Lorem Ipsum is simply dummy text of the printing and typesetting industry.");
+               CommentList[1] = new CommentDTO(123,2,23,"Lorem Ipsum is simply dummy text of the printing and typesetting industry.");
+               CommentList[2] = new CommentDTO(10324,2,244,"Lorem Ipsum is simply dummy text of the printing and typesetting industry.");
+               CommentList[3] = new CommentDTO(1023424,2,52,"Lorem Ipsum is simply dummy text of the printing and typesetting industry.");
+               CommentList[4] = new CommentDTO(10224,2,232,"HA BSH sadn asnd asjd kasj hsand");
+            
             return CommentList;
         }
     }
