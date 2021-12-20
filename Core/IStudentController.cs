@@ -1,6 +1,6 @@
 ﻿namespace SE_training.Core;
 
-public interface IAPIControllerBase
+public interface IStudentController
 {
     Task<Status> PatchComment(int id, CommentDTO comment);
     Task<Status> PatchRating(int id, RatingDTO rating);

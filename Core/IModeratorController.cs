@@ -1,7 +1,7 @@
 ﻿namespace SE_training.Core;
 
 
-public interface IAPIControllerModerator
+public interface IModeratorController
 {
     Task<Status> DeleteMaterial(int MaterialId);
     Task<Status> PutMaterial(int MaterialId, MaterialDTO material);
