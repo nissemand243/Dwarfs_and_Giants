@@ -43,13 +43,6 @@ public class RatingRepository : IRatingRepository
         return await ratings.ToListAsync();
     }
 
-    public async Task<IReadOnlyCollection<RatingDTO>> ReadAllAsync()
-    {
-        return (await _context.Ratings
-                             .Select(r => new RatingDTO(r.Id, r.MaterialId, r.UserId, r.Value))
-                             .ToListAsync()).AsReadOnly();
-    }
-
     public async Task<Status> UpdateAsync(RatingDTO rating)
     {
         var entity = await _context.Ratings.FindAsync(rating.Id);

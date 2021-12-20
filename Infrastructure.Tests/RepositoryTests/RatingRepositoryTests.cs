@@ -44,17 +44,6 @@ public class RatingRepositoryTests : IDisposable
         );
     }
 
-    [Fact]
-    public async void ReadAllAsync_returns_all_ratings()
-    {
-        var ratings = await _repo.ReadAllAsync();
-
-        Assert.Collection(ratings,
-            rating => Assert.Equal(new RatingDTO(1, 11, 1, 5), rating),
-            rating => Assert.Equal(new RatingDTO(2, 22, 1, 1), rating),
-            rating => Assert.Equal(new RatingDTO(3, 22, 2, 5), rating)
-        );
-    }
 
     [Fact]
     public async void CreateAsync_given_new_entity_returns_created()

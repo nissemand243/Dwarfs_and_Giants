@@ -59,18 +59,6 @@ public class UserRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void ReadAllAsync_returns_all_users()
-    {
-        var users = await _repo.ReadAllAsync();
-
-        Assert.Collection(users,
-            user => Assert.Equal(new UserDTO(1, "Mads Cornelius", "maco@itu.dk", "Student"), user),
-            user => Assert.Equal(new UserDTO(2, "Iben Carb Wiener", "icwiener@gmail.com", "Student"), user),
-            user => Assert.Equal(new UserDTO(3, "OndFisk", "evilFish@microsoft.com", "Teacher"), user)
-        );
-    }
-
-    [Fact]
     public async void CreateAsync_given_new_entity_returns_created()
     {
         var result = await _repo.CreateAsync(new CreateUserDTO("Paolo Tell", "pote@itu.dk", "Teacher"));

@@ -12,7 +12,7 @@ public class UserRepository : IUserRepository
     public async Task<(Status status, UserDTO? user)> CreateAsync(CreateUserDTO user)
     {
         User entity;
-        switch (user.Type)
+        switch (user.Role)
         {
             case "Student":
                 entity = new Student()
@@ -56,18 +56,6 @@ public class UserRepository : IUserRepository
 
         return await users.FirstOrDefaultAsync();
     }
-
-
-
-    public async Task<IReadOnlyCollection<UserDTO>> ReadAllAsync()
-    {
-        var users = (await _context.Users
-                            .Select(u => new UserDTO(u.Id, u.Name, u.Email, u.TypeOfToString()))
-                            .ToListAsync()).AsReadOnly();
-
-        return users;
-    }
-
 
     public async Task<Status> DeleteAsync(int userId)
     {
