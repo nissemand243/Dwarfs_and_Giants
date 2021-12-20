@@ -12,6 +12,9 @@ public static class SeedMaterial
                 var context = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
                 
                 await SeedMaterialAsync(context);
+
+                SearchEngine.INSTANCE = new SearchEngine(new UserRepository(context), new MaterialRepository(context), new TagRepository(context), new CommentRepository(context), new RatingRepository(context));
+
             }
             return host;
         }

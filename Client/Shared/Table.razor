@@ -17,8 +17,8 @@ else
                 <th>Material Id</th>
                 <th>Title</th>
                 <th>Decription</th>
-                <th>Tags</th>
-                <th>Rating</th>
+                @* <th>Tags</th>
+                <th>Rating</th> *@
                 <th></th>
             </tr>
         </thead>
@@ -29,7 +29,7 @@ else
                     <td>@material.Id</td>
                     <td>@material.Name</td>
                     <td><p>@material.Description</p></td>
-                    <td>
+                    @* <td>
                         <ul>
                             @foreach (var tag in material.Tags)
                             {
@@ -39,7 +39,7 @@ else
                             }
                         </ul>
                     </td>
-                    <td>@material.Rating</td>
+                    <td>@material.Rating</td> *@
                     <td><button class="btn btn-info" @onclick="@(() => ChosenMaterial(material.Id))">View</button></td>
                 </tr>
             }
@@ -64,8 +64,8 @@ else
     {
         materialList = await Http.GetFromJsonAsync<List<DetailsMaterialDTO>>($"api/Material/{SearchString}");  
 
-          // Test Visual Material
-       // materialList = await BlazorMaterialsTest.Shows_a_list_of_Search_Relatede_Material();
+        // Test Visual Material
+        // materialList = await BlazorMaterialsTest.Shows_a_list_of_Search_Relatede_Material();
         
     }
 

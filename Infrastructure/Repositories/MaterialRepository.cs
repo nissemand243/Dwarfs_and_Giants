@@ -59,7 +59,7 @@ public class MaterialRepository : IMaterialRepository
     public async Task<IReadOnlyCollection<MaterialDTO>> ReadAllAsync()
     {
         var materials = from m in _context.Materials
-            select new MaterialDTO(m.Id, m.AuthorId, m.Name, m.Description, m.FileType.ToString(), m.FilePath);
+            select new MaterialDTO(m.Id, m.AuthorId, m.Name, m.Description, m.FileType, m.FilePath);
         var materialsList = await materials.ToListAsync();
 
         return materialsList.AsReadOnly();
