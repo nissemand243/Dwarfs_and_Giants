@@ -124,7 +124,7 @@ public class SearchEngine : ISEarchEngine
         var matches = new List<MaterialDTO>();
         foreach (var material in materials)
         {
-            var user = await _userRepo.ReadAsync(material.AuthorId);
+            var user = await _userRepo.ReadAsyncId(material.AuthorId);
             if (user.Name != null && user.Name.ToLower().Contains(searchString))
             {
                 matches.Add(material);
