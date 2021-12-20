@@ -25,30 +25,12 @@ public class StudentController : ControllerBase, IStudentController
     [HttpGet("{id}")]
     public async Task<(Status, DetailsMaterialDTO?)> Get(int id)
     {
-        var material = await _materialController.ReadMaterial(id);
-        if(material == null)
+        var detailedDto = await _searchEngine.GetDetailedMaterialByIdAsync(id);
+        if(detailedDto == null)
         {
-            return (Status.NotFound, null);
+            return(Status.NotFound, null);
         }
-
-        var commentsDTOs = await _commentController.ReadAllComments(id);
-        var computedRating = await _ratingController.ComputeRating(id);
-        // var tags = await _tagController.ReadAllTags(id); 
-        var tags = new List<TagDTO>(); // remove
-        
-        
-        var materialDTO = new DetailsMaterialDTO(
-            material.Id,
-            material.AuthorId,
-            material.Name,
-            material.Description,
-            material.FileType,
-            material.FilePath,     
-            tags, // tags
-            commentsDTOs.ToList(),
-            computedRating.rating
-        );
-        return (Status.Created, materialDTO);
+        return (Status.Found, detailedDto);
     }
 
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
