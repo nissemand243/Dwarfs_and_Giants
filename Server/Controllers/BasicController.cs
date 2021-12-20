@@ -24,31 +24,58 @@ public class BasicController : ControllerBase//, IBasicController
     }
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
     [HttpGet("Material/{MaterialID}")]
-    public async Task<DetailsMaterialDTO?> Get(int id)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<DetailsMaterialDTO?>> Get(int id)
     {
         // Does This Work?
         var detailedDto = await _searchEngine.GetDetailedMaterialByIdAsync(id);
-        return (detailedDto);
+        if (detailedDto != null)
+        {
+            return (detailedDto);
+        }
+        return NotFound();
+
     }
 
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
     [HttpPatch("Material/{MaterialID}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public Task<(Status status, CommentDTO comment)> PatchComment(CreateCommentDTO comment)
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<CommentDTO>> PatchComment(CreateCommentDTO comment)
     {
-        return _commentController.CreateComment(comment);
+        var created = await _commentController.CreateComment(comment);
+        if(created.status == Status.Created)
+        {
+            return CreatedAtAction(nameof(Get), new { created.comment.Id }, created); 
+        }
+        else{
+            return BadRequest();
+        }
     }
 
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
     [HttpPatch("{MaterialID}")]
-    public Task<(Status status, RatingDTO rating)> PatchRating(CreateRatingDTO rating)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<RatingDTO>> PatchRating(CreateRatingDTO rating)
     {
-        return _ratingController.CreateRating(rating);
+        var response = await _ratingController.CreateRating(rating);
+        if(response.status == Status.Updated)
+        {
+            return response.rating;
+        }
+        else
+        {
+            return BadRequest();
+        }
     }
 
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
     [HttpGet("{SearchString}")]
-    public Task<(Status,IReadOnlyCollection<MaterialDTO>)> Search(string searchInput)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public Task<ActionResult<IReadOnlyCollection<MaterialDTO>>> Search(string searchInput)
     {
         //Search Code HERE
         throw new NotImplementedException();
@@ -60,7 +87,9 @@ public class BasicController : ControllerBase//, IBasicController
 
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
     [HttpGet("Recommended/{Id}")]
-    public Task<(Status,IReadOnlyCollection<MaterialDTO>)> FindRecommendedMaterials(string Id)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public Task<ActionResult<IReadOnlyCollection<MaterialDTO>>> FindRecommendedMaterials(string Id)
     {
          throw new NotImplementedException();
         //Relatede Material Code HERE
@@ -68,20 +97,28 @@ public class BasicController : ControllerBase//, IBasicController
     }
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
     [HttpGet("Comment/{Id}")]
-    public Task<IReadOnlyCollection<CommentDTO>> FindCommentsMaterials(string Id)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public Task<ActionResult<IReadOnlyCollection<CommentDTO>>> FindCommentsMaterials(string Id)
     {
          throw new NotImplementedException();
         //Relatede Material Code HERE
       
     }
 
-    [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
-    [HttpDelete("specifikMaterial/{id}")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [Authorize]
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<Status> DeleteComment(int commentId)
+        public async Task<IActionResult> Post(List<string> CommentInfo)
     {
-        return await _commentController.DeleteComment(commentId);
+
+         throw new NotImplementedException();
+       // CommentInfo[0] = materialId.. CommentInfo[1] = decription
+       return Ok();
+       
+
+
     }
 
 }
