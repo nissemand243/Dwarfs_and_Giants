@@ -10,28 +10,27 @@ public class RatingRepository : IRatingRepository
     }
 
     public async Task<(Status status, RatingDTO rating)> CreateAsync(CreateRatingDTO rating)
-    {     
-        var ratingId = await GetRatingIdIfExists(rating.MaterialId, rating.UserId);
-        if(ratingId != -1)
+    {
+        var exists = await _context.Ratings
+                .Where(r => r.MaterialId == rating.MaterialId)
+                .Where(r => r.UserId == rating.UserId)
+                .Select(r => new RatingDTO(r.Id, r.MaterialId, r.UserId, r.Value))            
+                .SingleOrDefaultAsync();
+        if(exists != null)
+        {   var update = new RatingDTO(exists.Id, exists.MaterialId, exists.UserId, rating.Value);
+            var status = await UpdateAsync(update);
+            return (status, update);
+        }
+        
+        var entity = new Rating()
         {
-            var ratingDTO = new RatingDTO(ratingId,rating.MaterialId,rating.UserId,rating.Value);
-            var status = await UpdateAsync(ratingDTO);
-            return(status, ratingDTO);
-            
-        } 
-        else
-        {
-            var entity = new Rating() 
-            {
-                MaterialId = rating.MaterialId,
-                UserId = rating.UserId,
-                Value = rating.Value            
-            };
-            await _context.SaveChangesAsync();
-            var details = new RatingDTO(entity.Id, entity.MaterialId, entity.UserId, entity.Value);
-            return (Created, details);
-        }      
-       
+            MaterialId = rating.MaterialId,
+            UserId = rating.UserId,
+            Value = rating.Value            
+        };
+        await _context.SaveChangesAsync();
+        var details = new RatingDTO(entity.Id, entity.MaterialId, entity.UserId, entity.Value);
+        return (Created, details);
     }
 
     public async Task<IReadOnlyCollection<RatingDTO>> ReadAsync(int materialId)
@@ -66,23 +65,24 @@ public class RatingRepository : IRatingRepository
         return Deleted;
     }
 
-    private async Task<int> GetRatingIdIfExists(int materialId, int userId)
+    public async Task<Status> DeleteAllAsync(int materialId)
     {
-        var rating = await _context.Ratings
-                .Where(r => r.MaterialId == materialId)
-                .Where(r => r.UserId == userId)
-                .Select(r => new RatingDTO
-                (
-                    r.Id, 
-                    r.MaterialId, 
-                    r.UserId, 
-                    r.Value
-                ))            
-                .SingleOrDefaultAsync();
-        if(rating == null)
+        var ratings = await _context.Ratings
+            .Where(r => r.MaterialId == materialId)
+            .Select(r => r)
+            .ToListAsync();
+
+        if (! ratings.Any())
         {
-            return -1;
+            return NotFound; 
         }
-        return rating.Id;
+
+        foreach (var rating in ratings)
+        {
+            _context.Ratings.Remove(rating);
+        }
+        await _context.SaveChangesAsync();
+        
+        return Deleted;
     }
 }

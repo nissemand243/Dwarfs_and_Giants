@@ -48,23 +48,18 @@ public class CommentRepository : ICommentRepository
     public async Task<Status> DeleteAllAsync(int materialId)
     {
         var comments = await _context.Comments
-                .Where(c => c.MaterialId == materialId)
-                .Select(c => new Comment
-                {
-                    Id = c.Id,
-                    MaterialId = c.MaterialId,
-                    UserId = c.UserId,
-                })
-                .ToListAsync();
+            .Where(c => c.MaterialId == materialId)
+            .Select(c => c)
+            .ToListAsync();
 
-        if(!comments.Any())
+        if (! comments.Any())
         {
             return NotFound; 
         }
 
-        foreach (var id in comments)
+        foreach (var comment in comments)
         {
-            _context.Comments.Remove(id);
+            _context.Comments.Remove(comment);
         }
         await _context.SaveChangesAsync();
         

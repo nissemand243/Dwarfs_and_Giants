@@ -73,21 +73,19 @@ namespace Infrastructure.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Email);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_Email",
+                name: "IX_Users_Id",
                 table: "Users",
-                column: "Email",
+                column: "Id",
                 unique: true);
         }
 

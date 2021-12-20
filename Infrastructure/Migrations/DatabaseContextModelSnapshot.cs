@@ -121,47 +121,23 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("SE_training.Infrastructure.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(75)
                         .HasColumnType("nvarchar(75)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Email");
 
-                    b.HasIndex("Email")
+                    b.HasIndex("Id")
                         .IsUnique();
 
                     b.ToTable("Users");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
-                });
-
-            modelBuilder.Entity("SE_training.Infrastructure.Student", b =>
-                {
-                    b.HasBaseType("SE_training.Infrastructure.User");
-
-                    b.HasDiscriminator().HasValue("Student");
-                });
-
-            modelBuilder.Entity("SE_training.Infrastructure.Teacher", b =>
-                {
-                    b.HasBaseType("SE_training.Infrastructure.User");
-
-                    b.HasDiscriminator().HasValue("Teacher");
                 });
 #pragma warning restore 612, 618
         }

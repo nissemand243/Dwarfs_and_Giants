@@ -6,4 +6,6 @@ public interface IRatingRepository
     Task<IReadOnlyCollection<RatingDTO>> ReadAsync(int materialId);
     Task<Status> UpdateAsync(RatingDTO rating);
     Task<Status> DeleteAsync(int ratingId);
+    Task<Status> DeleteAllAsync(int materialId);
+
 }
