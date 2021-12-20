@@ -83,6 +83,19 @@ public class CommentRepositoryTests : IDisposable
         Assert.Empty(comments11);
     }
 
+    [Fact]
+    public async void DeleteAllAsync_given_existing_materialid_return_status_Deleted()
+    {
+        // Arrange
+        var expected = Deleted;
+        
+        // Act
+        var actual = await _repo.D(22);
+    
+        // Asssert
+        Assert.Equal(expected, actual);
+    }
+
     protected virtual void Dispose(bool disposing)
     {
         if (!_disposed)
