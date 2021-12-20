@@ -1,9 +1,26 @@
-@page "/CommenSection"
+@page "/CommenSection/{id}"
 @attribute [Authorize]
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 
+ <table class="table">
+                   <thead>
+                <tr>
+                    <th>Write a Comment</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td> <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"  @bind="CommentText"></textarea></td>
+                        <td>
+                                <button class="btn btn-info" @onclick="@(() => CreateComment())">Comment</button>
+                        </td>
+                    </tr>
+                
+            </tbody>
+        </table> 
 @if (CommentList == null)
 {
     <p><em>Loading Comments...</em></p>
@@ -41,15 +58,41 @@ else
 }
 @code{
 
-
-    [Parameter]
-    public int MaterialID { get; set; }
+[Parameter]
+    public string Id { get; set; }
 
     private List<CommentDTO> CommentList {get; set;}
 
+      private string CommentText;
+    private async Task CreateComment()
+    {
+         if (CommentText != null)
+        {
+               if (CommentText.Length != 0)
+             {
+            
+                var commentInfo = new List<string>{Id,CommentText};
+
+
+                var response = await Http.PostAsJsonAsync("api/Comment", commentInfo);
+
+                if (response.IsSuccessStatusCode)
+                {
+                   CommentList = await Http.GetFromJsonAsync<List<CommentDTO>>($"api/Comment/Comments/{Id}");  
+                }
+                else
+                {
+                    CommentText = "UpLoad of Comment failed";
+                }
+        }
+
+        }
+     
+    }
+
      protected override async Task OnInitializedAsync()
     {
-        CommentList = await Http.GetFromJsonAsync<List<CommentDTO>>($"api/Comment/Comments/{MaterialID}");  
+        CommentList = await Http.GetFromJsonAsync<List<CommentDTO>>($"api/Comment/Comments/{Id}");  
 
             // Test Visual Comments
         // CommentList = await BlazorMaterialsTest.Show_a_list_of_Comments();
