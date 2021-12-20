@@ -7,7 +7,7 @@ public class SearchEngine : ISEarchEngine
     private readonly ITagRepository _tagRepo;
     private readonly ICommentRepository _commentRepo;
     private readonly IRatingRepository _ratingRepo;
-    
+
     public SearchEngine(IUserRepository userRepo, IMaterialRepository materialRepo, ITagRepository tagRepo, ICommentRepository commentRepo, IRatingRepository ratingRepo)
     {
         _userRepo = userRepo;
@@ -17,9 +17,9 @@ public class SearchEngine : ISEarchEngine
         _ratingRepo = ratingRepo;
     }
 
-    public async Task<List<DetailsMaterialDTO>> SearchAsync(string searchString)
+    public async Task<IList<MaterialDTO>> SearchAsync(string searchString)
     {
-        var matches = new List<DetailsMaterialDTO>();
+        var matches = new List<MaterialDTO>();
 
         var nameMatches = await SearchByNameAsync(searchString);
         foreach (var nameMatch in nameMatches)
@@ -60,47 +60,47 @@ public class SearchEngine : ISEarchEngine
         return matches;
     }
 
-    public async Task<List<DetailsMaterialDTO>> SearchByNameAsync(string searchString)
+    public async Task<IList<MaterialDTO>> SearchByNameAsync(string searchString)
     {
         searchString = searchString.ToLower();
 
         var materials = await _materialRepo.ReadAllAsync();
 
-        var matches = new List<DetailsMaterialDTO>();
+        var matches = new List<MaterialDTO>();
         foreach (var material in materials)
         {
             if (material.Name != null && material.Name.ToLower().Contains(searchString))
             {
-                matches.Add(await GetDetailedMaterialByIdAsync(material.Id));
+                matches.Add(material);
             }
         }
         return matches;
     }
 
-    public async Task<List<DetailsMaterialDTO>> SearchByDescriptionAsync(string searchString)
+    public async Task<IList<MaterialDTO>> SearchByDescriptionAsync(string searchString)
     {
         searchString = searchString.ToLower();
 
         var materials = await _materialRepo.ReadAllAsync();
 
-        var matches = new List<DetailsMaterialDTO>();
+        var matches = new List<MaterialDTO>();
         foreach (var material in materials)
         {
             if (material.Description != null && material.Description.ToLower().Contains(searchString))
             {
-                matches.Add(await GetDetailedMaterialByIdAsync(material.Id));
+                matches.Add(material);
             }
         }
         return matches;
     }
 
-    public async Task<List<DetailsMaterialDTO>> SearchByTagsAsync(string searchString)
+    public async Task<IList<MaterialDTO>> SearchByTagsAsync(string searchString)
     {
         searchString = searchString.ToLower();
 
         var tags = await _tagRepo.ReadAllAsync();
 
-        var matches = new List<DetailsMaterialDTO>();
+        var matches = new List<MaterialDTO>();
 
         foreach (var tag in tags)
         {
@@ -108,32 +108,32 @@ public class SearchEngine : ISEarchEngine
             {
                 if (!matches.Any(material => material.Id == tag.MaterialId))
                 {
-                    matches.Add(await GetDetailedMaterialByIdAsync(tag.MaterialId));
+                    matches.Add(await _materialRepo.ReadAsync(tag.MaterialId));
                 }
             }
         }
         return matches;
     }
 
-    public async Task<List<DetailsMaterialDTO>> SearchByAuthorAsync(string searchString)
+    public async Task<IList<MaterialDTO>> SearchByAuthorAsync(string searchString)
     {
         searchString = searchString.ToLower();
 
         var materials = await _materialRepo.ReadAllAsync();
 
-        var matches = new List<DetailsMaterialDTO>();
+        var matches = new List<MaterialDTO>();
         foreach (var material in materials)
         {
             var user = await _userRepo.ReadAsync(material.AuthorId);
             if (user.Name != null && user.Name.ToLower().Contains(searchString))
             {
-                matches.Add(await GetDetailedMaterialByIdAsync(material.Id));
+                matches.Add(material);
             }
         }
         return matches;
     }
 
-    public async Task<DetailsMaterialDTO> GetDetailedMaterialByIdAsync(int materialId)
+    public async Task<DetailsMaterialDTO?> GetDetailedMaterialByIdAsync(int materialId)
     {
         var material = await _materialRepo.ReadAsync(materialId);
 
@@ -168,10 +168,10 @@ public class SearchEngine : ISEarchEngine
         }
         adv /= (nRatings == 0 ? 1 : nRatings);
 
-        return new DetailsMaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType == null ? null : material.FileType.ToString(), material.FilePath, tags, comments, adv);
+        return new DetailsMaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType, material.FilePath, tags, comments, adv);
     }
 
-    public async Task<List<DetailsMaterialDTO>> GetRelatedMaterialsByTagsAsync(int materialId)
+    public async Task<IList<MaterialDTO>> GetRelatedMaterialsByTagsAsync(int materialId)
     {
         var tagsOnMaterial = await _tagRepo.ReadAsync(materialId);
         var readAllTags = await _tagRepo.ReadAllAsync();
@@ -181,7 +181,7 @@ public class SearchEngine : ISEarchEngine
             allTags.Add(tag);
         }
 
-        var matches = new List<DetailsMaterialDTO>();
+        var matches = new List<MaterialDTO>();
         foreach (var tag in tagsOnMaterial)
         {
             var matchingTags = allTags.Where(t => t.TagName == tag.TagName);
@@ -189,7 +189,7 @@ public class SearchEngine : ISEarchEngine
             {
                 if (matchingTag.MaterialId != materialId && !matches.Any(material => material.Id == matchingTag.MaterialId))
                 {
-                    matches.Add(await GetDetailedMaterialByIdAsync(matchingTag.MaterialId));
+                    matches.Add(await _materialRepo.ReadAsync(matchingTag.MaterialId));
                 }
             }
         }

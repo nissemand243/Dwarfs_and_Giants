@@ -1,10 +1,6 @@
 namespace SE_training.Server.Controllers
 
 {
-    [Authorize]
-    [ApiController]
-    [Route("api/[controller]")]
-    [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
     public class MaterialController : ControllerBase
     {
         private readonly IMaterialRepository _repository;
@@ -68,7 +64,9 @@ namespace SE_training.Server.Controllers
             return await _repository.UpdateMaterialAsync(materialId, material);
         }
 
-
-
+        public async Task<IReadOnlyCollection<MaterialDTO>> ReadAllAsync()
+        {
+            return await _repository.ReadAllAsync();
+        }      
     }
 }

@@ -2,11 +2,12 @@ namespace SE_training.Shared;
 
 using System.Collections.ObjectModel;
 using SE_training.Core;
+using static SE_training.Core.FileType;
 
-    public class MaterialSetup
+    public class BlazorMaterialsTest
     {
         
-        public static async Task<DetailsMaterialDTO> setUptestasync(string id)
+        public static async Task<DetailsMaterialDTO> Show_a_specifik_Material(string id)
         {
             await Task.Delay(2000);
             
@@ -14,7 +15,7 @@ using SE_training.Core;
             var AuthorId = 0;
             var Name = "This is a UI Test";
             var Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-            var FileType ="PDF";
+            var FileType = Pdf;
             var FilePath = "MaterialsData/test.pdf";
 
        
@@ -33,7 +34,7 @@ using SE_training.Core;
            return material;
         }
 
-          public static  async Task<List<DetailsMaterialDTO>> SetUpTestMaterialasync()
+          public static  async Task<List<DetailsMaterialDTO>> Shows_a_list_of_Search_Relatede_Material()
         {
            await Task.Delay(2000);
            var MaterialList = new List<DetailsMaterialDTO>();
@@ -42,7 +43,7 @@ using SE_training.Core;
             var AuthorId = 0;
             var Name = "This is a UI Test";
             var Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-            var FileType ="PDF";
+            var FileType = Pdf;
             var FilePath = "MaterialsData/test.pdf";
      
             var Tags = new Collection<TagDTO>(){
@@ -59,9 +60,9 @@ using SE_training.Core;
            MaterialList.Add(material);
             Id =  1;
             AuthorId = 1;
-            Name = "THIS IS THE SECOUND WORLD";
+            Name = "THIS IS THE WORLD";
             Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-            FileType ="PDF";
+            FileType = Pdf;
             FilePath = "MaterialsData/test.pdf";
      
             Tags = new Collection<TagDTO>(){
@@ -80,7 +81,7 @@ using SE_training.Core;
             AuthorId = 2;
             Name = "ASIUJBDIUBSIB asbd Docker??";
             Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-            FileType ="PDF";
+            FileType = Pdf;
             FilePath = "MaterialsData/test.pdf";
      
             Tags = new Collection<TagDTO>(){
@@ -96,15 +97,15 @@ using SE_training.Core;
            
             Id =  4;
             AuthorId = 0;
-            Name = "NEJ NEJ NEJ NEJ NEJ NEJ NEJ NEJ NEJ NEJ";
-            Description = "neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeej";
-            FileType ="PDF";
+            Name = "How to read up 1day before exam";
+            Description = "Do not sleep in 48 hours";
+            FileType = Pdf;
             FilePath = "MaterialsData/test.pdf";
      
             Tags = new Collection<TagDTO>(){
-                {new TagDTO(2,2,"Nein")},
-                {new TagDTO(1,2,"No")},
-                 {new TagDTO(33,2,"Kampai")}
+                {new TagDTO(2,2,"Dont")},
+                {new TagDTO(1,2,"LifeHack")},
+                 {new TagDTO(33,2,"Sleep")}
             };
             Comment = new Collection<CommentDTO>();
             Rating = 1.8;
@@ -114,23 +115,7 @@ using SE_training.Core;
            return MaterialList;
         }
 
-        public static int GetRatingsAvg(IDictionary<string, int> Ratings)
-        {
-            var averageRating = 0; 
-            var numOfRatings = 0; 
-            Ratings.GetEnumerator();
-         
-            foreach (var key in Ratings.Keys)
-            {
-                averageRating += Ratings[key];
-                numOfRatings++;
-
-            }
-            averageRating /= numOfRatings;
-            return averageRating;
-        }
-
-         public static  async Task<List<CommentDTO>> GetCommentTestMaterial()
+         public static  async Task<List<CommentDTO>> Show_a_list_of_Comments()
         {
            await Task.Delay(500); 
 
@@ -142,13 +127,6 @@ using SE_training.Core;
                 {new CommentDTO(10224,2,232,"HA BSH sadn asnd asjd kasj hsand")}
             };
             return CommentList;
-        }
-
-        public static async Task<bool>GetTeacher()  
-        {
-            Random rng = new Random();
-            return rng.Next(2) > 0;
-
         }
     }
 
