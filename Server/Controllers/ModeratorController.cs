@@ -11,7 +11,8 @@ public class ModeratorController : StudentController, IModeratorController
         ILogger<ModeratorController> logger,
         CommentController commentController,
         RatingController ratingController,
-        MaterialController materialController) : base(logger, commentController, ratingController, materialController)
+        MaterialController materialController,
+        SearchEngine searchEngine) : base(logger, commentController, ratingController, materialController, searchEngine)
     {
         _logger = logger;
     }

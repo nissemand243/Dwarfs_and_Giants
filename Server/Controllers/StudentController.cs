@@ -8,15 +8,18 @@ public class StudentController : ControllerBase, IStudentController
     internal readonly CommentController _commentController;
     internal readonly RatingController _ratingController;
     internal readonly MaterialController _materialController;
-    
+
+    internal readonly ISEarchEngine _searchEngine;
     private readonly ILogger<StudentController> _logger;
 
-    public StudentController(ILogger<StudentController> logger, CommentController commentController, RatingController ratingController, MaterialController materialController)
+    public StudentController(ILogger<StudentController> logger, CommentController commentController, RatingController ratingController, 
+    MaterialController materialController, SearchEngine searchEngine)
     {
         _logger = logger;
         _commentController = commentController;
         _ratingController = ratingController;
         _materialController = materialController;
+        _searchEngine = searchEngine;
     }
     [AllowAnonymous]
     [HttpGet("{id}")]
@@ -48,11 +51,12 @@ public class StudentController : ControllerBase, IStudentController
         return (Status.Created, materialDTO);
     }
 
-    [AllowAnonymous]
+    [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
     [HttpPatch("{MaterialId}")]
-    public Task<Status> PatchComment(int MaterialId, CommentDTO comment)
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    public Task<(Status status, CommentDTO comment)> PathComment(CreateCommentDTO comment)
     {
-        throw new NotImplementedException();
+        return _commentController.CreateComment(comment);
     }
     [AllowAnonymous]
     [HttpPatch("{MaterialID}")] // find a different way to have two patch way methods
@@ -67,5 +71,14 @@ public class StudentController : ControllerBase, IStudentController
     public Task<(Status, IReadOnlyCollection<MaterialDTO>)> Search(string searchInput)
     {
         throw new NotImplementedException();
+    }
+
+    [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<Status> DeleteComment(int commentId)
+    {
+        DeleteComment(commentid);
     }
 }
