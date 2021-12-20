@@ -52,6 +52,7 @@ public class BasicController : ControllerBase, IBasicController
     [HttpGet("{SearchString}")]
     public Task<IReadOnlyCollection<MaterialDTO>> Search(string searchInput)
     {
+    
         return _searchEngine.SearchAsync(searchInput);
     }
 
