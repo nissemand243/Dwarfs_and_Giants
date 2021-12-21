@@ -83,6 +83,24 @@ public class TagRepositoryTests : IDisposable
         Assert.Empty(tags11);
     }
 
+    [Fact]
+    public async void DeleteAllAsync_given_id_not_existing_returns_NotFound()
+    {
+        var status = await _repo.DeleteAllAsync(33);
+
+        Assert.Equal(NotFound, status);
+    }
+
+    [Fact]
+    public async void DeleteAllAsync_given_id_returns_Deleted()
+    {
+        var status = await _repo.DeleteAllAsync(22);
+        var tags22 = await _repo.ReadAsync(22);
+
+        Assert.Equal(Deleted, status);
+        Assert.Empty(tags22);
+    }
+
     protected virtual void Dispose(bool disposing)
     {
         if (!_disposed)

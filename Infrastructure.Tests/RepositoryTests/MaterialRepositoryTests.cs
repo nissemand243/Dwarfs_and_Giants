@@ -67,7 +67,7 @@ public class MaterialRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void ReadAsync_given_id_not_existing_returns_empty()
+    public async void ReadAsync_given_id_not_existing_returns_null()
     {
         var material42 = await repo.ReadAsync(42);
 

@@ -10,26 +10,38 @@ public class UserRepository : IUserRepository
     }
 
     public async Task<(Status status, UserDTO user)> CreateAsync(CreateUserDTO user)
-    {
-        var userDTO = await UserAlreadyExists(user.Email);
-        if(userDTO != null)
+    {   
+        UserDTO? exists = null;
+        if (user.Email != null)
         {
-            return (Status.Conflict, userDTO);
+            exists = await ReadAsync(user.Email);
         }
-        else
+        if (exists != null)
         {
-            var entity = new User() 
-            {
-                Name = user.Name,
-                Email = user.Email
-            };  
-            _context.Users.Add(entity);
-            await _context.SaveChangesAsync();
-            var details = new UserDTO(entity.Id, entity.Name, entity.Email);
-            return (Created, details);
+            return (Status.Conflict, exists);
         }
-     
+
+        var entity = new User() 
+        {
+            Name = user.Name,
+            Email = user.Email
+        };  
+        _context.Users.Add(entity);
+        await _context.SaveChangesAsync();
+
+        var details = new UserDTO(entity.Id, entity.Name, entity.Email);
+        return (Created, details);
     }
+
+    public async Task<UserDTO> ReadAsync(int userId)
+    {
+        var userDTO = await _context.Users
+                            .Where(u => u.Id == userId)
+                            .Select(u => new UserDTO(u.Id, u.Name, u.Email))
+                            .SingleOrDefaultAsync();
+        return userDTO;
+    }
+
     public async Task<UserDTO> ReadAsync(string userEmail)
     {
         var users = from u in _context.Users
@@ -46,25 +58,5 @@ public class UserRepository : IUserRepository
                             .ToListAsync()).AsReadOnly();
 
         return users;
-    }
-
-    private async Task<UserDTO?> UserAlreadyExists(string userEmail)
-    {
-        var user = await _context.Users.FindAsync(userEmail);
-        if(user == null)
-        {
-            return null;
-        }
-        var userDTO = new UserDTO(user.Id, user.Name, user.Email);
-        return userDTO;
-    }
-
-    public async Task<UserDTO> ReadAsyncId(int userId)
-    {
-        var userDTO = await _context.Users
-                            .Where(u => u.Id == userId)
-                            .Select(u => new UserDTO(u.Id, u.Name, u.Email))
-                            .SingleOrDefaultAsync();
-        return userDTO;
     }
 }

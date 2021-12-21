@@ -13,7 +13,7 @@ public class DatabaseContext : DbContext, IDatabaseContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>().ToTable("User");
+           modelBuilder.Entity<User>().ToTable("User");
                     
         modelBuilder.Entity<Material>().ToTable("Material");
 
@@ -22,7 +22,6 @@ public class DatabaseContext : DbContext, IDatabaseContext
         modelBuilder.Entity<Rating>().ToTable("Rating");
 
         modelBuilder.Entity<Comment>().ToTable("Comment");
-
 
         base.OnModelCreating(modelBuilder);
     }

@@ -50,4 +50,25 @@ public class TagRepository : ITagRepository
 
         return Deleted;
     }
+
+    public async Task<Status> DeleteAllAsync(int materialId)
+    {
+        var tags = await _context.Tags
+            .Where(t => t.MaterialId == materialId)
+            .Select(t => t)
+            .ToListAsync();
+
+        if (! tags.Any())
+        {
+            return NotFound; 
+        }
+
+        foreach (var tag in tags)
+        {
+            _context.Tags.Remove(tag);
+        }
+        await _context.SaveChangesAsync();
+        
+        return Deleted;
+    }
 }
