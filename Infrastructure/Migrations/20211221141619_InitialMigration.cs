@@ -70,23 +70,18 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "User",
                 columns: table => new
                 {
-                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Email);
+                    table.PrimaryKey("PK_User", x => x.Id);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_Id",
-                table: "Users",
-                column: "Id",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -104,7 +99,7 @@ namespace Infrastructure.Migrations
                 name: "Tag");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "User");
         }
     }
 }
