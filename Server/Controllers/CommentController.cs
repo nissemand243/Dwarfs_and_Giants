@@ -38,15 +38,6 @@ namespace SE_training.Server.Controllers
             return await _repository.ReadAsync(materialID);
         }
 
-        [Authorize]
-        [HttpPost("{CommentContent}")]
-        public async Task<ActionResult> GetMaterialComments(List<string> CommentContent)
-        {  
-            throw new NotImplementedException();
-            // Uploade
-            // return Ok();
-        }
-   
         public async Task<Status> DeleteAllComments(int materialId)
         {
             return await _repository.DeleteAllAsync(materialId);
