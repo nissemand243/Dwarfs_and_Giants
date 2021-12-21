@@ -79,7 +79,7 @@ else
 
                 if (response.IsSuccessStatusCode)
                 {
-                    CommentList = await Http.GetFromJsonAsync<CommentDTO[]>($"api/Basic/Comment/{Id}");  
+                    CommentList = await Http.GetFromJsonAsync<CommentDTO[]>($"api/Basic/Comment/{int.Parse(Id)}");  
                 }
                 else
                 {

@@ -114,8 +114,8 @@ else
         }
         
 
-        material = await Http.GetFromJsonAsync<DetailsMaterialDTO>($"api/Basic/Material/{Id}");
-        recommendedMaterial = await Http.GetFromJsonAsync<MaterialDTO[]>($"api/Basic/Specifik/{Id}"); 
+        material = await Http.GetFromJsonAsync<DetailsMaterialDTO>($"api/Basic/Material/{int.Parse(Id)}");
+        recommendedMaterial = await Http.GetFromJsonAsync<MaterialDTO[]>($"api/Basic/Specifik/{int.Parse(Id)}"); 
 
         // Test Material and recommendedMaterial
         //  material = await BlazorMaterialsTest.Show_a_specifik_Material(Id);
