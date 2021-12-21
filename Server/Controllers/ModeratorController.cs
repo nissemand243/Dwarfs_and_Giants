@@ -29,7 +29,7 @@ public class ModeratorController : BasicController
         if (tagStatus != Status.Deleted || 
             ratingStatus != Status.Deleted || 
             commentStatus != Status.Deleted)
-                return Conflict();
+            return Conflict();
         else return Ok();
     }
 

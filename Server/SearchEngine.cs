@@ -24,7 +24,7 @@ public class SearchEngine : ISEarchEngine
         var nameMatches = await SearchByNameAsync(searchString);
         foreach (var nameMatch in nameMatches)
         {
-            if (!matches.Any(matchedMaterial => matchedMaterial.Id == nameMatch.Id))
+            if (matches.All(matchedMaterial => matchedMaterial.Id != nameMatch.Id))
             {
                 matches.Add(nameMatch);
             }
@@ -33,7 +33,7 @@ public class SearchEngine : ISEarchEngine
         var descriptionMatches = await SearchByDescriptionAsync(searchString);
         foreach (var descriptionMatch in descriptionMatches)
         {
-            if (!matches.Any(matchedMaterial => matchedMaterial.Id == descriptionMatch.Id))
+            if (matches.All(matchedMaterial => matchedMaterial.Id != descriptionMatch.Id))
             {
                 matches.Add(descriptionMatch);
             }
@@ -42,7 +42,7 @@ public class SearchEngine : ISEarchEngine
         var tagMatches = await SearchByTagsAsync(searchString);
         foreach (var tagMatch in tagMatches)
         {
-            if (!matches.Any(matchedMaterial => matchedMaterial.Id == tagMatch.Id))
+            if (matches.All(matchedMaterial => matchedMaterial.Id != tagMatch.Id))
             {
                 matches.Add(tagMatch);
             }
@@ -51,7 +51,7 @@ public class SearchEngine : ISEarchEngine
         var authorMatches = await SearchByAuthorAsync(searchString);
         foreach (var authorMatch in authorMatches)
         {
-            if (!matches.Any(matchedMaterial => matchedMaterial.Id == authorMatch.Id))
+            if (matches.All(matchedMaterial => matchedMaterial.Id != authorMatch.Id))
             {
                 matches.Add(authorMatch);
             }
@@ -158,7 +158,7 @@ public class SearchEngine : ISEarchEngine
             comments.Add(comment);
         }
 
-        //calculate the adverage rating of the material
+        //calculate the average rating of the material
         double adv = 0;
         int nRatings = 0;
         foreach (var rating in readRatings)

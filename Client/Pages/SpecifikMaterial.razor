@@ -50,7 +50,7 @@ else
 <hr>
     <p>Open a @material.FileType file <a href=@material.FilePath>example</a>.</p>
     <h1>PDF Example with iframe</h1>
-    <iframe src=@material.FilePath width="80%" height="1000px"/>
+    <iframe src=@material.FilePath width="80%" height="1000px"></iframe>
 
 <hr>
    <h1>Recommended Material</h1>
@@ -97,9 +97,8 @@ else
     public DetailsMaterialDTO? material;
 
     public MaterialDTO[] recommendedMaterial;
-   
-
-       private void ViewMaterial(int MaterialID)
+    
+    private void ViewMaterial(int MaterialID)
     {
         NavigationManager.NavigateTo("specifikMaterial/"+MaterialID, true);
     }
