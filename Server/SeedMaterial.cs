@@ -71,8 +71,8 @@ public static class SeedMaterial
                     new Material { AuthorId = 2, Name = "BDSA07 Architectural and Object Oriented Design Part 1", Description = OOD, FileType = FileType.Pdf, FilePath = path + "BDSA21_07_P1.Pdf" },
                     new Material { AuthorId = 2, Name = "BDSA07 Architectural and Object Oriented Design Part 2", Description = OOD, FileType = FileType.Pdf, FilePath = path + "BDSA21_07_P2.Pdf" },
                     new Material { AuthorId = 2, Name = "BDSA07 Architectural and Object Oriented Design Part 3", Description = OOD, FileType = FileType.Pdf, FilePath = path + "BDSA21_07_P3.Pdf" },
-                    new Material { AuthorId = 2, Name = "TEST DOKUMENT", Description = TestDok, FileType = FileType.Pdf, FilePath = path + "Test.Pdf" },
-                    new Material { AuthorId = 1, Name = "The Gilded Rose Assignment", Description = GildedRose, FileType = FileType.Pdf, FilePath = path + "The_Gilded_Rose.Pdf" });
+                    new Material { AuthorId = 2, Name = "TEST DOKUMENT", Description = TestDok, FileType = FileType.Mp4, FilePath = path + "SelfRecording.mp4" },
+                    new Material { AuthorId = 1, Name = "The Gilded Rose Assignment", Description = GildedRose, FileType = FileType.jpg, FilePath = path + "Rose.jpg" });
 
             context.Tags.AddRange(
             PutTogether(
@@ -93,8 +93,8 @@ public static class SeedMaterial
                 MakeTags(14, "Software Enginere", "Pdf"),
                 MakeTags(15, "Software Enginere", "Pdf"),
                 MakeTags(16, "Software Enginere", "Pdf"),
-                MakeTags(17, "Software Enginere", "Pdf"),
-                MakeTags(18, "Software Enginere", "Pdf")
+                MakeTags(17, "Software Enginere", "Mp4"),
+                MakeTags(18, "Software Enginere", "Jpg")
             ));
 
             context.Ratings.AddRange(
