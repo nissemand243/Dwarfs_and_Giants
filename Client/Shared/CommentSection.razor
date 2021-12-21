@@ -71,10 +71,10 @@ else
                if (CommentText.Length != 0)
              {
             
-                var commentInfo = new List<string>{Id,CommentText};
+                var comment = new CreateCommentDTO(Int32.Parse(Id), 4,CommentText);
 
 
-                var response = await Http.PostAsJsonAsync("api/Basic", commentInfo);
+                var response = await Http.PostAsJsonAsync("api/Basic", comment);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -95,7 +95,7 @@ else
         CommentList = await Http.GetFromJsonAsync<CommentDTO[]>($"api/Basic/Comment/{Id}");  
 
             // Test Visual Comments
-         //CommentList = await BlazorMaterialsTest.Show_a_list_of_Comments();
+         // CommentList = await BlazorMaterialsTest.Show_a_list_of_Comments();
 
     }
 
