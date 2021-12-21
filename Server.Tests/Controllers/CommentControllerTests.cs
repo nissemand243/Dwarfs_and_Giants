@@ -1,5 +1,3 @@
-
-
 namespace SE_training.Server.Tests.Controllers;
 
 public class CommentControllerTests
