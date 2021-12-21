@@ -11,7 +11,7 @@ using SE_training.Infrastructure;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20211221141619_InitialMigration")]
+    [Migration("20211221215453_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
