@@ -3,8 +3,8 @@ namespace SE_training.Server.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
-public class BasicController : ControllerBase//, IBasicController
-//this fails
+public class BasicController : ControllerBase, IBasicController
+
 {
     internal readonly CommentController _commentController;
     internal readonly RatingController _ratingController;
@@ -42,12 +42,12 @@ public class BasicController : ControllerBase//, IBasicController
     [HttpPost("Material/{MaterialID}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<CommentDTO>> PatchComment(CreateCommentDTO comment)
+    public async Task<ActionResult<CommentDTO>> PostComment(CreateCommentDTO comment)
     {
-        var created = await _commentController.CreateComment(comment);
-        if(created.status == Status.Created)
+        var response = await _commentController.CreateComment(comment);
+        if(response.status == Status.Created)
         {
-            return CreatedAtAction(nameof(Get), new { created.comment.Id }, created); 
+            return CreatedAtAction(nameof(Get), new { response.comment.Id }, response); 
         }
         else{
             return BadRequest();
@@ -81,9 +81,6 @@ public class BasicController : ControllerBase//, IBasicController
         return materials;     
     }
 
-
-   
-
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
     [HttpGet("Recommended/{Id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -98,11 +95,18 @@ public class BasicController : ControllerBase//, IBasicController
     [HttpGet("Comment/{Id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public Task<ActionResult<IReadOnlyCollection<CommentDTO>>> FindCommentsMaterials(string Id)
+    public async Task<(Status status, IReadOnlyCollection<CommentDTO>? comments)> GetCommentMaterials(int materialId)
     {
-         throw new NotImplementedException();
-        //Relatede Material Code HERE
-      
+
+        var response = await _commentController.GetMaterialComments(materialId);
+        if(response.status == Found)
+        {
+            return (Found, response.comments);
+        } 
+        else
+        {
+            return (Status.NotFound, null);
+        }
     }
 
 }
