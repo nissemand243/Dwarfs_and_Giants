@@ -14,33 +14,24 @@ public class DatabaseContext : DbContext, IDatabaseContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>()
-                    .HasKey(u => u.Email);
-
-        modelBuilder.Entity<User>()
                     .HasIndex(u => u.Id)
                     .IsUnique();
-                   
                     
-        modelBuilder.Entity<Material>().ToTable("Material");
+        modelBuilder.Entity<Material>()
+                    .HasIndex(u => u.Id)
+                    .IsUnique();
 
-        modelBuilder.Entity<Tag>().ToTable("Tag");
-        modelBuilder.Entity<Rating>().ToTable("Rating");
-        /*modelBuilder.Entity<Tag>()
-                    .HasIndex(t => t.MaterialId)
-                    .HasIndex(t => t.TagName)
+        modelBuilder.Entity<Tag>()
+                    .HasIndex(u => u.Id)
                     .IsUnique();
 
         modelBuilder.Entity<Rating>()
-                    .HasIndex(r => r.MaterialId)
-                    .HasIndex(r => r.UserId)
-                    .IsUnique();*/
+                    .HasIndex(u => u.Id)
+                    .IsUnique();
 
-        /*modelBuilder.Entity<Comment>()
-                    .Property(c => c.Text)
-                    .HasMaxLength(500);*/
-
-        modelBuilder.Entity<Comment>().ToTable("Comment");
-
+        modelBuilder.Entity<Comment>()
+                    .HasIndex(u => u.Id)
+                    .IsUnique();
 
         base.OnModelCreating(modelBuilder);
     }

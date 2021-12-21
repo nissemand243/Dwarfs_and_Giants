@@ -72,17 +72,23 @@ public class CommentRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void DeleteAllAsync_given_existing_materialid_return_status_Deleted()
+    public async void DeleteAllAsync_given_id_not_existing_returns_NotFound()
     {
-        // Arrange
-        var expected = Deleted;
-        
-        // Act
-        var actual = await _repo.DeleteAllAsync(22);
-    
-        // Asssert
-        Assert.Equal(expected, actual);
+        var status = await _repo.DeleteAllAsync(33);
+
+        Assert.Equal(NotFound, status);
     }
+
+    [Fact]
+    public async void DeleteAllAsync_given_id_returns_Deleted()
+    {
+        var status = await _repo.DeleteAllAsync(22);
+        var comments22 = await _repo.ReadAsync(22);
+
+        Assert.Equal(Deleted, status);
+        Assert.Empty(comments22);
+    }
+
 
     protected virtual void Dispose(bool disposing)
     {
