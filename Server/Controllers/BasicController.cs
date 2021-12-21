@@ -1,27 +1,24 @@
 namespace SE_training.Server.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
 public class BasicController : ControllerBase//, IBasicController
 //this fails
 {
-    internal readonly CommentController _commentController;
-    internal readonly RatingController _ratingController;
-    internal readonly MaterialController _materialController;
+   internal readonly CommentController _commentController;
+   internal readonly RatingController _ratingController;
+   internal readonly MaterialController _materialController;
 
-    internal readonly ISEarchEngine _searchEngine;
-    private readonly ILogger<BasicController> _logger;
+   internal readonly ISEarchEngine _searchEngine;
+   private readonly ILogger<BasicController> _logger;
 
-    public BasicController(ILogger<BasicController> logger, CommentController commentController, RatingController ratingController, 
-    MaterialController materialController, SearchEngine searchEngine)
+    public BasicController(ILogger<BasicController> logger)
     {
         _logger = logger;
-        _commentController = commentController;
-        _ratingController = ratingController;
-        _materialController = materialController;
-        _searchEngine = searchEngine;
     }
+    
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
     [HttpGet("Material/{MaterialID}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -44,14 +41,8 @@ public class BasicController : ControllerBase//, IBasicController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<CommentDTO>> PatchComment(CreateCommentDTO comment)
     {
-        var created = await _commentController.CreateComment(comment);
-        if(created.status == Status.Created)
-        {
-            return CreatedAtAction(nameof(Get), new { created.comment.Id }, created); 
-        }
-        else{
-            return BadRequest();
-        }
+        throw new NotImplementedException();
+      
     }
 
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
@@ -101,24 +92,32 @@ public class BasicController : ControllerBase//, IBasicController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public Task<ActionResult<IReadOnlyCollection<CommentDTO>>> FindCommentsMaterials(string Id)
     {
+        
          throw new NotImplementedException();
         //Relatede Material Code HERE
       
     }
 
+    
+
     [Authorize]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Post(List<string> CommentInfo)
+        public async Task<IActionResult> Post(CreateCommentDTO CommentInfo)
     {
+        return Ok();
+    
+    }
 
-         throw new NotImplementedException();
-       // CommentInfo[0] = materialId.. CommentInfo[1] = decription
+
+    [Authorize]
+    [HttpPost("Rating/")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> PostRating(CreateRatingDTO RatingDTO)
+    {
        return Ok();
-       
-
-
     }
 
 }
