@@ -36,13 +36,13 @@ builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(b
     {
         sqlOptions.EnableRetryOnFailure();
     }));
+    
 builder.Services.AddScoped<IDatabaseContext, DatabaseContext>();
 builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-
 
 
 var app = builder.Build();
