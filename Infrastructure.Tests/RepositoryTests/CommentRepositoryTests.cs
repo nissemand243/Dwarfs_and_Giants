@@ -27,19 +27,20 @@ public class CommentRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async void ReadAsync_given_id_not_existing_returns_empty()
+    public async void ReadAsync_given_id_not_existing_returns_status_Not_Found()
     {
-        var comments33 = await _repo.ReadAsync(33);
+        var expected = NotFound;
+        var response = await _repo.ReadAsync(33);
 
-        Assert.Empty(comments33);
+        Assert.Equal(expected, response.status);
     }
 
     [Fact]
     public async void ReadAsync_given_id_returns_comment()
     {
-        var comments11 = await _repo.ReadAsync(11);
+        var response = await _repo.ReadAsync(11);
 
-        Assert.Collection(comments11,
+        Assert.Collection(response.comments,
             comment => Assert.Equal(new CommentDTO(1, 11, 1, "Nice work guys!"), comment)
         );
     }
@@ -65,10 +66,8 @@ public class CommentRepositoryTests : IDisposable
     public async void DeleteAsync_given_id_returns_Deleted()
     {
         var status = await _repo.DeleteAsync(1);
-        var comments11 = await _repo.ReadAsync(11);
-
+  
         Assert.Equal(Deleted, status);
-        Assert.Empty(comments11);
     }
 
     [Fact]

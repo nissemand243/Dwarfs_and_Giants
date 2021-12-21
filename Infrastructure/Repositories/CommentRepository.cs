@@ -24,13 +24,17 @@ public class CommentRepository : ICommentRepository
         return (Status.Created, details);
     }
 
-    public async Task<IReadOnlyCollection<CommentDTO>> ReadAsync(int materialId)
+    public async Task<(Status status, IReadOnlyCollection<CommentDTO> comments)> ReadAsync(int materialId)
     {
-        var comments = from c in _context.Comments
+        var comments = await (from c in _context.Comments
                        where c.MaterialId == materialId
-                       select new CommentDTO(c.Id, c.MaterialId, c.UserId, c.Text);
-
-        return await comments.ToListAsync();
+                       select new CommentDTO(c.Id, c.MaterialId, c.UserId, c.Text))
+                       .ToListAsync();
+        if(comments.Count > 0)
+        {
+            return (Found, comments);
+        }
+        return (NotFound,null);
     }
 
     public async Task<Status> DeleteAsync(int commentId)
@@ -54,17 +58,18 @@ public class CommentRepository : ICommentRepository
                     Id = c.Id,
                     MaterialId = c.MaterialId,
                     UserId = c.UserId,
+                    Text = c.Text
                 })
                 .ToListAsync();
 
-        if(!comments.Any())
+        if(!comments.Any() || comments == null)
         {
             return NotFound; 
         }
 
-        foreach (var id in comments)
+        foreach (var comment in comments)
         {
-            _context.Comments.Remove(id);
+            _context.Comments.Remove(comment);
         }
         await _context.SaveChangesAsync();
         

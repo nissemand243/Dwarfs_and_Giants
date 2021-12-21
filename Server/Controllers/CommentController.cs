@@ -18,12 +18,7 @@ namespace SE_training.Server.Controllers
             return await _repository.DeleteAsync(commentId);
         }
 
-        public async Task<IReadOnlyCollection<CommentDTO>> ReadAllComments(int materialId)
-        {
-            return await _repository.ReadAsync(materialId);
-        }
-
-        public async Task<(Status status,CommentDTO comment)> CreateComment(CreateCommentDTO comment)
+        public async Task<(Status status,CommentDTO? comment)> CreateComment(CreateCommentDTO comment)
         {
             var commentCreated = await _repository.CreateAsync(comment);
             if(commentCreated.status == Status.Created)
@@ -33,19 +28,20 @@ namespace SE_training.Server.Controllers
             return (Status.BadRequest, null);
         }
 
-        public async Task<IReadOnlyCollection<CommentDTO>> GetMaterialComments(int materialID)
+        public async Task<(Status status, IReadOnlyCollection<CommentDTO> comments)> GetMaterialComments(int materialID)
         {  
             return await _repository.ReadAsync(materialID);
         }
 
-        [Authorize]
-        [HttpPost("{CommentContent}")]
-        public async Task<ActionResult> GetMaterialComments(List<string> CommentContent)
-        {  
-            throw new NotImplementedException();
-            // Uploade
-            // return Ok();
-        }
+        //
+        // [Authorize]
+        // [HttpPost("{CommentContent}")]
+        // public async Task<ActionResult> GetMaterialComments(List<string> CommentContent)
+        // {  
+        //     throw new NotImplementedException();
+        //     // Uploade
+        //     // return Ok();
+        // }
    
         public async Task<Status> DeleteAllComments(int materialId)
         {
