@@ -23,10 +23,10 @@ public class ModeratorController : BasicController//, IModeratorController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> DeleteMaterial(int MaterialId)
     {
-        var status =_materialController.DeleteMaterial(MaterialId);
+        var status = await _materialController.DeleteMaterial(MaterialId);
         Status commentStatus, ratingStatus;
         
-        if(status.Result == Status.Deleted)
+        if(status == Status.Deleted)
         {
             commentStatus =_commentController.DeleteAllComments(MaterialId).Result;
             ratingStatus = _ratingController.DeleteAllRatings(MaterialId).Result;
@@ -35,9 +35,9 @@ public class ModeratorController : BasicController//, IModeratorController
         }
 
         return Ok();
-        
     }
-       [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
+    
+    [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
     [HttpDelete("Comment/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
