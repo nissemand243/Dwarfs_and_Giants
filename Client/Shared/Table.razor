@@ -42,6 +42,7 @@ else
 
 
     private MaterialDTO[] materialList = null;
+    //private IReadOnlyCollection<MaterialDTO> materialList = null;
 
     private void ChosenMaterial(int MaterialID)
     {
@@ -49,11 +50,14 @@ else
     }
    protected override async Task OnInitializedAsync()
     {
-        materialList = await Http.GetFromJsonAsync<MaterialDTO[]>($"api/Basic/{SearchString}");  
+
+         
+        materialList = await Http.GetFromJsonAsync<MaterialDTO[]>($"api/Basic/Search/{SearchString}");  
+        //materialList = await Http.GetFromJsonAsync<IReadOnlyCollection<MaterialDTO>>($"api/Basic/Search/{SearchString}");  
 
           // Test Visual Material
        // materialList = await BlazorMaterialsTest.Shows_a_list_of_Search_Relatede_Material();
-        
+    
     }
 
 

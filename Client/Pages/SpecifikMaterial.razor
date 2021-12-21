@@ -85,7 +85,7 @@ else
         }
     <hr>
     <h1>Rateing</h1>
-        <Rateing Id=2/>
+        <Rateing Id=Id/>
         <hr>
         <h1>CommentSection</h1>
        
@@ -103,14 +103,15 @@ else
    
 
     protected override async Task OnInitializedAsync()
+    
     {
         material = await Http.GetFromJsonAsync<DetailsMaterialDTO>($"api/Basic/Material/{Id}");  
         
-        recommendedMaterial = await Http.GetFromJsonAsync<MaterialDTO[]>($"api/Basic/Specifik/{Id}");  
+        recommendedMaterial = await Http.GetFromJsonAsync<MaterialDTO[]>($"api/Basic/Recommended/{Id}");  
 
-            // Test Material and recommendedMaterial
+        // Test Material and recommendedMaterial
         //  material = await BlazorMaterialsTest.Show_a_specifik_Material(Id);
-        //  recommendedMaterial = await BlazorMaterialsTest.Shows_a_list_of_Search_Relatede_Material();
+        // recommendedMaterial = await BlazorMaterialsTest.Shows_a_list_of_Search_Relatede_Material();
 
              
     }
