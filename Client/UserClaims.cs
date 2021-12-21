@@ -1,5 +1,3 @@
-
-
 public class UserClaims
 {
     public static CreateUserDTO? CreateUserOrDefault(ClaimsPrincipal userClaims)
