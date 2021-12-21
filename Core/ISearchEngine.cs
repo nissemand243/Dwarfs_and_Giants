@@ -8,5 +8,5 @@ public interface ISEarchEngine
     public Task<IList<MaterialDTO>> SearchByTagsAsync(string searchString);
     public Task<IList<MaterialDTO>> SearchByAuthorAsync(string searchString);
     public Task<DetailsMaterialDTO?> GetDetailedMaterialByIdAsync(int materialId);
-    public Task<IList<MaterialDTO>> GetRelatedMaterialsByTagsAsync(int materialId);
+    public Task<IReadOnlyCollection<MaterialDTO>> GetRelatedMaterialsByTagsAsync(int materialId);
 }

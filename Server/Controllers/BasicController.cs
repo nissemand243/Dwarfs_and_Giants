@@ -28,7 +28,7 @@ public class BasicController : ControllerBase//, IBasicController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<DetailsMaterialDTO?>> Get(int id)
     {
-        // Does This Work?
+        // Does This Work? -- Yes i hope
         var detailedDto = await _searchEngine.GetDetailedMaterialByIdAsync(id);
         if (detailedDto != null)
         {
@@ -39,7 +39,7 @@ public class BasicController : ControllerBase//, IBasicController
     }
 
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
-    [HttpPatch("Material/{MaterialID}")]
+    [HttpPost("Material/{MaterialID}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<CommentDTO>> PatchComment(CreateCommentDTO comment)
@@ -75,11 +75,10 @@ public class BasicController : ControllerBase//, IBasicController
     [HttpGet("{SearchString}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public Task<ActionResult<IReadOnlyCollection<MaterialDTO>>> Search(string searchInput)
+    public async Task<IReadOnlyCollection<MaterialDTO>> Search(string searchInput)
     {
-        //Search Code HERE
-        throw new NotImplementedException();
-      
+        var materials = await _searchEngine.SearchAsync(searchInput);
+        return materials;     
     }
 
 
@@ -89,10 +88,10 @@ public class BasicController : ControllerBase//, IBasicController
     [HttpGet("Recommended/{Id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public Task<ActionResult<IReadOnlyCollection<MaterialDTO>>> FindRecommendedMaterials(string Id)
+    public async Task<IReadOnlyCollection<MaterialDTO>> FindRecommendedMaterials(int Id)
     {
-         throw new NotImplementedException();
-        //Relatede Material Code HERE
+        var RecommendedMaterial = await _searchEngine.GetRelatedMaterialsByTagsAsync(Id);
+        return RecommendedMaterial;
       
     }
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
@@ -104,21 +103,6 @@ public class BasicController : ControllerBase//, IBasicController
          throw new NotImplementedException();
         //Relatede Material Code HERE
       
-    }
-
-    [Authorize]
-    [HttpPost]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Post(List<string> CommentInfo)
-    {
-
-         throw new NotImplementedException();
-       // CommentInfo[0] = materialId.. CommentInfo[1] = decription
-       return Ok();
-       
-
-
     }
 
 }

@@ -171,7 +171,7 @@ public class SearchEngine : ISEarchEngine
         return new DetailsMaterialDTO(material.Id, material.AuthorId, material.Name, material.Description, material.FileType, material.FilePath, tags, comments, adv);
     }
 
-    public async Task<IList<MaterialDTO>> GetRelatedMaterialsByTagsAsync(int materialId)
+    public async Task<IReadOnlyCollection<MaterialDTO>> GetRelatedMaterialsByTagsAsync(int materialId)
     {
         var tagsOnMaterial = await _tagRepo.ReadAsync(materialId);
         var readAllTags = await _tagRepo.ReadAllAsync();
@@ -194,6 +194,6 @@ public class SearchEngine : ISEarchEngine
             }
         }
 
-        return matches;
+        return matches.AsReadOnly();
     }
 }
