@@ -52,17 +52,11 @@ public class CommentRepository : ICommentRepository
     public async Task<Status> DeleteAllAsync(int materialId)
     {
         var comments = await _context.Comments
-                .Where(c => c.MaterialId == materialId)
-                .Select(c => new Comment
-                {
-                    Id = c.Id,
-                    MaterialId = c.MaterialId,
-                    UserId = c.UserId,
-                    Text = c.Text
-                })
-                .ToListAsync();
+            .Where(c => c.MaterialId == materialId)
+            .Select(c => c)
+            .ToListAsync();
 
-        if(!comments.Any() || comments == null)
+        if (! comments.Any())
         {
             return NotFound; 
         }
