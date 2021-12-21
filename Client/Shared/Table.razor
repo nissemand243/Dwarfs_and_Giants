@@ -47,13 +47,10 @@ else
     {
         NavigationManager.NavigateTo("specifikMaterial/"+MaterialID);
     }
-   protected override async Task OnInitializedAsync()
-    {
-        materialList = await Http.GetFromJsonAsync<MaterialDTO[]>($"api/Basic/{SearchString}");  
 
-          // Test Visual Material
-       // materialList = await BlazorMaterialsTest.Shows_a_list_of_Search_Relatede_Material();
-        
+    protected override async Task OnInitializedAsync()
+    {
+        materialList = await Http.GetFromJsonAsync<MaterialDTO[]>($"api/Basic/Search/{SearchString}");    
     }
 
 

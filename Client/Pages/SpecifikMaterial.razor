@@ -77,7 +77,7 @@ else
                             <td>@material.Id</td>
                             <td>@material.Name</td>
                             <td>@material.Description</td>
-                            <td><button class="btn btn-info">View</button></td>
+                            <td><button class="btn btn-info" @onclick="@(() => ViewMaterial(material.Id))">View</button></td>
                         </tr>
                     }
                 </tbody>
@@ -85,16 +85,13 @@ else
         }
     <hr>
     <h1>Rateing</h1>
-        <Rateing Id=2/>
-        <hr>
+    <Rating Id=@Id/>
         <h1>CommentSection</h1>
        
-    <CommentSection Id=Id/>
+    <CommentSection Id=@Id/>
 }
-
-
-@code {
-
+@code{
+    
     [Parameter]
     public string Id { get; set; }
     public DetailsMaterialDTO? material;
@@ -102,16 +99,15 @@ else
     public MaterialDTO[] recommendedMaterial;
    
 
+       private void ViewMaterial(int MaterialID)
+    {
+        NavigationManager.NavigateTo("specifikMaterial/"+MaterialID, true);
+    }
+
     protected override async Task OnInitializedAsync()
     {
         material = await Http.GetFromJsonAsync<DetailsMaterialDTO>($"api/Basic/Material/{Id}");  
         
-        recommendedMaterial = await Http.GetFromJsonAsync<MaterialDTO[]>($"api/Basic/Specifik/{Id}");  
-
-            // Test Material and recommendedMaterial
-        //  material = await BlazorMaterialsTest.Show_a_specifik_Material(Id);
-        //  recommendedMaterial = await BlazorMaterialsTest.Shows_a_list_of_Search_Relatede_Material();
-
-             
+        recommendedMaterial = await Http.GetFromJsonAsync<MaterialDTO[]>($"api/Basic/Recommended/{Id}");               
     }
 }

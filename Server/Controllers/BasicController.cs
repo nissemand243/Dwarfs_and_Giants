@@ -4,120 +4,108 @@ namespace SE_training.Server.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
-public class BasicController : ControllerBase//, IBasicController
-//this fails
+public class BasicController : ControllerBase
 {
-   internal readonly CommentController _commentController;
-   internal readonly RatingController _ratingController;
-   internal readonly MaterialController _materialController;
-
-   internal readonly ISEarchEngine _searchEngine;
-   private readonly ILogger<BasicController> _logger;
-
-    public BasicController(ILogger<BasicController> logger)
+    private readonly ILogger<BasicController> _logger;
+    protected readonly IUserRepository _userRepo;
+    protected readonly IMaterialRepository _materialRepo;
+    protected readonly ITagRepository _tagRepo;
+    protected readonly IRatingRepository _ratingRepo;
+    protected readonly ICommentRepository _commentRepo;
+    protected readonly SearchEngine _searchEngine;
+    
+    public BasicController(ILogger<BasicController> logger, IUserRepository userRepo, IMaterialRepository materialRepo, ITagRepository tagRepo, IRatingRepository ratingRepo, ICommentRepository commentRepo)
     {
         _logger = logger;
+
+        _userRepo = userRepo;
+        _materialRepo = materialRepo;
+        _tagRepo = tagRepo;
+        _ratingRepo = ratingRepo;
+        _commentRepo = commentRepo;
+
+        _searchEngine = new SearchEngine(userRepo, materialRepo, tagRepo, commentRepo, ratingRepo);
     }
     
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
     [HttpGet("Material/{MaterialID}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<DetailsMaterialDTO?>> Get(int id)
+    public async Task<ActionResult<DetailsMaterialDTO?>> Get(string MaterialID)
     {
-        // Does This Work?
-        var detailedDto = await _searchEngine.GetDetailedMaterialByIdAsync(id);
-        if (detailedDto != null)
-        {
-            return (detailedDto);
-        }
-        return NotFound();
+        int id;
+        if (! Int32.TryParse(MaterialID, out id)) return BadRequest();
 
+        var material = await _searchEngine.GetDetailedMaterialByIdAsync(id);
+
+        System.Console.WriteLine("LOOKING FOR ID " + id);
+        System.Console.WriteLine(material);
+        System.Console.WriteLine("END OF LIST");
+
+        if (material == null) return NotFound();
+        else return Ok(material);
     }
 
-    [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
-    [HttpPatch("Material/{MaterialID}")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<CommentDTO>> PatchComment(CreateCommentDTO comment)
-    {
-        throw new NotImplementedException();
-      
-    }
+
 
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
-    [HttpPatch("{MaterialID}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<RatingDTO>> PatchRating(CreateRatingDTO rating)
-    {
-        var response = await _ratingController.CreateRating(rating);
-        if(response.status == Status.Updated)
-        {
-            return response.rating;
-        }
-        else
-        {
-            return BadRequest();
-        }
-    }
-
-    [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
-    [HttpGet("{SearchString}")]
+    [HttpGet("Search/{SearchString}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public Task<ActionResult<IReadOnlyCollection<MaterialDTO>>> Search(string searchInput)
+    public async Task<ActionResult<IReadOnlyCollection<MaterialDTO>>> Search(string SearchString)
     {
-        //Search Code HERE
-        throw new NotImplementedException();
-      
+        var result = await _searchEngine.SearchAsync(SearchString);
+        return Ok(result);
     }
 
-
-   
-
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
-    [HttpGet("Recommended/{Id}")]
+    [HttpGet("Recommended/{MaterialID}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public Task<ActionResult<IReadOnlyCollection<MaterialDTO>>> FindRecommendedMaterials(string Id)
+    public async Task<ActionResult<IReadOnlyCollection<MaterialDTO>>> FindRecommendedMaterials(string MaterialID)
     {
-         throw new NotImplementedException();
-        //Relatede Material Code HERE
-      
+        int id;
+        if (! Int32.TryParse(MaterialID, out id)) return BadRequest();
+
+        var recommented = await _searchEngine.GetRelatedMaterialsByTagsAsync(id);
+        return Ok(recommented);
     }
+
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
-    [HttpGet("Comment/{Id}")]
+    [HttpGet("Comment/{MaterialID}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public Task<ActionResult<IReadOnlyCollection<CommentDTO>>> FindCommentsMaterials(string Id)
+    public async Task<ActionResult<IReadOnlyCollection<CommentDTO>>> FindCommentsMaterials(string MaterialID)
     {
+        int id;
+        if (! Int32.TryParse(MaterialID, out id)) return BadRequest();
         
-         throw new NotImplementedException();
-        //Relatede Material Code HERE
-      
+        var comments = await _commentRepo.ReadAsync(id);
+        return Ok(comments);
     }
-
-    
 
     [Authorize]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Post(CreateCommentDTO CommentInfo)
+    public async Task<IActionResult> Post(CreateCommentDTO CommentInfo)
     {
-        return Ok();
-    
+        var response = await _commentRepo.CreateAsync(CommentInfo);
+
+        if (response.status == Status.Created) return Ok();
+        else return BadRequest();
     }
 
 
     [Authorize]
     [HttpPost("Rating/")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> PostRating(CreateRatingDTO RatingDTO)
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> PostRating(CreateRatingDTO RatingDTO)
     {
-       return Ok();
-    }
+        var response = await _ratingRepo.CreateAsync(RatingDTO);
 
+        if (response.status == Status.Created || response.status == Status.Updated) return Ok();
+        else return BadRequest();
+    }
 }

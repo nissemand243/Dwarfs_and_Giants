@@ -194,6 +194,8 @@ public class SearchEngine : ISEarchEngine
             }
         }
 
-        return matches;
+        var first = new List<MaterialDTO>();
+        first.AddRange(matches.Take(3));
+        return first;
     }
 }

@@ -7,10 +7,8 @@ namespace SE_training.Server.Controllers;
 public class ModeratorController : BasicController
 {
     private readonly ILogger<ModeratorController> _logger;
-    public ModeratorController(
-        ILogger<ModeratorController> logger
-   
-    ) : base(logger)
+
+    public ModeratorController(ILogger<ModeratorController> logger, IUserRepository userRepo, IMaterialRepository materialRepo, ITagRepository tagRepo, IRatingRepository ratingRepo, ICommentRepository commentRepo) : base(logger, userRepo, materialRepo, tagRepo, ratingRepo, commentRepo)
     {
         _logger = logger;
     }
@@ -21,66 +19,46 @@ public class ModeratorController : BasicController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> DeleteMaterial(int MaterialId)
     {
-        // var status =_materialController.DeleteMaterial(MaterialId);
-        // Status commentStatus, ratingStatus;
-        
-        // if(status.Result == Status.Deleted)
-        // {
-        //     commentStatus =_commentController.DeleteAllComments(MaterialId).Result;
-        //     ratingStatus = _ratingController.DeleteAllRatings(MaterialId).Result;
-        // } else{
-        //     return NotFound();
-        // }
+        var materialStatus = await _materialRepo.DeleteAsync(MaterialId);
+        if (materialStatus != Status.Deleted) return BadRequest();
 
-        return Ok();
-        
+        var tagStatus = await _tagRepo.DeleteAllAsync(MaterialId);
+        var ratingStatus = await _ratingRepo.DeleteAllAsync(MaterialId);
+        var commentStatus = await _commentRepo.DeleteAllAsync(MaterialId);
+
+        if (tagStatus != Status.Deleted || 
+            ratingStatus != Status.Deleted || 
+            commentStatus != Status.Deleted)
+                return Conflict();
+        else return Ok();
     }
-       [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
-    [HttpDelete("Comment/{id}")]
+
+    [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
+    [HttpDelete("Comment/{commentId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult> DeleteComment(int commentId)
+    public async Task<ActionResult> DeleteComment(string commentId)
     {
-        return Ok();
-        // var response = await _commentController.DeleteComment(commentId);
-        // if (response == Deleted)
-        // {
-        //     return Ok();
-        // }
-        // else
-        // {
-        //     return NotFound();
-        // }
+        int id;
+        if (! Int32.TryParse(commentId, out id)) return BadRequest();
+
+        var status = await _commentRepo.DeleteAsync(id);
+
+        if (status == Status.Deleted) return Ok();
+        else return NotFound();
     }
 
     [Authorize(Roles = $"{Roles.Teacher},{Administrator}")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> PostMaterial(CreateMaterialDTO material)
+    public async Task<ActionResult<DetailsMaterialDTO>> PostMaterial(CreateMaterialDTO material)
     {
-        var created = await _materialController.CreateMaterial(material);
-        if(created.status != Status.Created)
-        {
-            return BadRequest();
-        }
-       
-        return CreatedAtAction(nameof(Get), new { created.material.Id }, created); 
-    }
+        var response = await _materialRepo.CreateMaterialAsync(material);
+        if (response.status != Status.Created) return BadRequest();
 
-    [Authorize(Roles = $"{Roles.Teacher},{Administrator}")] 
-    [HttpPost("{MaterialId}")]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult> PutMaterial(int MaterialId, MaterialDTO material)
-    {
-        var respons = await _materialController.UpdateMaterial(MaterialId, material);
-       if(respons == Status.Updated) {
-           return Ok(); 
-        }
-        else
-        {
-            return NotFound();
-        }
+        var detailed = await _searchEngine.GetDetailedMaterialByIdAsync(response.material.Id);
+        
+        return Ok(detailed);
     }
 }
