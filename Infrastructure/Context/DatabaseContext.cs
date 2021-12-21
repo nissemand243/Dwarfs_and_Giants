@@ -13,25 +13,15 @@ public class DatabaseContext : DbContext, IDatabaseContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>()
-                    .HasIndex(u => u.Id)
-                    .IsUnique();
+           modelBuilder.Entity<User>().ToTable("User");
                     
-        modelBuilder.Entity<Material>()
-                    .HasIndex(u => u.Id)
-                    .IsUnique();
+        modelBuilder.Entity<Material>().ToTable("Material");
 
-        modelBuilder.Entity<Tag>()
-                    .HasIndex(u => u.Id)
-                    .IsUnique();
+        modelBuilder.Entity<Tag>().ToTable("Tag");
+        
+        modelBuilder.Entity<Rating>().ToTable("Rating");
 
-        modelBuilder.Entity<Rating>()
-                    .HasIndex(u => u.Id)
-                    .IsUnique();
-
-        modelBuilder.Entity<Comment>()
-                    .HasIndex(u => u.Id)
-                    .IsUnique();
+        modelBuilder.Entity<Comment>().ToTable("Comment");
 
         base.OnModelCreating(modelBuilder);
     }

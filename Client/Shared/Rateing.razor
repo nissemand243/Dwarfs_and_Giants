@@ -1,0 +1,61 @@
+
+@page "/Rateing/{id}"
+@attribute [Authorize]
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
+@if(Visibility)
+{
+    <button class="btn btn-info" @onclick="@(() => AddRating())">Add Rateing</button>
+    <input type="number" min="0" max="5" step="1" @bind="TypedValue" @bind:event="oninput" />
+}
+
+<p>your rateing: @someint</p>
+
+@code {
+    
+    [Parameter]
+    public string Id { get; set; }
+    int someint = 0;
+
+private bool Visibility { get; set; } = true;
+    string typedValue;
+    
+    private async void AddRating(){
+
+        Visibility = false;
+        var rating = new CreateRatingDTO(Int32.Parse(Id),3,someint);
+        await Http.PostAsJsonAsync($"api/Basic/Rating/",rating);  
+
+    }
+
+    string TypedValue
+    {
+        get => typedValue;
+        set
+        {
+            typedValue = value;
+            if (Int32.TryParse(typedValue, out var parsedValue))
+            {
+                if(parsedValue > 5)
+                {
+                    someint = 5;
+                }
+                else if(parsedValue < 0)
+                {
+                     someint = 0;
+                }
+                else
+                {
+                       someint = parsedValue;
+                }
+             
+            }
+            else if (string.IsNullOrEmpty(typedValue))
+            {
+                someint = 0;
+            }
+        }
+    }
+}

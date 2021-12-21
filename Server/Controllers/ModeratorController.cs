@@ -4,15 +4,13 @@ namespace SE_training.Server.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
-public class ModeratorController : BasicController//, IModeratorController
+public class ModeratorController : BasicController
 {
     private readonly ILogger<ModeratorController> _logger;
     public ModeratorController(
-        ILogger<ModeratorController> logger,
-        CommentController commentController,
-        RatingController ratingController,
-        MaterialController materialController,
-        SearchEngine searchEngine) : base(logger, commentController, ratingController, materialController, searchEngine)
+        ILogger<ModeratorController> logger
+   
+    ) : base(logger)
     {
         _logger = logger;
     }
@@ -23,16 +21,16 @@ public class ModeratorController : BasicController//, IModeratorController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> DeleteMaterial(int MaterialId)
     {
-        var status =_materialController.DeleteMaterial(MaterialId);
-        Status commentStatus, ratingStatus;
+        // var status =_materialController.DeleteMaterial(MaterialId);
+        // Status commentStatus, ratingStatus;
         
-        if(status.Result == Status.Deleted)
-        {
-            commentStatus =_commentController.DeleteAllComments(MaterialId).Result;
-            ratingStatus = _ratingController.DeleteAllRatings(MaterialId).Result;
-        } else{
-            return NotFound();
-        }
+        // if(status.Result == Status.Deleted)
+        // {
+        //     commentStatus =_commentController.DeleteAllComments(MaterialId).Result;
+        //     ratingStatus = _ratingController.DeleteAllRatings(MaterialId).Result;
+        // } else{
+        //     return NotFound();
+        // }
 
         return Ok();
         
@@ -43,15 +41,16 @@ public class ModeratorController : BasicController//, IModeratorController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> DeleteComment(int commentId)
     {
-        var response = await _commentController.DeleteComment(commentId);
-        if (response == Deleted)
-        {
-            return Ok();
-        }
-        else
-        {
-            return NotFound();
-        }
+        return Ok();
+        // var response = await _commentController.DeleteComment(commentId);
+        // if (response == Deleted)
+        // {
+        //     return Ok();
+        // }
+        // else
+        // {
+        //     return NotFound();
+        // }
     }
 
     [Authorize(Roles = $"{Roles.Teacher},{Administrator}")]
