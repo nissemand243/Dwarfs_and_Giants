@@ -1,5 +1,5 @@
 
-@page "/Rateing/{id}"
+@page "/Rating/{Id}"
 @attribute [Authorize]
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
@@ -17,6 +17,8 @@
     
     [Parameter]
     public string Id { get; set; }
+
+    
     int someint = 0;
 
 private bool Visibility { get; set; } = true;
@@ -25,7 +27,15 @@ private bool Visibility { get; set; } = true;
     private async void AddRating(){
 
         Visibility = false;
-        var rating = new CreateRatingDTO(Int32.Parse(Id),3,someint);
+        int id;
+
+         if (! Int32.TryParse(Id, out id))
+        {
+            id = 2;
+        }
+        System.Console.WriteLine(id + "  ********  " + Id );
+       
+        var rating = new CreateRatingDTO(id,3,someint);
         await Http.PostAsJsonAsync($"api/Basic/Rating/",rating);  
 
     }
