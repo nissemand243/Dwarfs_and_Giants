@@ -24,17 +24,13 @@ public class CommentRepository : ICommentRepository
         return (Status.Created, details);
     }
 
-    public async Task<(Status status, IReadOnlyCollection<CommentDTO> comments)> ReadAsync(int materialId)
+    public async Task<IReadOnlyCollection<CommentDTO>> ReadAsync(int materialId)
     {
         var comments = await (from c in _context.Comments
                        where c.MaterialId == materialId
                        select new CommentDTO(c.Id, c.MaterialId, c.UserId, c.Text))
                        .ToListAsync();
-        if(comments.Count > 0)
-        {
-            return (Found, comments);
-        }
-        return (NotFound,null);
+        return comments;
     }
 
     public async Task<Status> DeleteAsync(int commentId)

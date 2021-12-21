@@ -67,22 +67,20 @@ public class CommentControllerTests
         // Arrange
         var commentOne = new CommentDTO(1,2,0, "Lorem ipsum comment");
         var commentTwo = new CommentDTO(2,2,1, "Lorem ipsum comment, by master ipsum");
-        var expected = (Status.Found, new List<CommentDTO> {commentOne,commentTwo}.AsReadOnly());
+        var expected = new List<CommentDTO> {commentOne,commentTwo}.AsReadOnly();
 
-        var repository = new Mock<ICommentRepository>();
+        var repository = new Mock<ICommentRepository>(); 
         repository.Setup(repo => repo.ReadAsync(2)).ReturnsAsync(expected);
         var logger = new Mock<ILogger<CommentController>>();
         var controller = new CommentController(logger.Object, repository.Object);
     
         // Act
-
         var actual = await controller.GetMaterialComments(2);
     
         // Assert
-        Assert.Equal(expected.Found, actual.status);
-        Assert.Collection(actual.comments,
-            aDTO => Assert.Equal(expected.Item2[0], aDTO),
-            aDTO => Assert.Equal(expected.Item2[1], aDTO)
+        Assert.Collection(actual,
+            aDTO => Assert.Equal(commentOne, aDTO),
+            aDTO => Assert.Equal(commentTwo, aDTO)
         );
     }
 

@@ -153,7 +153,7 @@ public class SearchEngine : ISEarchEngine
         }
 
         var comments = new List<CommentDTO>();
-        foreach (var comment in readComments.comments)
+        foreach (var comment in readComments)
         {
             comments.Add(comment);
         }

@@ -28,7 +28,7 @@ namespace SE_training.Server.Controllers
             return (Status.BadRequest, null);
         }
 
-        public async Task<(Status status, IReadOnlyCollection<CommentDTO> comments)> GetMaterialComments(int materialID)
+        public async Task<IReadOnlyCollection<CommentDTO>> GetMaterialComments(int materialID)
         {  
             return await _repository.ReadAsync(materialID);
         }

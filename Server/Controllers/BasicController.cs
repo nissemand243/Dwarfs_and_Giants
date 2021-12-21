@@ -95,18 +95,10 @@ public class BasicController : ControllerBase, IBasicController
     [HttpGet("Comment/{Id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<(Status status, IReadOnlyCollection<CommentDTO>? comments)> GetCommentMaterials(int materialId)
+    public async Task<ActionResult<IReadOnlyCollection<CommentDTO>>> GetCommentMaterials(int materialId)
     {
-
-        var response = await _commentController.GetMaterialComments(materialId);
-        if(response.status == Found)
-        {
-            return (Found, response.comments);
-        } 
-        else
-        {
-            return (Status.NotFound, null);
-        }
+        var comments = await _commentController.GetMaterialComments(materialId);
+        return Ok(comments);
     }
 
 }
