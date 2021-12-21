@@ -7,12 +7,12 @@ namespace SE_training.Server.Controllers;
 public class ModeratorController : BasicController
 {
     private readonly ILogger<ModeratorController> _logger;
-    public ModeratorController(
-        ILogger<ModeratorController> logger
-   
-    ) : base(logger)
+    private readonly IMaterialRepository _repository;
+    public ModeratorController(ILogger<ModeratorController> logger, IMaterialRepository repository) : base(logger,repository)
     {
         _logger = logger;
+        _repository = repository;
+
     }
 
     [Authorize(Roles = $"{Roles.Teacher},{Administrator}")]
@@ -59,13 +59,14 @@ public class ModeratorController : BasicController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> PostMaterial(CreateMaterialDTO material)
     {
-        var created = await _materialController.CreateMaterial(material);
-        if(created.status != Status.Created)
-        {
-            return BadRequest();
-        }
+        throw new NotImplementedException();
+        // var created = await _materialController.CreateMaterial(material);
+        // if(created.status != Status.Created)
+        // {
+        //     return BadRequest();
+        // }
        
-        return CreatedAtAction(nameof(Get), new { created.material.Id }, created); 
+        // return CreatedAtAction(nameof(Get), new { created.material.Id }, created); 
     }
 
     [Authorize(Roles = $"{Roles.Teacher},{Administrator}")] 
@@ -74,13 +75,14 @@ public class ModeratorController : BasicController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult> PutMaterial(int MaterialId, MaterialDTO material)
     {
-        var respons = await _materialController.UpdateMaterial(MaterialId, material);
-       if(respons == Status.Updated) {
-           return Ok(); 
-        }
-        else
-        {
-            return NotFound();
-        }
+        throw new NotImplementedException();
+    //     var respons = await _materialController.UpdateMaterial(MaterialId, material);
+    //    if(respons == Status.Updated) {
+    //        return Ok(); 
+    //     }
+    //     else
+    //     {
+    //         return NotFound();
+    //     }
     }
 }
