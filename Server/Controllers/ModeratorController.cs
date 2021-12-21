@@ -33,7 +33,7 @@ public class ModeratorController : BasicController
         else return Ok();
     }
 
-    [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
+    [Authorize(Roles = $"{Roles.Teacher},{Roles.Administrator}")]
     [HttpDelete("Comment/{commentId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
