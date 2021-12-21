@@ -26,44 +26,6 @@ namespace SE_training.Server.Controllers
             return _repository.ReadAsync(MaterialId);
         }
 
-        public async Task<(Status status, double rating)> ComputeRating(int materialId)
-        {
-            var ratingDTOs = await _repository.ReadAsync(materialId);
-            if(ratingDTOs == null)
-            {
-                return (Status.NotFound, -1);
-            }
-
-            var ratings = new List<int>();
-            foreach (var rating in ratingDTOs)
-            {
-                ratings.Add(rating.Value);
-            }
-
-            return (Status.Created, ratings.Average()); 
-        } 
-
-        public async Task<Status> UpdateRating(RatingDTO rating)
-        {
-            return await _repository.UpdateAsync(rating);
-        }
-
-        public async Task<Status> DeleteAllRatings(int materialId)
-        {
-            var status = Status.NotFound;
-            var ratings = _repository.ReadAsync(materialId);
-
-            if(!ratings.Result.Any())
-            {
-                return status;
-            }
-
-            foreach (var rating in ratings.Result)
-            {
-                status = await _repository.DeleteAsync(rating.Id);
-            }
-            return status;
-        }
-
+        public async Task<Status> DeleteAllRatings(int materialId) => await _repository.DeleteAllAsync(materialId);
     }
 }
