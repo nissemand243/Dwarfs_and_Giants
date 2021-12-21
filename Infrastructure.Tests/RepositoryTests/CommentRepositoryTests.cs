@@ -85,7 +85,7 @@ public class CommentRepositoryTests : IDisposable
         var comments22 = await _repo.ReadAsync(22);
 
         Assert.Equal(Deleted, status);
-        Assert.Empty(comments22);
+        Assert.Null(comments22.comments);
     }
 
 
