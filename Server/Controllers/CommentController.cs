@@ -33,7 +33,7 @@ namespace SE_training.Server.Controllers
             return await _repository.ReadAsync(materialID);
         }
 
-        //
+        // Jeg er usikker på hvad der ønskes her, metoden ovenfor giver comments fra en specifikt materiale, 
         // [Authorize]
         // [HttpPost("{CommentContent}")]
         // public async Task<ActionResult> GetMaterialComments(List<string> CommentContent)
