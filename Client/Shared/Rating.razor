@@ -29,13 +29,10 @@ private bool Visibility { get; set; } = true;
         Visibility = false;
         int id;
 
-         if (! Int32.TryParse(Id, out id))
-        {
-            id = 2;
-        }
-        System.Console.WriteLine(id + "  ********  " + Id );
+        id = Int32.Parse(Id);
+        
        
-        var rating = new CreateRatingDTO(id,3,someint);
+        var rating = new CreateRatingDTO(id,4,someint);
         await Http.PostAsJsonAsync($"api/Basic/Rating/",rating);  
 
     }

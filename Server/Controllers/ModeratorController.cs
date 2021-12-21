@@ -34,12 +34,16 @@ public class ModeratorController : BasicController
     }
 
     [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
-    [HttpDelete("Comment/{id}")]
+    [HttpDelete("Comment/{commentId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult> DeleteComment(int commentId)
+    public async Task<ActionResult> DeleteComment(string commentId)
     {
-        var status = await _commentRepo.DeleteAsync(commentId);
+        int id;
+        if (! Int32.TryParse(commentId, out id)) return BadRequest();
+
+        var status = await _commentRepo.DeleteAsync(id);
+
         if (status == Status.Deleted) return Ok();
         else return NotFound();
     }

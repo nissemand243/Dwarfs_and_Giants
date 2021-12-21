@@ -46,7 +46,7 @@ else
                     <td>@comment.UserId</td>
                     <td>@comment.Text</td>  
                         <td>
-                            <a class="btn btn-danger" @onclick="@(() => DeleteComment(comment.UserId))"> Delete</a>
+                            <a class="btn btn-danger" @onclick="@(() => DeleteComment(comment.Id))"> Delete</a>
                         </td>
                    
              
@@ -100,10 +100,10 @@ else
     }
 
 
-    private async Task DeleteComment(int UserId){
+    private async Task DeleteComment(int CommentId){
 
         
-                var response = await Http.DeleteAsync($"api/Moderator/Comment/{UserId}");
+                var response = await Http.DeleteAsync($"api/Moderator/Comment/{CommentId}");
                  if (response.IsSuccessStatusCode)
                 {
                     CommentList = await Http.GetFromJsonAsync<CommentDTO[]>($"api/Basic/Comment/{Id}");  
