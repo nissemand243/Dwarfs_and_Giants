@@ -13,15 +13,19 @@ namespace SE_training.Server.Controllers
         }
 
         [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
-        [HttpPost("/create{CreateUserDTO}")]
+        [HttpPost("/post")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<(Status status, UserDTO user)> CreateUser(CreateUserDTO user)
+        public async Task<ActionResult<UserDTO>> CreateUser(CreateUserDTO user)
         {
-           return await _repository.CreateAsync(user);
+            var response = await _repository.CreateAsync(user);
+            return CreatedAtAction(nameof(CreateUser), response.user);
         }
 
-        public async Task<UserDTO> ReadAsync(string userEmail)
+        [Authorize(Roles = $"{Roles.Teacher},{Roles.Student},{Roles.Administrator},{Roles.User}")]
+        [HttpGet("/get/{userEmail}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<UserDTO>> ReadAsync(string userEmail)
         {
             return await _repository.ReadAsync(userEmail);
         }
